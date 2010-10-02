@@ -1,0 +1,93 @@
+# Makefile for RARS/Linux v0.67 
+# Written by Torben Thellefsen, February 1997
+# Changes:
+#   August 2000, Directory Structure
+
+.SUFFIXES: .cpp .c
+
+
+vpath %.cpp robots
+vpath %.cpp unix
+vpath %.h unix
+vpath %.c xml
+vpath %.h xml
+
+CXX=g++
+CC=gcc
+#CFLAGS=-pipe -O9 -malign-double -mpentiumpro -fomit-frame-pointer -fforce-mem -fforce-addr -funroll-loops -ffast-math -s -W -Wall
+CFLAGS+=-pipe -O0 -g -Wall -I. -Iunix -Irobots -DDEBUG_GRAPHICS -DDEBUG -DX_WINDOWS
+LFLAGS=
+# Some might want -lsocket here, notably Solaris machines
+LIBS=-lm -lX11 -L/usr/X11R6/lib 
+
+LDIR    =  -L$(PVM_ROOT)/lib/$(PVM_ARCH)
+PVMLIB  =  -lpvm3
+PVMFLAGS  =  -O2 -s -I$(PVM_ROOT)/include
+OUTDIR = $(PVM_ROOT)/bin/$(PVM_ARCH)
+PVMEXTRA = $(PVM_ROOT)/lib/libpvm3.a
+
+# Default .h files, included by (almost) all .cpp files
+HDRS=os.h car.h track.h globals.h 
+# The .o files necessary to build the program
+OBJS=carz.o main.o draw.o gi.o misc.o movie.o os.o report.o track.o trackgen.o \
+drivers.o driver_old.o driver.o race_manager.o instant_replay.o deprecated.o \
+args.o race_data.o xmlparse.o xmlrole.o xmltok.o timer.o
+
+# The robot drivers!
+DRIVERS:=bulle.o ralph2.o burns.o apex84.o bug.o sarahnc1.o sad01_1.o bulle2.o
+DRIVERS:=$(DRIVERS) rach221b.o magic.o k1999v12.o vector.o felix16.o dgn.o
+DRIVERS:=$(DRIVERS) jas.o wappucar.o apex1.o jocosa83.o
+DRIVERS:=$(DRIVERS) oscar1.o oscarstr.o mat1.o douge1.o djoefe.o
+DRIVERS:=$(DRIVERS) viper2c.o viper2hc.o gryma1.o stocker.o dodger6.o
+DRIVERS:=$(DRIVERS) sparky5.o tutorial1.o tutorial2.o tutorial3.o tutorial4.o
+DRIVERS:=$(DRIVERS) jpp.o mafanja.o smoothb3.o
+
+# Rule for compiling .cpp files - used for the drivers (no .h depends!)
+.cpp.o:
+	@echo Making $@ from $<
+	$(CXX) $(CFLAGS) -c $<
+
+.c.o:
+	@echo Making $@ from $<
+	$(CC) $(CFLAGS) -c $<
+
+default: rars
+
+# Rule for the drivers
+drivers: $(DRIVERS)
+
+# Maintenance rules
+touch:
+	@echo "Touch'ing sourcefiles"
+	touch *.cpp *.h
+
+clean: cleanobjs cleandrivers
+
+cleandrivers: 
+	rm -f $(DRIVERS)
+
+cleanobjs:
+	rm -f $(OBJS) rars *.out *.osf core
+
+# Rules for the main .o files of RARS
+carz.o: carz.cpp $(HDRS) misc.h movie.h gi.h
+draw.o: draw.cpp $(HDRS) gi.h
+gi.o: gi.cpp $(HDRS) gi.h
+misc.o: misc.cpp $(HDRS)
+movie.o: movie.cpp $(HDRS)
+os.o: os.cpp $(HDRS) movie.h
+report.o: report.cpp $(HDRS)
+track.o: track.cpp $(HDRS) gi.h
+trackgen.o: trackgen.cpp $(HDRS)
+
+rars: $(OBJS) $(DRIVERS)
+	$(CXX) $(LFLAGS) -o rars $(OBJS) $(DRIVERS) $(LIBS)
+
+bfopt:  bfopt.c 
+	gcc $(CFLAGS) -o bfopt bfopt.c
+
+bfpar:  bfpars.c bfparm.c
+	gcc $(CFLAGS) $(PVMFLAGS) -c bfpars.c 
+	gcc $(CFLAGS) $(PVMFLAGS) -c bfparm.c 
+	gcc -o $(OUTDIR)/bfpars bfpars.o $(PVMLIB) $(LDIR)	
+	gcc -o $(OUTDIR)/bfparm bfparm.o $(PVMLIB) $(LDIR)

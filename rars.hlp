@@ -1,0 +1,64 @@
+
+RARS command line options:                     (note: these are case sensitive) 
+
+-h or -H or -?  shows this help screen         (/ may be used in place of -) 
+-c  meaning  cars involved in collision are flashed in bright red 
+    (-c may be followed by time increments, eg. -c9 is approximately 1/2 sec.) 
+-d  meaning  drivers (followed by space and then list of driver's names) 
+-D  meaning  ignore drivers (followed by space and list of names to not use) 
+-l  meaning  followed by race length in miles
+-mp meaning  playback movie (can be followed by filename, eg. -mpmovie), 
+    default movie files are "movie.xy" and "movie.ang". 
+-mr meaning  record movie (can be followed by filename, eg. -mrmovie) 
+    default movie files are "movie.xy" and "movie.ang". 
+-nd meaning  no display (there is a results report written to TRACKNAME.OUT) 
+-ni meaning  noninteractive: keystrokes supplied by computer, no waiting.  
+-nr meaning  no randomization of r.v.g.  (same initial seed every time) 
+    (-nr may be followed by a seed value, without a space) 
+-nR meaning  car motion is deterministic, and also r.v.g. not randomized 
+-o  meaning  order (starting order as given in driver list or as compiled) 
+-p  meaning  practice, followed by the number of practice laps. 
+-q  meaning  qualifying mode (1-fastest lap, 2-avg speed)
+-ql meaning  qualifying laps, how many
+-qr meaning  qualifying sessions, how many
+-r  meaning  races, how many  (default is 2 races if -r is omitted)
+-s  meaning  surface type, s0 = loose surface, s1 = harder surface, 
+    s2 = harder surface with skidding, default is 1
+-sr meaning  how many starting rows eg. -sr4 Default value is in track file. 
+-v  meaning  Just show the version and exit.  
+-z  meaning  disable "side vision" for all drivers 
+ 
+Options may be entered in almost any order, and none are required.
+-d and -D cannot be currently used as last arguments.
+In addition to any of those options, you may put one or two numbers 
+anywhere on the line.  The first number is the number of cars in the 
+race.  If there is a second number, it is the number of laps. 
+The filename of a track definition file may be placed anywhere on the 
+line.  The .trk extension is assumed; it does not have to be typed. 
+(Don't put it inside the list of driver's names if you use -d.) 
+ 
+Default values are: 1 race, 12 cars, 200 miles, random starting order,
+no qualifications, no practice and rars.trk.   
+Typing RARS alone will result in all the default values being used. 
+ 
+Example of 1 race with qualifying for 7 laps and 16 drivers on loudon.trk 
+for 12 laps, plus 20 practice laps: 
+ 
+   rars 16 loudon 12 -p20 -ql7 
+ 
+Example of 4 races on BRAZIL.TRK with 8 cars, 50 miles, 
+no randomization, and five drivers named: 
+ 
+   rars brazil -nr -r4 8 -l5 -d WappuCar Magic Jas Turtle5 Stocker 
+ 
+During a displayed race certain keys are "live".  These are:  
+ESC - exit, 
+UP & DOWN arrow - Instrument Panel 
+P/p - pause 
+A/a, f/F and s - for accelerated, fast and slow 
+d/D - show different data on leaderboard 
+S - toggle car path (skidmarks) on/off
+Try them out!  (But -ni on commandline disables all but ESC.) 
+During a pause, or while waiting for the start, any key starts the action. 
+
+Read help.htm for more.

@@ -1,0 +1,206 @@
+<html>
+
+<head>
+<title>PART 1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+</head>
+
+<body>
+<font SIZE="+2" COLOR="#FF0000"><b>
+
+<p align="center">PART 1</b></font> </p>
+
+<hr WIDTH="100%">
+
+<p>Hello All, </p>
+
+<p align="left">This is the first tutorial in the series.&nbsp; I expect to put out
+several of these per week, at least for a few weeks.&nbsp; BTW, let me remind you that
+CNTRL0.CPP was intended as a tutorial example of a robot driver.&nbsp; (Some people
+haven't noticed that, from their&nbsp; questions.)&nbsp; So study it, modify it, try to
+make it faster.&nbsp; Ask questions about it.&nbsp; What follows here today will be even
+simpler&nbsp; than CNTRL0.CPP:&nbsp; This article is short.&nbsp; I suggest you re-read it
+as many times as necessary if it is not clear the first time.</p>
+
+<p align="center">&nbsp;<img SRC="inout.gif" HEIGHT="152" WIDTH="400"> </p>
+
+<p align="left">When the robot &quot;driver&quot; function is called by the main program,
+his&nbsp; car may be anywhere on the track.&nbsp; It must determine whether it is on a
+curve or a straight, whether it needs to accelerate or slow down, whether it is going off
+the track to the left or right.&nbsp; The basic scheme is first to determine what's
+happening and then to <b><font COLOR="#006600">choose or calculate the control outputs</font></b>.&nbsp;
+The <b><font COLOR="#FF0000">outputs</font></b> of course are the <b><font COLOR="#FF0000">tire
+speed</font></b>, <b><font COLOR="#3333FF">vc</font></b>, and the <b><font COLOR="#FF0000">drift
+angle,</font><font COLOR="#3333FF"> alpha</font></b>.&nbsp; (more below) It should be
+clear that a racing car needs to accelerate at the beginning of a straightaway, slow down
+for a corner, and then go around the corner as fast as the traction permits.&nbsp; Beyond
+that, it should try to take a path that hugs the inside of the turns, or a better path
+than that, if you can find it.&nbsp; The outputs vc and alpha must always move the car
+towards its intended path and speed. Let's follow a car around the track from the
+beginning of the race. The robot doesn't have to know that the race is just starting; he
+looks at s.to_end and sees that it is almost as big as s.cur_len. Also, he sees that
+s.cur_rad is zero.&nbsp; From those things he knows that he is near the beginning of a
+straightaway, and therefore he should give it full throttle.&nbsp; (We are assuming that
+he is pointed in the right direction.)&nbsp; Now let's look in detail at these items: </p>
+
+<p><b><font COLOR="#3333FF">&quot;s&quot;</font></b> is the drivers copy of the <b><font
+COLOR="#006600">&quot;situation&quot; structure</font></b>.&nbsp; The items we <br>
+will talk about are: <br>
+&nbsp; </p>
+
+<table BORDER="1" WIDTH="100%">
+  <tr>
+    <td><b><font COLOR="#3333FF">s.cur_rad</font></b></td>
+    <td>is the radius of the track segment we are on.&nbsp; Zero means straight.&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b><font COLOR="#3333FF">s.cur_len</font></b></td>
+    <td>is the length of the segment, in feet for a straightaway.&nbsp;</td>
+  </tr>
+  <tr>
+    <td><b><font COLOR="#3333FF">s.to_end</font></b></td>
+    <td>is the distance to the end of the segment, ft. for a straight.</td>
+  </tr>
+  <tr>
+    <td><b><font COLOR="#3333FF">s.v</font></b></td>
+    <td>is the car's current speed in feet per second, fps.</td>
+  </tr>
+</table>
+
+<p>Here is possible code to implement the above logic: </p>
+
+<p><b><tt>&nbsp;&nbsp; if(s.cur_rad ==
+0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// If we are on a straightaway,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; if(s.to_end &gt; .4 * s.cur_len)&nbsp;&nbsp;&nbsp; // if
+we are far from the end,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = s.v +
+50.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+pedal to the metal!</tt></b> </p>
+
+<p>The .4 could be replaced by the name of a constant, such as maybe LARGE_FRACTION, so
+that the second line of code tests to see if the car is a LARGE_FRACTION of the total
+length from the end of the straight.&nbsp; How do we know that .4 is right?&nbsp; We
+don't!&nbsp; LARGE_FRACTION is a parameter that must be determined by trial and
+error.&nbsp; The fact that we have this puzzling parameter is a clue that this algorithm
+is not the best, which we will talk more about later. </p>
+
+<p>The same could be said for the 50.0, except that here there is some theory to guide
+us.&nbsp; First, let me define vc:&nbsp; vc is the speed of the bottom of the tire
+relative to the car itself.&nbsp; It is what the car's speedometer would read if it were
+mechanically connected to the wheel.&nbsp; The 50.0 is the amount of wheel slip; we are
+asking the simulator to spin the wheels against the track at 50 fps.&nbsp; We know that
+the car doesn't have enough power to do that, but we also know that the simulation will
+figure out that we want full power, and it will calculate a new vc value that just gives
+us 100 % power. </p>
+
+<p>Why do we put 50.0 instead of 1,000,000?&nbsp; Well, that might work fine, I haven't
+tested it.&nbsp; It will slow down the simulation because it has to search for the correct
+value of vc, and starting with a ridiculous value will make the search take longer.&nbsp;
+However, we do have an excellent search method, so it might work OK. </p>
+
+<p>But you need to understand how tire force and power are related, so&nbsp; lets see how
+much wheel spin you can get with our car.&nbsp; In order for the next paragraph to make
+sense there are two items to emphasize: 
+
+<ol>
+  <li>Our car has an automatic transmission with an infinite number of&nbsp; gear ratios, so
+    its maximum deliverable power is always 100,000 ft. lbs. per second, or 181 horsepower.</li>
+  <li>The horizontal force of the track on the tire (traction force) is completely determined
+    by the slip rate of tire sliding on the track.&nbsp; You must familiarize yourself with
+    the friction() function; I strongly recommend that you draw a graph of coefficient of
+    friction versus slip speed.&nbsp; The force goes up rapidly with small slip rates, but
+    then levels off, approaching a maximum of MYU_MAX = 1.0 at high slip rates.&nbsp; High
+    slip rates are much greater than 2.0 fps, at which point the coefficient of friction is
+    .5.</li>
+</ol>
+
+<p>Mechanical power is equivalent to force times speed, if the force is pushing something
+along at that speed.&nbsp; In this case the tire is rubbing against the track with a force
+F, F being the frictional force of tire vs. track.&nbsp; The speed with which this force
+is being delivered is vc.&nbsp; Then P = F * vc is the power delivered to the tire.&nbsp;
+The main thing to notice from this relation is that force must decrease with speed, and
+the greatest force you can get would be at the slowest vc.&nbsp; Now if you look at our
+friction model in CARZ.CPP, you can see that the largest coefficient of friction we can
+get is a little less than MYU_MAX, which has the value of 1.0.&nbsp; Hence the largest
+force is about equal to the weight of the car, which is&nbsp; 80 *32.2 = 2576 lb.&nbsp;
+(See the beginning of CARZ.CPP.)&nbsp; P is 100,000 ft. lb. per second, so if P were being
+delivered with that force the tire speed would be: <br>
+vc = P/F = 100,000/2576 = 38.8 fps. </p>
+
+<p>Since spinning the wheel rapidly will generate 2576 pounds of friction force, we don't
+have enough power for vc to exceed 38.8 fps, when the car is stationary.&nbsp; As the car
+picks up speed vc can increase, but it can't increase as rapidly as s.v, because the force
+will go down.&nbsp; A smaller force means a much smaller slip rate, i.e. vc closer to s.v.
+Therefore, the formula vc = s.v + 50.0 is always a request for more power than the car
+has, and is equivalent to full throttle. </p>
+
+<p>What about steering?&nbsp; The car might have entered this straightaway from the
+preceding turn, and not be moving straight down the track. We must output a reasonable
+value of vc and alpha no matter what situation the car is in.&nbsp; If we find the car too
+far to the right or left we must steer it away from the nearby rail.&nbsp; Those
+conditions are detected by examining s.to_lft and s.to_rgt.&nbsp; More important is the
+direction of motion, since it doesn't matter if the car is almost touching the rail if it
+is not moving toward the rail.&nbsp; The direction of motion is given by s.vn, or perhaps
+by the ratio of s.vn to s.v, since the angle between the cars path and the track is the
+angle whose sine is s.vn/s.v.&nbsp; First some definitions: <br>
+&nbsp; </p>
+
+<table BORDER="1" WIDTH="100%">
+  <tr>
+    <td><b><font COLOR="#3333FF">s.vn</font></b></td>
+    <td>is the component of the cars velocity normal to the track direction, fps.&nbsp; It is
+    positive if the car is moving to the left.</td>
+  </tr>
+  <tr>
+    <td><b><font COLOR="#3333FF">s.to_lft</font></b> and <b><font COLOR="#3333FF">s.to_rgt</font></b></td>
+    <td>are the distance in feet to the track rails.</td>
+  </tr>
+</table>
+
+<p>&nbsp; <br>
+Their sum will be a constant, the track width. </p>
+
+<p>alpha is the drift angle of the car; the angle between the car's&nbsp; centerline and
+its velocity vector.&nbsp; At high speed a very small drift angle causes a large lateral
+force.&nbsp; At low speed a large angle produces only a moderate lateral force.&nbsp; We
+measure the angle in radians.&nbsp; By a small angle I mean near .01, by a large angle I
+mean more than .15.&nbsp; If the car is moving at constant speed, but changing its
+direction, the slip rate will be vc * sine(alpha).&nbsp; The slip rate in turn determines
+the lateral force.&nbsp; (In this particular situation all of the slippage is directly
+sideways.) One easy way to steer the car, which has been used in most of the cars so far,
+is to pick a distance from one wall, and then set up a &quot;servo&quot; to always go back
+to that distance.&nbsp; Suppose we let the variable <b><font COLOR="#3333FF">&quot;lane&quot;</font></b>
+be that desired distance from the left wall.&nbsp; Then when s.to_lft == lane things are
+just the way we want them.&nbsp; We can then set up a formula to always try to reach this
+condition like so: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; alpha = STEER_GAIN * (s.to_lft - lane);</tt></b> <br>
+&nbsp; <br>
+Notice that when s.to_lft is equal to lane then alpha will be zero, which is what we
+want.&nbsp; Also, when s.to_left is greater than lane, alpha will be positive, which
+causes a force to the left, again what we want.&nbsp; The <b><font COLOR="#3333FF">STEER_GAIN</font></b>
+factor will have to be determined by trial and error.&nbsp; You might want to make it
+smaller at higher speeds. </p>
+
+<p>This is not quite good enough by itself.&nbsp; Servos have a tendency to oscillate, and
+are usually provided with damping.&nbsp; This is easily accomplished by putting in a term
+proportional to s.vn, since s.vn is a measure of how rapidly s.to_lft is changing.&nbsp;
+Our complete servo-steering formula is then: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; alpha = STEER_GAIN * (s.to_lft - lane) - DAMP_GAIN *
+s.vn;</tt></b> <br>
+&nbsp; <br>
+This just says that if the car is moving rapidly toward the left, then you slide with the
+car pointing to the right of its direction of motion.&nbsp; <b><font COLOR="#3333FF">DAMP_GAIN</font></b>
+must be found by trial and error; it also might depend on s.v.&nbsp; On straightaways the
+damping term is more important than the lane-holding term, because as long as s.v is held
+near zero, it may not be important where you are on the track. </p>
+
+<p>Next time we will see what to do when s.to_end is not so big anymore. <br>
+&nbsp; </p>
+
+<p>m&nbsp; </p>
+</body>
+</html>

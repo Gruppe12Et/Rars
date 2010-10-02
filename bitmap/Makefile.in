@@ -1,0 +1,670 @@
+# KDE tags expanded automatically by am_edit - $Revision: 1.7 $ 
+# Makefile.in generated automatically by automake 1.5 from Makefile.am.
+
+# Copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001
+# Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+@SET_MAKE@
+
+####### kdevelop will overwrite this part!!! (begin)##########
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+top_builddir = ../..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_HEADER = $(INSTALL_DATA)
+transform = @program_transform_name@
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+build_alias = @build_alias@
+build_triplet = @build@
+host_alias = @host_alias@
+host_triplet = @host@
+target_alias = @target_alias@
+target_triplet = @target@
+AMTAR = @AMTAR@
+ARTSCCONFIG = @ARTSCCONFIG@
+AS = @AS@
+AUTODIRS = @AUTODIRS@
+AWK = @AWK@
+CC = @CC@
+CONF_FILES = @CONF_FILES@
+CPP = @CPP@
+CXX = @CXX@
+CXXCPP = @CXXCPP@
+DCOPIDL = @DCOPIDL@
+DCOPIDL2CPP = @DCOPIDL2CPP@
+DCOP_DEPENDENCIES = @DCOP_DEPENDENCIES@
+DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
+DPMSINC = @DPMSINC@
+DPMSLIB = @DPMSLIB@
+ECHO = @ECHO@
+EXEEXT = @EXEEXT@
+GCJ = @GCJ@
+GCJFLAGS = @GCJFLAGS@
+GLINC = @GLINC@
+GLLIB = @GLLIB@
+GMSGFMT = @GMSGFMT@
+IDL = @IDL@
+IDL_DEPENDENCIES = @IDL_DEPENDENCIES@
+INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JAR = @JAR@
+JAVAC = @JAVAC@
+JAVAH = @JAVAH@
+JVMLIBS = @JVMLIBS@
+KDECONFIG = @KDECONFIG@
+KDE_CXXFLAGS = @KDE_CXXFLAGS@
+KDE_EXTRA_RPATH = @KDE_EXTRA_RPATH@
+KDE_INCLUDES = @KDE_INCLUDES@
+KDE_LDFLAGS = @KDE_LDFLAGS@
+KDE_MT_LDFLAGS = @KDE_MT_LDFLAGS@
+KDE_MT_LIBS = @KDE_MT_LIBS@
+KDE_PLUGIN = @KDE_PLUGIN@
+KDE_RPATH = @KDE_RPATH@
+KDE_USE_CLOSURE_FALSE = @KDE_USE_CLOSURE_FALSE@
+KDE_USE_CLOSURE_TRUE = @KDE_USE_CLOSURE_TRUE@
+KDE_USE_FINAL_FALSE = @KDE_USE_FINAL_FALSE@
+KDE_USE_FINAL_TRUE = @KDE_USE_FINAL_TRUE@
+KDE_XSL_STYLESHEET = @KDE_XSL_STYLESHEET@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LIBCOMPAT = @LIBCOMPAT@
+LIBCRYPT = @LIBCRYPT@
+LIBDL = @LIBDL@
+LIBGEN = @LIBGEN@
+LIBJPEG = @LIBJPEG@
+LIBMICO = @LIBMICO@
+LIBOBJS = @LIBOBJS@
+LIBPNG = @LIBPNG@
+LIBPTHREAD = @LIBPTHREAD@
+LIBPYTHON = @LIBPYTHON@
+LIBQIMGIO = @LIBQIMGIO@
+LIBRESOLV = @LIBRESOLV@
+LIBSHADOW = @LIBSHADOW@
+LIBSM = @LIBSM@
+LIBSOCKET = @LIBSOCKET@
+LIBTIFF = @LIBTIFF@
+LIBTOOL = @LIBTOOL@
+LIBUCB = @LIBUCB@
+LIBUTIL = @LIBUTIL@
+LIBXINERAMA = @LIBXINERAMA@
+LIBZ = @LIBZ@
+LIB_KAB = @LIB_KAB@
+LIB_KDECORE = @LIB_KDECORE@
+LIB_KDEPRINT = @LIB_KDEPRINT@
+LIB_KDEUI = @LIB_KDEUI@
+LIB_KFILE = @LIB_KFILE@
+LIB_KFM = @LIB_KFM@
+LIB_KHTML = @LIB_KHTML@
+LIB_KIMGIO = @LIB_KIMGIO@
+LIB_KIO = @LIB_KIO@
+LIB_KPARTS = @LIB_KPARTS@
+LIB_KSPELL = @LIB_KSPELL@
+LIB_KSYCOCA = @LIB_KSYCOCA@
+LIB_QPE = @LIB_QPE@
+LIB_QT = @LIB_QT@
+LIB_QTOPIA = @LIB_QTOPIA@
+LIB_SMB = @LIB_SMB@
+LIB_X11 = @LIB_X11@
+LIB_XEXT = @LIB_XEXT@
+LN_S = @LN_S@
+MCOPIDL = @MCOPIDL@
+MEINPROC = @MEINPROC@
+MICO_INCLUDES = @MICO_INCLUDES@
+MICO_LDFLAGS = @MICO_LDFLAGS@
+MOC = @MOC@
+MSGFMT = @MSGFMT@
+NOOPT_CFLAGS = @NOOPT_CFLAGS@
+NOOPT_CXXFLAGS = @NOOPT_CXXFLAGS@
+NOREPO = @NOREPO@
+OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
+PACKAGE = @PACKAGE@
+PAMLIBS = @PAMLIBS@
+PASSWDLIBS = @PASSWDLIBS@
+PYTHONINC = @PYTHONINC@
+PYTHONLIB = @PYTHONLIB@
+PYTHONMODDIR = @PYTHONMODDIR@
+QTE_NORTTI = @QTE_NORTTI@
+QTOPIA_INCLUDES = @QTOPIA_INCLUDES@
+QT_INCLUDES = @QT_INCLUDES@
+QT_LDFLAGS = @QT_LDFLAGS@
+RANLIB = @RANLIB@
+RC = @RC@
+REPO = @REPO@
+SETUIDFLAGS = @SETUIDFLAGS@
+STRIP = @STRIP@
+TOPSUBDIRS = @TOPSUBDIRS@
+UIC = @UIC@
+UIC_TR = @UIC_TR@
+USER_INCLUDES = @USER_INCLUDES@
+USER_LDFLAGS = @USER_LDFLAGS@
+USE_EXCEPTIONS = @USE_EXCEPTIONS@
+USE_RTTI = @USE_RTTI@
+USE_THREADS = @USE_THREADS@
+VERSION = @VERSION@
+WOVERLOADED_VIRTUAL = @WOVERLOADED_VIRTUAL@
+XGETTEXT = @XGETTEXT@
+XPMINC = @XPMINC@
+XPMLIB = @XPMLIB@
+X_EXTRA_LIBS = @X_EXTRA_LIBS@
+X_INCLUDES = @X_INCLUDES@
+X_LDFLAGS = @X_LDFLAGS@
+X_PRE_LIBS = @X_PRE_LIBS@
+all_includes = @all_includes@
+all_libraries = @all_libraries@
+am__include = @am__include@
+am__quote = @am__quote@
+idldir = @idldir@
+install_sh = @install_sh@
+jni_includes = @jni_includes@
+kde_appsdir = @kde_appsdir@
+kde_bindir = @kde_bindir@
+kde_confdir = @kde_confdir@
+kde_datadir = @kde_datadir@
+kde_htmldir = @kde_htmldir@
+kde_icondir = @kde_icondir@
+kde_includes = @kde_includes@
+kde_libraries = @kde_libraries@
+kde_libs_htmldir = @kde_libs_htmldir@
+kde_libs_prefix = @kde_libs_prefix@
+kde_locale = @kde_locale@
+kde_mimedir = @kde_mimedir@
+kde_moduledir = @kde_moduledir@
+kde_qtver = @kde_qtver@
+kde_servicesdir = @kde_servicesdir@
+kde_servicetypesdir = @kde_servicetypesdir@
+kde_sounddir = @kde_sounddir@
+kde_styledir = @kde_styledir@
+kde_templatesdir = @kde_templatesdir@
+kde_wallpaperdir = @kde_wallpaperdir@
+kde_widgetdir = @kde_widgetdir@
+micodir = @micodir@
+qt_includes = @qt_includes@
+qt_libraries = @qt_libraries@
+x_includes = @x_includes@
+x_libraries = @x_libraries@
+
+EXTRA_DIST = color.pl0 car_black_black.pcx car_blue_blue.pcx car_gray_gray.pcx car_gray_green.pcx car_green_green.pcx car_green_red.pcx car_lblue_blue.pcx car_lgreen_lred.pcx car_lred_lred.pcx car_orange_orange.pcx car_pink_pink.pcx car_red_black.pcx car_red_red.pcx car_red_yellow.pcx car_white_black.pcx car_white_red.pcx car_white_white.pcx car_yellow_black.pcx car_yellow_yellow.pcx font8x8.pcx grass8x8.pcx pitstop.tga red_brick.tga road.tga road2.tga sky.tga tex1.tga grass.tga 
+subdir = rars/bitmap
+mkinstalldirs = $(SHELL) $(top_srcdir)/admin/mkinstalldirs
+CONFIG_HEADER = $(top_builddir)/config.h
+CONFIG_CLEAN_FILES =
+DIST_SOURCES =
+DIST_COMMON = Makefile.am Makefile.in
+#>- all: all-am
+#>+ 1
+all: docs-am  all-am
+
+.SUFFIXES:
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+	-rm -f libtool
+$(srcdir)/Makefile.in:  Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
+#>- 	cd $(top_srcdir) && \
+#>- $(AUTOMAKE) --gnu  rars/bitmap/Makefile
+#>+ 3
+	cd $(top_srcdir) && \
+	$(AUTOMAKE) --gnu  rars/bitmap/Makefile
+	cd $(top_srcdir) && perl admin/am_edit rars/bitmap/Makefile.in
+Makefile:  $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) && \
+	CONFIG_HEADERS= CONFIG_LINKS= \
+	CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
+uninstall-info-am:
+tags: TAGS
+TAGS:
+
+
+#>- DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+#>+ 4
+KDE_DIST=index.htm 
+
+DISTFILES= $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST) $(KDE_DIST)
+
+
+top_distdir = ../..
+distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	$(mkinstalldirs) "$(distdir)/$$dir"; \
+	fi; \
+	if test -d $$d/$$file; then \
+	cp -pR $$d/$$file $(distdir) \
+	|| exit 1; \
+	else \
+	test -f $(distdir)/$$file \
+	|| cp -p $$d/$$file $(distdir)/$$file \
+	|| exit 1; \
+	fi; \
+	done
+check-am: all-am
+check: check-am
+all-am: Makefile
+
+installdirs:
+
+install: install-am
+install-exec: install-exec-am
+install-data: install-data-am
+uninstall: uninstall-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+
+installcheck: installcheck-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
+	`test -z '$(STRIP)' || \
+	echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES) stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+	@echo "This command is intended for maintainers to use"
+	@echo "it deletes files that may require special tools to rebuild."
+#>- clean: clean-am
+#>+ 1
+clean: kde-rpo-clean  clean-am
+
+clean-am: clean-generic clean-libtool mostlyclean-am
+
+distclean: distclean-am
+
+distclean-am: clean-am distclean-generic distclean-libtool
+
+dvi: dvi-am
+
+dvi-am:
+
+info: info-am
+
+info-am:
+
+install-data-am: install-data-local
+
+install-exec-am:
+
+install-info: install-info-am
+
+install-man:
+
+installcheck-am:
+
+maintainer-clean: maintainer-clean-am
+
+maintainer-clean-am: distclean-am maintainer-clean-generic
+
+mostlyclean: mostlyclean-am
+
+mostlyclean-am: mostlyclean-generic mostlyclean-libtool
+
+uninstall-am: uninstall-info-am uninstall-local
+
+.PHONY: all all-am check check-am clean clean-generic clean-libtool \
+	distclean distclean-generic distclean-libtool distdir dvi \
+	dvi-am info info-am install install-am install-data \
+	install-data-am install-data-local install-exec install-exec-am \
+	install-info install-info-am install-man install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-generic \
+	mostlyclean-libtool uninstall uninstall-am uninstall-info-am \
+	uninstall-local
+
+
+install-data-local:
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/color.pl0 /usr/share/rars/bitmap/color.pl0
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/color.pl0 $(DESTDIR)/usr/share/rars/bitmap/color.pl0
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_black_black.pcx /usr/share/rars/bitmap/car_black_black.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_black_black.pcx $(DESTDIR)/usr/share/rars/bitmap/car_black_black.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_blue_blue.pcx /usr/share/rars/bitmap/car_blue_blue.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_blue_blue.pcx $(DESTDIR)/usr/share/rars/bitmap/car_blue_blue.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_gray_gray.pcx /usr/share/rars/bitmap/car_gray_gray.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_gray_gray.pcx $(DESTDIR)/usr/share/rars/bitmap/car_gray_gray.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_gray_green.pcx /usr/share/rars/bitmap/car_gray_green.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_gray_green.pcx $(DESTDIR)/usr/share/rars/bitmap/car_gray_green.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_green_green.pcx /usr/share/rars/bitmap/car_green_green.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_green_green.pcx $(DESTDIR)/usr/share/rars/bitmap/car_green_green.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_green_red.pcx /usr/share/rars/bitmap/car_green_red.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_green_red.pcx $(DESTDIR)/usr/share/rars/bitmap/car_green_red.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_lblue_blue.pcx /usr/share/rars/bitmap/car_lblue_blue.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_lblue_blue.pcx $(DESTDIR)/usr/share/rars/bitmap/car_lblue_blue.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_lgreen_lred.pcx /usr/share/rars/bitmap/car_lgreen_lred.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_lgreen_lred.pcx $(DESTDIR)/usr/share/rars/bitmap/car_lgreen_lred.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_lred_lred.pcx /usr/share/rars/bitmap/car_lred_lred.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_lred_lred.pcx $(DESTDIR)/usr/share/rars/bitmap/car_lred_lred.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_orange_orange.pcx /usr/share/rars/bitmap/car_orange_orange.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_orange_orange.pcx $(DESTDIR)/usr/share/rars/bitmap/car_orange_orange.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_pink_pink.pcx /usr/share/rars/bitmap/car_pink_pink.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_pink_pink.pcx $(DESTDIR)/usr/share/rars/bitmap/car_pink_pink.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_red_black.pcx /usr/share/rars/bitmap/car_red_black.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_red_black.pcx $(DESTDIR)/usr/share/rars/bitmap/car_red_black.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_red_red.pcx /usr/share/rars/bitmap/car_red_red.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_red_red.pcx $(DESTDIR)/usr/share/rars/bitmap/car_red_red.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_red_yellow.pcx /usr/share/rars/bitmap/car_red_yellow.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_red_yellow.pcx $(DESTDIR)/usr/share/rars/bitmap/car_red_yellow.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_white_black.pcx /usr/share/rars/bitmap/car_white_black.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_white_black.pcx $(DESTDIR)/usr/share/rars/bitmap/car_white_black.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_white_red.pcx /usr/share/rars/bitmap/car_white_red.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_white_red.pcx $(DESTDIR)/usr/share/rars/bitmap/car_white_red.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_white_white.pcx /usr/share/rars/bitmap/car_white_white.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_white_white.pcx $(DESTDIR)/usr/share/rars/bitmap/car_white_white.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_yellow_black.pcx /usr/share/rars/bitmap/car_yellow_black.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_yellow_black.pcx $(DESTDIR)/usr/share/rars/bitmap/car_yellow_black.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/car_yellow_yellow.pcx /usr/share/rars/bitmap/car_yellow_yellow.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/car_yellow_yellow.pcx $(DESTDIR)/usr/share/rars/bitmap/car_yellow_yellow.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/font8x8.pcx /usr/share/rars/bitmap/font8x8.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/font8x8.pcx $(DESTDIR)/usr/share/rars/bitmap/font8x8.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/grass8x8.pcx /usr/share/rars/bitmap/grass8x8.pcx
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/grass8x8.pcx $(DESTDIR)/usr/share/rars/bitmap/grass8x8.pcx
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/pitstop.tga /usr/share/rars/bitmap/pitstop.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/pitstop.tga $(DESTDIR)/usr/share/rars/bitmap/pitstop.tga
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/red_brick.tga /usr/share/rars/bitmap/red_brick.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/red_brick.tga $(DESTDIR)/usr/share/rars/bitmap/red_brick.tga
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/road.tga /usr/share/rars/bitmap/road.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/road.tga $(DESTDIR)/usr/share/rars/bitmap/road.tga
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/road2.tga /usr/share/rars/bitmap/road2.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/road2.tga $(DESTDIR)/usr/share/rars/bitmap/road2.tga
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/sky.tga /usr/share/rars/bitmap/sky.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/sky.tga $(DESTDIR)/usr/share/rars/bitmap/sky.tga
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/tex1.tga /usr/share/rars/bitmap/tex1.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/tex1.tga $(DESTDIR)/usr/share/rars/bitmap/tex1.tga
+#>- 	$(mkinstalldirs) /usr/share/rars/bitmap/
+#>+ 1
+	$(mkinstalldirs) $(DESTDIR)/usr/share/rars/bitmap/
+#>- 	$(INSTALL_DATA) $(srcdir)/grass.tga /usr/share/rars/bitmap/grass.tga
+#>+ 1
+	$(INSTALL_DATA) $(srcdir)/grass.tga $(DESTDIR)/usr/share/rars/bitmap/grass.tga
+
+uninstall-local:
+#>- 	-rm -f /usr/share/rars/bitmap/color.pl0
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/color.pl0
+#>- 	-rm -f /usr/share/rars/bitmap/car_black_black.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_black_black.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_blue_blue.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_blue_blue.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_gray_gray.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_gray_gray.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_gray_green.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_gray_green.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_green_green.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_green_green.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_green_red.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_green_red.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_lblue_blue.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_lblue_blue.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_lgreen_lred.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_lgreen_lred.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_lred_lred.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_lred_lred.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_orange_orange.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_orange_orange.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_pink_pink.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_pink_pink.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_red_black.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_red_black.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_red_red.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_red_red.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_red_yellow.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_red_yellow.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_white_black.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_white_black.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_white_red.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_white_red.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_white_white.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_white_white.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_yellow_black.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_yellow_black.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/car_yellow_yellow.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/car_yellow_yellow.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/font8x8.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/font8x8.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/grass8x8.pcx
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/grass8x8.pcx
+#>- 	-rm -f /usr/share/rars/bitmap/pitstop.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/pitstop.tga
+#>- 	-rm -f /usr/share/rars/bitmap/red_brick.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/red_brick.tga
+#>- 	-rm -f /usr/share/rars/bitmap/road.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/road.tga
+#>- 	-rm -f /usr/share/rars/bitmap/road2.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/road2.tga
+#>- 	-rm -f /usr/share/rars/bitmap/sky.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/sky.tga
+#>- 	-rm -f /usr/share/rars/bitmap/tex1.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/tex1.tga
+#>- 	-rm -f /usr/share/rars/bitmap/grass.tga
+#>+ 1
+	-rm -f $(DESTDIR)/usr/share/rars/bitmap/grass.tga
+
+####### kdevelop will overwrite this part!!! (end)############
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:
+
+#>+ 2
+docs-am:
+
+#>+ 6
+force-reedit:
+		cd $(top_srcdir) && \
+	$(AUTOMAKE) --gnu  rars/bitmap/Makefile
+	cd $(top_srcdir) && perl admin/am_edit rars/bitmap/Makefile.in
+
+
+#>+ 2
+final:
+	$(MAKE) all-am
+#>+ 2
+final-install:
+	$(MAKE) install-am
+#>+ 2
+no-final:
+	$(MAKE) all-am
+#>+ 2
+no-final-install:
+	$(MAKE) install-am
+#>+ 3
+cvs-clean:
+	$(MAKE) -f $(top_srcdir)/admin/Makefile.common cvs-clean
+
+#>+ 3
+kde-rpo-clean:
+	-rm -f *.rpo

@@ -1,0 +1,883 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Rars history</title>
+</head>
+<body>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.74
+to 0.75 (August 2000)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Marc Gueury> &lt;email:mgueury@skynet.be></font></font></i>
+<br><i><font color="#FF0000"><font size=-1>&lt;Remi Coulon> &lt;email:Remi.Coulom@imag.fr></font></font></i>
+<ul>
+<li>
+<font size=-1>Accurate lap time asked by Remi C.</font></li>
+
+<li>
+<font size=-1>A way to draw the trajectory of cars asked by Marc G. (See
+bulle2.cpp)</font></li>
+
+<li>
+<font size=-1>Windows: Correction of the bug in gview2d (Windows) asked
+by Jussi P.</font></li>
+
+<li>
+<font size=-1>Windows: gview2D: improvement of the drawn of the road</font></li>
+
+<li>
+<font size=-1>Windows: problem with CreateDIBSection on Windows 98 solved.</font></li>
+
+<li>
+<font size=-1>Windows: Include directories are now in the project. VC++
+does not need to be configured anymore.</font></li>
+
+<li>
+<font size=-1>Linux:&nbsp; linux_install.sh removed, and new better makefile
+that uses the directory structure.</font></li>
+
+<li>
+<font size=-1>Linux: Source files adapted for the new and better compiler
+on Linux "egcs 1.1.2".</font></li>
+
+<li>
+<font size=-1>Lot of new cars:</font></li>
+
+<ul>
+<li>
+<font size=-1>Apex84</font></li>
+
+<li>
+<font size=-1>Bug</font></li>
+
+<li>
+<font size=-1>Bulle2</font></li>
+
+<li>
+<font size=-1>DGN</font></li>
+
+<li>
+<font size=-1>Djoefe</font></li>
+
+<li>
+<font size=-1>Dodger1</font></li>
+
+<li>
+<font size=-1>Douge1 (new datafile)</font></li>
+
+<li>
+<font size=-1>Felix15</font></li>
+
+<li>
+<font size=-1>JOCOSA82</font></li>
+
+<li>
+<font size=-1>K1999V4</font></li>
+
+<li>
+<font size=-1>SAD01</font></li>
+
+<li>
+<font size=-1>Sparky4</font></li>
+
+<li>
+<font size=-1>Viper2hc</font></li>
+</ul>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.73c to 0.74
+(June 1999)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Maido Remm> &lt;email:mremm@ebc.ee></font></font></i>
+<ul>
+<li>
+<font size=-1>New friction model available: -s2 gives more realistic friction
+model, with skidding modelled at high slip speeds. Maximum friction for
+this model is 1.8, which is more realistic for the race car on paved surface.
+Try it out. Of course, the robot should be aware that friction is increased
+if surface == 2 and use shorter braking distance and higher curve speeds.</font></li>
+
+<li>
+<font size=-1>New situation data available for driver:</font></li>
+
+<br><font size=-1>double fuel_mileage; // miles/lb at last lap</font>
+<br><font size=-1>int laps_to_go; // laps remaining to be completed</font>
+<br><font size=-1>Use that for calculating how much fuel you really need
+to complete the race. Consider also that the real fuel mileage will depend
+on the amount of your damage. This is because the air drag is dependent
+from your damage.</font>
+<li>
+<font size=-1>New leaderboard in DOS and UNIX. More data shown. Rotate
+between data with 'd' and 'D' keys. Rotate between different speeds with
+'a' key. Resize the leaderboard size with constants LEADERS_A and LEADERS_B
+in file gi.h. Scoreboard is not necessary any more!</font></li>
+
+<li>
+<font size=-1>Instrument panel (YELLOW) shows less data (only damage and
+fuel) at higher display speeds.</font></li>
+
+<li>
+<font size=-1>Skidmarks shown only for the single car - the same car that
+is designated for viewing at instrument panel. Skidmarks switched on/off
+with capital 'S'. Skidmarking automatically jumps to next car if new designated
+car is chosen by UP or DOWN arrow. Useful for evaluating trajectories and
+watching chosen car on track.</font></li>
+
+<li>
+<font size=-1>Separate record files for different surfaces: record0.dat,
+record1.dat, record2.dat.</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.72a to 0.73c
+(April 1999)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Marc Gueury> &lt;email:mgueury@skynet.be></font></font></i>
+<ul>
+<li>
+<font size=-1>help.htm added in Main directory</font></li>
+
+<li>
+<font size=-1>Problems with long names solved</font></li>
+
+<li>
+<font size=-1>Windows: OpenGL, problem with car colors corrected, 3 mode:
+full screen, windowed, normal mode.</font></li>
+
+<li>
+<font size=-1>Windows: New interface for Movie: Disabled/Record/Replay</font></li>
+
+<li>
+<font size=-1>Windows: Resize of the Rars window</font></li>
+
+<li>
+<font size=-1>Windows: Rars.ini added to change the default value of the
+starting windows (laps, cars, ...)</font></li>
+
+<li>
+<font size=-1>Correction of colors in driver.cpp</font></li>
+
+<li>
+<font size=-1>Bug corrected in CARZ.CPP : line RACEMODE = 0 in RaceManager::AllInit()
+removed.</font></li>
+
+<li>
+<font size=-1>Bug corected in CARZ.CPP line 1057: out_count removed.</font></li>
+
+<li>
+<font size=-1>New directory added &lt;movies> with a movie sample.</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.71c to 0.72a
+(May 1998)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Maido Remm> &lt;email:mremm@ebc.ee></font></font></i>
+<br><i><font color="#FF0000"><font size=-1>&lt;Marc Gueury> &lt;email:mgueury@skynet.be></font></font></i>
+<ul>
+<li>
+<font size=-1>Multiple tracks in one run (and season file)</font></li>
+
+<li>
+<font size=-1>Race length defined in miles using -l option</font></li>
+
+<li>
+<font size=-1>Track records and race fastest lap</font></li>
+
+<li>
+<font size=-1>Some car and track data is made non-public</font></li>
+
+<li>
+<font size=-1>s.dead_ahead based on braking distance instead of car length</font></li>
+
+<li>
+<font size=-1>new active keys 'a', 'b'</font></li>
+
+<li>
+<font size=-1>air drag is dependent of damage</font></li>
+
+<li>
+<font size=-1>different scoring schemes available (F1, Indy, Nascar, BTCC)</font></li>
+
+<li>
+<font size=-1>improved documentation (new tutorial + java applet showing
+tracks)</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.71b to 0.71c
+(March 1998)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Marc Gueury> &lt;email:mgueury@skynet.be></font></font></i>
+<ul>
+<li>
+<font size=-1>support for Visual C++</font></li>
+
+<li>
+<font size=-1>some memory leaks corrected in carz.cpp</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.71a to 0.71b
+(March 1998)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Maido Remm> &lt;email:mremm@ebc.ee></font></font></i>
+<ul>
+<li>
+<font size=-1>s.starting is initialized (thanks to Kim Laurio)</font></li>
+
+<li>
+<font size=-1>A bug fixed in q_avgspeed calculations.</font></li>
+
+<li>
+<font size=-1>While qualifying, cars that wouldn't qualify are grey on
+leaderboard.</font></li>
+
+<br><font size=-1>Cars that would qualify in current situation are black.</font>
+<li>
+<font size=-1>Race length in miles and km is reported in outfile.</font></li>
+
+<li>
+<font size=-1>Robots will not pit in qualifications by default.</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>&nbsp;NEW FEATURES FROM 0.71 to
+0.71a (March 1998)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Maido Remm> &lt;email:mremm@ebc.ee></font></font></i>
+<p><u><font size=+0>Major changes:</font></u>
+<br>&nbsp;
+<li>
+<font size=-1>Qualifications have cutoff value defined in car.h. It is
+currently set to 120%.</font></li>
+
+<br><font size=-1>Cars that are slower than (fastest qualification speed
+/ 120%) will not</font>
+<br><font size=-1>participate in race. Also if qualification mode is 2
+(this is for average</font>
+<br><font size=-1>speed -q2), cars that could not finish all qualifying
+laps will not qualify.</font>
+<br>&nbsp;
+<li>
+<font size=-1>Pitting is now allowed in both qualification and practice.
+Just for reality.</font></li>
+
+<br><font size=-1>It can have some point while qualifying for fastest lap.
+Don't
+forget disable</font>
+<br><font size=-1>it in your robot code if you DO NOT want to pit. And
+don't forget to reduce</font>
+<br><font size=-1>fuel load in start of qualifying!</font>
+<br>&nbsp;
+<li>
+<font size=-1>Tracks are read from subdirectory "tracks", so you don't
+have to copy them to main</font></li>
+
+<br><font size=-1>directory. Results will still be printed into main directory.</font>
+<p><b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.70c to 0.71
+(Feb.1998)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Maido Remm> &lt;email:mremm@ebc.ee></font></font></i>
+<p><u><font size=+0>Three major changes:</font></u>
+<ul>
+<li>
+<font size=-1>Qualifications</font></li>
+
+<li>
+<font size=-1>New structure of main program (RaceManager class etc.)</font></li>
+
+<li>
+<font size=-1>build_track() and drawtrack() are separated.</font></li>
+</ul>
+<font size=-1>Qualifications have two modes: cars ordered by fastest lap
+time</font>
+<br><font size=-1>(-q1 is mode 1) or by average speed (-q2 is mode 2).</font>
+<p><font size=-1>Qualifying can have many separate sessions, controlled
+by -qs# value.</font>
+<br><font size=-1>Qualifying lap count is chosen by -ql# value. Only one
+of those three</font>
+<br><font size=-1>on command line is sufficient to trigger qualifivcation
+mode.</font>
+<p><font size=-1>Default is mode 1, one session for 7 laps. Starting grid
+is based on</font>
+<br><font size=-1>qualifying results. Qualifying speeds are written to
+report file.</font>
+<p><font size=-1>If both practice and qualifications are requested, practice
+session is</font>
+<br><font size=-1>hold before qualificatoions. This would allow practice
+for learning-capable</font>
+<br><font size=-1>cars on unknown or randomly generated track.</font>
+<p><font size=-1>Main loop of the program is restructured using ideas of
+Marc Gueury's</font>
+<br><font size=-1>version for Visual C++. See the end of carz.cpp and car.h.
+I hope this</font>
+<br><font size=-1>structure is more logical, easier to understand and modify,
+if necessary.</font>
+<p><font size=-1>&nbsp;Track data is read and computed by build_track()
+and track_setup()</font>
+<br><font size=-1>in track.cpp. This is called only once in RARS initialization.
+All drawing</font>
+<br><font size=-1>functions are defined void, using global variables from
+track.cpp.</font>
+<p><u><font size=+0>Minor changes</font></u><font size=-1>:</font>
+<ul>
+<li>
+<font size=-1>For simplification, lap[] array is merged with new_data[].
+This refreshes</font></li>
+
+<br><font size=-1>leaderboard if necessary.</font>
+<li>
+<font size=-1>Position[] is calculated within sortem() or qsortem(), together
+with order[]</font></li>
+
+<li>
+<font size=-1>New member of track_description is double seg_dist[] - the
+distance from</font></li>
+
+<br><font size=-1>SF lane to the end of each track segment.</font>
+<li>
+<font size=-1>Race report has a new format, including more statistical
+data for each car.</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.67 to 0.70c
+(Dec.1997)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>&lt;Maido Remm> &lt;email:mremm@ebc.ee></font></font></i>
+<p><u><font size=+0>Five major changes:</font></u>
+<ul>
+<li>
+<font size=-1>Pits coded by track file</font></li>
+
+<li>
+<font size=-1>Track can be placed at any angle (SF has still to be on straigth)</font></li>
+
+<li>
+<font size=-1>Cars are placed from SF line, at desired number of rows and</font></li>
+
+<br><font size=-1>the starting row can extend to previous curve(s).</font>
+<li>
+<font size=-1>Cars can start with any fuel load and can refuel only in
+pits</font></li>
+
+<li>
+<font size=-1>Drivers and their colors are defined in separate file: drivers.cpp</font></li>
+</ul>
+<font size=-1>All cars should have something like that in their con_vec():</font>
+<blockquote><font face="Courier New"><font size=-1>if (s.starting) result.fuel_amount
+= MAX_FUEL;&nbsp; // to define initial fuel load</font></font>
+<br><font face="Courier New"><font size=-1>result.request_pit = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// normally we do not go to pits</font></font>
+<br><font face="Courier New"><font size=-1>if (s.damage > 25000 || s.fuel
+&lt; 10) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// if necessary:</font></font>
+<br><font face="Courier New"><font size=-1>&nbsp; result.request_pit =
+1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// enter pit road</font></font>
+<br><font face="Courier New"><font size=-1>&nbsp; result.repair_amount=s.damage;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// repair all</font></font>
+<br><font face="Courier New"><font size=-1>&nbsp; result.fuel_amount =
+MAX_FUEL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// refuel full tank!</font></font>
+<br><font face="Courier New"><font size=-1>}</font></font></blockquote>
+<font size=-1>Pit location is defined in track file on lines 10-13:</font>
+<blockquote><font face="Courier New"><font size=-1>PIT_SIDE (+1 is right,
+-1 is left)</font></font>
+<br><font face="Courier New"><font size=-1>PIT_ENTRY PITLANE_START</font></font>
+<br><font face="Courier New"><font size=-1>PITLANE_END PIT_EXIT</font></font>
+<br><font face="Courier New"><font size=-1>PITLANE_SPEED (fps)</font></font></blockquote>
+<font size=-1>The pit location is defined in feets from START-FINISH lane
+(like s.distance).</font>
+<br><font size=-1>Car is driven to the pits by main program and stopped
+in its pit stalls</font>
+<br><font size=-1>for refueling and repair. Repair is done at 200 points/sec
+and refuel at</font>
+<br><font size=-1>20 lb/sec. You can see both values on instrument panel.
+Car does not take</font>
+<br><font size=-1>damage from grass while pitting but still takes damages
+from collisions.</font>
+<br><font size=-1>It disappears from s.nearby when completely on pitlane
+and appears again</font>
+<br><font size=-1>200 feets before coming out pits. A special flag is set
+in s.nearby for</font>
+<br><font size=-1>car coming out from pits (see minor changes). After exiting,
+car is kept</font>
+<br><font size=-1>close to wall by main program for 300 feets until it
+accelerates.</font>
+<ul>
+<li>
+<font size=-1>s.distance is zero at SF line (used to be at start of first
+segment)</font></li>
+
+<li>
+<font size=-1>These data (and track length) is accesible to drivers by</font></li>
+
+<br><font size=-1>get_track_description() function.</font></ul>
+<font size=-1>See track.cpp for new track structure. It can be used for
+calculation of</font>
+<br><font size=-1>minimal time spent in pits and adjust your pitting tactics
+according to that.</font>
+<ul>
+<li>
+<font size=-1>Track start angle and starting rows are defined by track
+file in:</font></li>
+</ul>
+
+<blockquote><font face="Courier New"><font size=-1>TRK_STRT_X TRK_STRT_Y
+TRK_STRT_ANG (4th line)</font></font>
+<br><font face="Courier New"><font size=-1>and</font></font>
+<br><font face="Courier New"><font size=-1>FINISH START_ROWS (9th line)</font></font></blockquote>
+<font size=-1>Different number of start rows can also be defined on command
+line</font>
+<br><font size=-1>by -sr4 or -sr3 or -sr1 if you want.</font>
+<p><font size=-1>As Ralph suggested, trackin and trackout structures are
+renamed to</font>
+<br><font size=-1>lftwall and rgtwall, accordingly. Remember that track
+file defines</font>
+<br><font size=-1>rgtwall! Old robots will work with trackin and trackout
+if they get</font>
+<br><font size=-1>track description through get_track_description().</font>
+<p><font size=-1>Wappucar needed a slight 'repair'.</font>
+<p><u><font size=+0>Minor changes</font></u>
+<p><font size=-1>For drivers important changes are in situation structure:</font>
+<ul>
+<li>
+<font size=-1>s.nearby[i].coming_from_pits (is set when car is less than
+200 feets</font></li>
+
+<br><font size=-1>from pit exit. Designed for safety purposes - you will
+know that this car</font>
+<br><font size=-1>can soon cross your way)</font>
+<li>
+<font size=-1>s.out_pits (use that if you want do special calculations
+for speed while</font></li>
+
+<br><font size=-1>still kept close to track wall by main program for 300
+feets after exit)</font></ul>
+<font size=-1>I also added more public information for cars:&nbsp; (These
+are accessible through pcar[i]->.... call)</font>
+<ul>
+<li>
+<font size=-1>out // set 1 when out, 2 if in pits</font></li>
+
+<li>
+<font size=-1>done // 1 if finished race</font></li>
+
+<li>
+<font size=-1>laps // how many laps completed</font></li>
+
+<li>
+<font size=-1>seg_id // located at which segment</font></li>
+
+<li>
+<font size=-1>distance // how many feets travelled from SF line</font></li>
+
+<li>
+<font size=-1>started // starting position</font></li>
+
+<li>
+<font size=-1>pit_stops // how many?</font></li>
+
+<li>
+<font size=-1>last_pit_visit // at end of which lap?</font></li>
+
+<li>
+<font size=-1>on_pit_lane // whether car is on pit lane (disappears from
+s.nearby)</font></li>
+
+<li>
+<font size=-1>pitting //standing in pits</font></li>
+
+<li>
+<font size=-1>coming_from_pits //just to appear on track (shown again in
+s.nearby)</font></li>
+
+<li>
+<font size=-1>best_lap_speed // in fps</font></li>
+
+<li>
+<font size=-1>last_lap_speed // in fps</font></li>
+
+<li>
+<font size=-1>laps_lead // increases if lead at SF crossing</font></li>
+
+<li>
+<font size=-1>lap_time // last lap time in seconds</font></li>
+
+<li>
+<font size=-1>behind_leader // in seconds</font></li>
+</ul>
+<font size=-1>Most of these can be also used for statistics showed in report
+file or</font>
+<br><font size=-1>on-line. I suggest putting behind_leader at IP, it is
+correctly</font>
+<br><font size=-1>showing even if the car is lap or many down the leader.
+You can find</font>
+<br><font size=-1>the time difference to any car out of that! I used a
+new array</font>
+<br><font size=-1>SF_crossing[car][lap nr.] for storing all start-finish
+lane crossing times.</font>
+<br><font size=-1>This data is now printed out by report_lap_times() function
+to</font>
+<br><font size=-1>trackfile.osf file at end of race. It is possible to
+restore the race</font>
+<br><font size=-1>lap by lap (some substitute to movie). If you do not
+need this - comment</font>
+<br><font size=-1>line at end of carz.cpp (last page) where report_lap_times()
+is.</font>
+<p><font size=-1>BTW, there was a bug in older versions that spoiled s.distance
+values.</font>
+<br><font size=-1>As s.distance was used in s.nearby also, this caused
+some strange</font>
+<br><font size=-1>errors in collision avoidance functions, some close cars
+not being</font>
+<br><font size=-1>reported while at different segment than our car.</font>
+<p><font size=-1>Another bug was repaired average speed was sometimes not
+correlated with</font>
+<br><font size=-1>car positions because time was calculated from moment
+when given car first</font>
+<br><font size=-1>time crossed SF lane (start_time). It is now calculated
+from race start</font>
+<br><font size=-1>(time_count = 0), which is the same for all cars.</font>
+<p><font size=-1>All physical constants, including maximum friction (MYU_MAX),
+are now</font>
+<br><font size=-1>defined in car.h and accessible to all cars. This comes
+handy if we want</font>
+<br><font size=-1>to change them or make different leagues for F1, BTCC,
+Indy, rally. I also</font>
+<br><font size=-1>put the suggested F1 values on comment line (friction
+being 1.8g from tyres</font>
+<br><font size=-1>only, downforce can add 2-2.5g to that). I would like
+to see lighter</font>
+<br><font size=-1>and more powerful cars with higher max fuel load. This
+would make fuel</font>
+<br><font size=-1>strategy more important. But this needs major recoding
+in all cars.</font>
+<p><font size=-1>May be we should just keep that in mind and include those
+physical</font>
+<br><font size=-1>definitions in our curvespeed and brakedistance calculations.</font>
+<p><font size=-1>STARTING SPEED is reduced to 20 fps because many cars
+now start on curve.</font>
+<p><font size=-1>Length is again calculated as average of inner and outer
+rails.</font>
+<br><font size=-1>Length calculation is removed from draw.cpp to track.cpp
+where it</font>
+<br><font size=-1>naturally belongs.</font>
+<p><font size=-1>Number of pit stops are reported in report file.</font>
+<p><font size=-1>Instrument panel now shows also damage, fuel and behind
+leader values.</font>
+<p><font size=-1>Race number is shown on scoreboard.</font>
+<p><font size=-1>Cars are shown 1.5 x larger than actual size. All changes
+for that are</font>
+<br><font size=-1>in drawcar() in draw.cpp.</font>
+<p><font size=-1>Some ideas of Henning Klaskala included:</font>
+<ul>
+<li>
+<font size=-1>MAX_LEADERS defines number of leaders on leaderboard. See
+gi.h</font></li>
+
+<li>
+<font size=-1>draw.cpp uses sprintf() instead of make_dec_string()</font></li>
+
+<li>
+<font size=-1>Drivers that are out of race are marked different color (TRACK_COLOR)</font></li>
+
+<br><font size=-1>on scoreboard and leaderboard. Leaderboard also shows
+cars red while</font>
+<br><font size=-1>they are on pit lane</font></ul>
+<font size=-1>Tested on Linux and DOS.</font>
+<p><b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.65b to 0.67
+(Nov.1997)</font></font></b>
+<br><i><font color="#FF0000"><font size=-1>Torben Thellefsen &lt;torben@dir.dk></font></font></i>
+<ul>
+<li>
+<font size=-1>Added the pitting code used in Ralph Scott's tournament.</font></li>
+
+<li>
+<font size=-1>Added default pitting code to all drivers.</font></li>
+
+<li>
+<font size=-1>Fixed up the makefile.</font></li>
+
+<li>
+<font size=-1>Everything now compiles without errors or warnings on Linux.</font></li>
+
+<li>
+<font size=-1>Moved definitions of car colours to carz.cpp.</font></li>
+
+<li>
+<font size=-1>Fixed various little things.</font></li>
+</ul>
+<i><font color="#FF0000"><font size=-1>Henning Klaskala &lt;bm321465@muenchen.org></font></font></i>
+<ul>
+<li>
+<font size=-1>Added "random track" feature - specify "random" as your track
+and watch...</font></li>
+
+<li>
+<font size=-1>Fixed several things about floodfills.</font></li>
+
+<li>
+<font size=-1>Speeded up floodfills in Linux considerably.</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.64 to 0.65b</font></font></b>
+<ul>
+<li>
+<font size=-1>Additions to s.nearby (5 cars seen)</font></li>
+
+<li>
+<font size=-1>Semielastic collisions</font></li>
+
+<li>
+<font size=-1>Sideview mirrors</font></li>
+
+<li>
+<font size=-1>Collision flash</font></li>
+
+<li>
+<font size=-1>Movie recording</font></li>
+</ul>
+<b><font color="#0000FF"><font size=+0>NEW FEATURES FROM 0.5 to 0.64</font></font></b>
+<p><font size=-1>The following are new features of, or changes in, version
+0.64 as compared with version 0.50:</font>
+<br>&nbsp;
+<br>&nbsp;
+<ul>
+<li>
+<font size=-1>For the start of the race the cars are arranged so that only
+the back</font></li>
+
+<br><font size=-1>row might have other than four cars. (It was the front
+row.)</font>
+<li>
+<font size=-1>The collision code has been changed so that collisions are
+more</font></li>
+
+<br><font size=-1>realistic. Cars cannot run over or through each other
+any more.</font>
+<li>
+<font size=-1>A command line option has been added that lets you name a
+driver or</font></li>
+
+<br><font size=-1>drivers that you don't want to race. It is -D and is
+used very much</font>
+<br><font size=-1>like -d. Here is the command to race all robots except
+Indretti for</font>
+<br><font size=-1>ten laps on the oval2 track:</font>
+<p><font face="Courier New"><font size=-1>rars oval2 15 10 -D Indretti</font></font>
+<li>
+<font size=-1>The P key is now a pause key; it freezes the race. Any key
+restarts it.</font></li>
+
+<li>
+<font size=-1>The name of the public random variable generator, which the
+robots</font></li>
+
+<br><font size=-1>should use if they need one, has been changed to r_rand().
+Its</font>
+<br><font size=-1>declaration is in CAR.H.</font>
+<li>
+<font size=-1>There is a fuel variable, and cars can run out of fuel. With
+the</font></li>
+
+<br><font size=-1>current parameter values a car can travel anywhere from
+50 to over</font>
+<br><font size=-1>100 miles depending on the track and the robot's style.
+The cars</font>
+<br><font size=-1>start with 150 pounds of fuel. This is used up at a rate</font>
+<br><font size=-1>proportional to power level. No fuel is used during braking.
+When a</font>
+<br><font size=-1>car runs out of fuel it will be automatically parked,
+frozen for 12</font>
+<br><font size=-1>seconds of simulated time, and then re-started with the
+initial fuel</font>
+<br><font size=-1>supply restored. The car will have somewhat greater acceleration</font>
+<br><font size=-1>with a near-empty tank because the total weight of car+fuel
+is used</font>
+<br><font size=-1>in the physical model. The car with a full tank weighs
+about the</font>
+<br><font size=-1>same as the car in version 0.50. Finally, s.fuel tells
+the robot how</font>
+<br><font size=-1>much fuel is left.</font>
+<li>
+<font size=-1>There are several changes to the output file of race results.
+Its</font></li>
+
+<br><font size=-1>name, instead of RACE.OUT will be the same as the track
+file's name,</font>
+<br><font size=-1>but with the .OUT extension. The number of laps completed,
+the fuel</font>
+<br><font size=-1>remaining, and the number of damage units is reported
+for each car.</font>
+<li>
+<font size=-1>Finally, the seed used for the random variable generator
+is</font></li>
+
+<br><font size=-1>reported. (see next item)</font>
+<li>
+<font size=-1>We have a new way to replay a race. The user can enter a
+seed for</font></li>
+
+<br><font size=-1>the random variable generator. If the seed that was reported
+in the</font>
+<br><font size=-1>output file is entered, then that race will be duplicated.
+Hence we</font>
+<br><font size=-1>have a way for a remote RARS fan to replay a race. If
+he has the</font>
+<br><font size=-1>output file, and the robots, and the same RARS version,
+he can enter</font>
+<br><font size=-1>the seed and see the same race. The seed is entered immediately</font>
+<br><font size=-1>after the -nr option, with no space. (example: RARS OVAL2
+16 20 -nr3791)</font>
+<li>
+<font size=-1>Also, the robots must be listed in CARZ.CPP in the same order
+that</font></li>
+
+<br><font size=-1>they appear at the top of the race output file.</font>
+<li>
+<font size=-1>There is one more source file, called MISC.CPP. It just has
+a few</font></li>
+
+<br><font size=-1>miscellaneous function definitions. Its purpose was just
+to keep</font>
+<br><font size=-1>CARZ.CPP from growing any larger.</font>
+<li>
+<font size=-1>When multiple race are run the track rails are redrawn prior
+to each race.</font></li>
+
+<li>
+<font size=-1>The maximum rate-of-change of alpha has been decreased from
+263</font></li>
+
+<br>&nbsp;
+<p>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><font face="Courier New"><font size=-1>deg/sec to 183 deg/sec.</font></font>
+<li>
+<font size=-1>if a car is damaged only by collisions, and never leaves
+the road, it</font></li>
+
+<br><font size=-1>will be forced to drive off the track and then be out
+of the race.</font>
+<li>
+<font size=-1>Also, there is somewhat more damage per collision. The damage
+from</font></li>
+
+<br><font size=-1>either collisions or off-road adventures is still accumulated
+in one</font>
+<br><font size=-1>variable, "damage". What is different is that damage
+is checked</font>
+<br><font size=-1>after every collision, not just when off-road. During
+practice the</font>
+<br><font size=-1>cars may accumulate any amount of damage and not be out
+of the race.</font>
+<br><font size=-1>("damage" has been made into a long to accomodate that.)</font>
+<li>
+<font size=-1>The robot code does not have to use the "extern" keyword
+to directly</font></li>
+
+<br><font size=-1>access the track description information, nor to copy
+its name to the</font>
+<br><font size=-1>host. Two functions, get_track_description() and my_name_is(),
+are</font>
+<br><font size=-1>provided for those purposes.</font>
+<li>
+<font size=-1>The large model is now used for compiling. Also, I am using
+full</font></li>
+
+<br><font size=-1>optimization for speed.</font>
+<li>
+<font size=-1>There is an optional pre-race practice period, requested
+by the -p</font></li>
+
+<br><font size=-1>option. When the command line contains, say, -p50, there
+will be 50</font>
+<br><font size=-1>practice laps. During practice the damage can grow indefinitely;
+it</font>
+<br><font size=-1>will be "repaired" when the race starts.</font>
+<li>
+<font size=-1>There is 4 K of private data for each robot instead of 512
+bytes.</font></li>
+
+<li>
+<font size=-1>The track files now must all have one more line added containing
+the</font></li>
+
+<br><font size=-1>coordinates of the upper left corner of the Instrument
+Panel. The IP</font>
+<br><font size=-1>can now be place anywhere on the screen. This line goes
+right after</font>
+<br><font size=-1>the Leader Board coordinates.</font>
+<li>
+<font size=-1>The build_track() function has been changed to ignore any
+characters</font></li>
+
+<br><font size=-1>after the one or two numbers it expects to read from
+each line. This</font>
+<br><font size=-1>means that any type of commentary or other text may be
+placed to the</font>
+<br><font size=-1>right of the track definition data.</font>
+<li>
+<font size=-1>In place of the track length in feet, we now show it in miles,
+and also</font></li>
+
+<br><font size=-1>show the name of the track description file being used.</font>
+<li>
+<font size=-1>There are two random variable generators. rand() is for use
+by</font></li>
+
+<br><font size=-1>robots who want to use it. The inline version, raand()
+is used by</font>
+<br><font size=-1>the host software (in CARZ.CPP) random() should no longer
+be used by</font>
+<br><font size=-1>any robots. The -nr or -nR options affect both functions.</font>
+<li>
+<font size=-1>There are now two alternate track friction functions. The
+old one is</font></li>
+
+<br><font size=-1>the default. The new one is selected by -s1 on the command
+line.</font>
+<li>
+<font size=-1>A better mathematical method is now used for integrating
+the differential</font></li>
+
+<br><font size=-1>equations of the trajectories. It is called the Adam's
+second order open</font>
+<br><font size=-1>method. This affects the characteristics of the cars
+slightly. It may</font>
+<br><font size=-1>improve some of the robots and worsen some others; they
+should all be</font>
+<br><font size=-1>retuned if optimal performance is desired.</font>
+<li>
+<font size=-1>The IP is now not erased if it has not been displayed. Since
+some tracks</font></li>
+
+<br><font size=-1>don't have a space for it, it can now simply not be used,
+if desired, and</font>
+<br><font size=-1>it won't mess up the track display.</font>
+<li>
+<font size=-1>The situation structure is now passed to the robots by reference
+instead of</font></li>
+
+<br><font size=-1>by value. For C++ robots that only means that an "&amp;"
+must follow</font>
+<br><font size=-1>"situation" in the function definition. For those that
+are written in</font>
+<li>
+<font size=-1>ANSI C instead of C++ it means that they will receive a pointer
+to the</font></li>
+
+<br><font size=-1>situation structure. They will use an "*" after "situation"
+and must</font>
+<br><font size=-1>change all of their dots to -> when using the situation
+members.</font>
+<li>
+<font size=-1>To avoid name conflicts, functions defined in the robot files
+should</font></li>
+
+<br><font size=-1>be made static. (This does not apply to the primary function
+which</font>
+<br><font size=-1>is called by the host, since the static keyword makes
+the name</font>
+<br><font size=-1>not public.) This has been done throughout most of the
+supplied</font>
+<br><font size=-1>robots.</font></ul>
+
+</body>
+</html>

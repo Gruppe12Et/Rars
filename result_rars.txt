@@ -1,0 +1,6 @@
+RARS version 0.90
+
+Track surface type 1
+12 cars for 55 laps over 1 tracks with 1 races on each track.
+The initial RVG seed was 9020
+

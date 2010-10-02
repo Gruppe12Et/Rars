@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<track>
+
+  <info
+    version="25"
+  />
+
+  <unit
+    distance_name="meter"
+    distance_scale="5"
+  />
+
+  <header
+    width="12"
+    finish="0.2"
+  />
+
+  <xwindow
+    score_board_x="4900"
+    score_board_y="4850"
+    leader_board_x="5000"
+    leader_board_y="3000"
+    inst_panel_x="80"
+    inst_panel_y="5000"
+    message_x="25"
+    message_y="125"
+  />
+
+  <pitstop
+    side="1"
+    entry="21900"
+    exit="500"
+    lane_start="22600"
+    lane_end="300"
+    lane_speed="40"
+  />
+
+  <segments>
+
+    <default/>
+
+    <section name="track">
+      <segment length="341">
+        <left border_size="3.333333" border_tree_height="8.333333" texture_barrier="barrier_white"/>
+        <right border_size="1.666667" barrier_height="2.666667" border_tree_size="0" border_tree_height="0" show_tree="false" texture_border="concrete_nmm" texture_barrier="barrier_glass_nmm" texture_border_tree="concrete_nmm"/>
+      </segment>
+      <segment radius="-11.666667" arc="2.75" type="y" section="N640">
+        <left border_tree_height="8.333333"/>
+        <right border_size="3.333333" border_tree_size="0" border_tree_height="0" texture_border="concrete_nmm" texture_barrier="barrier_white"/>
+      </segment>
+      <segment radius="1066.666667" arc="0.18" end_z="-10" type="yinv" section="pitstop">
+        <left border_size="3.333333" border_tree_size="0" border_tree_height="0" texture_barrier="barrier_white"/>
+        <right border_size="3.333333" border_tree_size="50" border_tree_height="0" texture_border="concrete_nmm" texture_barrier="barrier_white"/>
+      </segment>
+      <segment radius="-450" arc="0.47" end_z="-16">
+        <left border_size="6.666667" border_tree_size="133.333333" texture_barrier="barrier_white"/>
+        <right border_size="3.333333" border_tree_size="66.666667" border_tree_height="0" texture_border="concrete_nmm" texture_barrier="barrier_white"/>
+      </segment>
+      <segment length="316.666667" end_z="-23">
+        <left border_tree_size="133.333333" texture_barrier="barrier_white"/>
+        <right border_size="3.333333" border_tree_size="100" texture_border="concrete_nmm" texture_barrier="barrier_white"/>
+      </segment>
+      <segment radius="100" arc="0.37" end_z="-21">
+        <left border_tree_size="133.333333"/>
+        <right border_tree_size="66.666667"/>
+      </segment>
+      <segment length="46.666667" end_z="-13">
+        <left border_tree_size="133.333333"/>
+        <right border_tree_size="66.666667" border_tree_height="10"/>
+      </segment>
+      <segment radius="-116.666667" arc="0.85" end_z="6">
+        <left border_size="50" border_tree_height="6.666667"/>
+        <right border_tree_size="66.666667" border_tree_height="0"/>
+      </segment>
+      <segment length="83.333333" end_z="26">
+        <left border_tree_size="50" border_tree_height="50"/>
+      </segment>
+      <segment radius="181.666667" arc="0.36" end_z="36"/>
+      <segment length="290" end_z="46">
+        <right border_tree_size="8.333333" border_tree_height="11.666667"/>
+      </segment>
+      <segment radius="-200" arc="0.29" end_z="48">
+        <right border_tree_size="8.333333" border_tree_height="8.333333"/>
+      </segment>
+      <segment length="900" end_z="65">
+        <left border_size="16.666667" border_tree_size="100"/>
+        <right border_size="16.666667" border_tree_size="8.333333" border_tree_height="1.666667"/>
+      </segment>
+      <segment radius="-43.333333" arc="1.4" end_z="65" type="y" section="N62">
+        <left border_size="66.666667" border_tree_size="100" border_tree_height="0"/>
+        <right border_size="16.666667" border_tree_height="1.666667"/>
+      </segment>
+      <segment radius="83.333333" arc="1.37" end_z="65">
+        <left border_size="66.666667" border_tree_height="0"/>
+        <right border_tree_height="0"/>
+      </segment>
+      <segment length="83.333333" end_z="65">
+        <left border_tree_size="66.666667" border_tree_height="0" show_tree="false"/>
+        <right border_tree_height="0"/>
+      </segment>
+      <segment radius="-66.666667" arc="1.23" end_z="65"/>
+      <segment length="340" end_z="52">
+        <right border_tree_height="8.333333"/>
+      </segment>
+      <segment radius="-46.666667" arc="1.88" end_z="46"/>
+      <segment radius="-53.333333" arc="1.3" end_z="40"/>
+      <segment length="130" end_z="23">
+        <right border_tree_height="40"/>
+      </segment>
+      <segment radius="66.666667" arc="1.32" end_z="13">
+        <right border_tree_height="43.333333"/>
+      </segment>
+      <segment length="150" end_z="5">
+        <right border_tree_height="40"/>
+      </segment>
+      <segment radius="-200" arc="0.1" end_z="4">
+        <right border_tree_height="40"/>
+      </segment>
+      <segment length="356.666667"/>
+      <segment radius="113.333333" arc="1.29" end_z="-10"/>
+      <segment length="66.666667" end_z="-16.666667"/>
+      <segment radius="163.333333" arc="1.25" end_z="-20"/>
+      <segment length="370" end_z="-34"/>
+      <segment radius="-86.666667" arc="1.85" end_z="-36">
+        <left border_tree_height="0"/>
+      </segment>
+      <segment radius="96.666667" arc="1.67" end_z="-38"/>
+      <segment length="218.333333" end_z="-40">
+        <left border_tree_height="40"/>
+        <right border_tree_size="166.666667" border_tree_height="0"/>
+      </segment>
+      <segment radius="-50" arc="1.6" end_z="-45">
+        <left border_tree_height="20"/>
+        <right border_tree_height="0"/>
+      </segment>
+      <segment length="133.333333" end_z="-48">
+        <left border_tree_height="0"/>
+        <right border_tree_height="0" show_tree="false"/>
+      </segment>
+      <segment radius="-100" arc="1.3" end_z="-50">
+        <right border_tree_height="0"/>
+      </segment>
+      <segment radius="-666.666667" arc="0.55" end_z="-43">
+        <left border_size="6.666667" border_tree_size="66.666667"/>
+        <right border_tree_size="166.666667" border_tree_height="5"/>
+      </segment>
+      <segment radius="-466.666667" arc="0.2" end_z="-41">
+        <left border_size="6.666667" border_tree_size="66.666667"/>
+      </segment>
+      <segment length="220" end_z="-38">
+        <left border_size="6.666667"/>
+      </segment>
+      <segment radius="266.666667" arc="0.65" end_z="-33">
+        <left border_size="6.666667"/>
+      </segment>
+      <segment length="200" end_z="-30">
+        <left border_size="6.666667"/>
+      </segment>
+      <segment radius="166.666667" arc="0.8" end_z="-25">
+        <left border_size="6.666667"/>
+      </segment>
+      <segment length="200" end_z="-23">
+        <left border_size="6.666667"/>
+      </segment>
+      <segment radius="-666.666667" arc="0.3" end_z="-15">
+        <left border_size="6.666667"/>
+      </segment>
+      <segment length="83.333333" end_z="-10"/>
+      <segment radius="30" arc="1.5" end_z="-10" type="y" section="pitstop">
+        <right show_border_tree="false"/>
+      </segment>
+      <segment radius="-30" arc="1.6" end_z="-10">
+        <right show_tree="false" show_border_tree="false"/>
+      </segment>
+      <segment length="106.666667" end_z="-8">
+        <right show_tree="false" show_border_tree="false"/>
+      </segment>
+      <segment radius="-40" arc="1" end_z="-8">
+        <right border_size="10" show_tree="false" show_border_tree="false"/>
+      </segment>
+      <segment radius="40" arc="1.07" end_z="-8">
+        <right border_size="10" show_tree="false" show_border_tree="false"/>
+      </segment>
+      <segment length="28.517148" end_z="-6">
+        <left border_tree_size="10" border_tree_height="10"/>
+        <right border_size="10" show_tree="false" show_border_tree="false"/>
+      </segment>
+      <segment radius="247.295036" arc="0.556815" end_z="-3">
+        <left border_size="3.333333" border_tree_size="10" border_tree_height="10"/>
+        <right border_size="1.666667" border_tree_size="0" border_tree_height="0" show_tree="false" show_border_tree="false" texture_border_tree="concrete_nmm"/>
+      </segment>
+    </section>
+
+    <section name="pitstop">
+      <segment length="133.333333" end_z="-8.333333">
+        <left border_tree_size="0"/>
+      </segment>
+      <segment radius="-100" arc="0.4" end_z="-8.333333">
+        <left border_tree_size="0"/>
+      </segment>
+      <segment radius="100" arc="0.4" end_z="-8.333333">
+        <left border_size="3.333333" border_tree_size="0"/>
+      </segment>
+      <segment length="100" end_z="-5">
+        <left border_size="3.333333" border_tree_size="0"/>
+      </segment>
+      <segment radius="100" arc="0.526815" end_z="-3.333333">
+        <left border_size="0" border_tree_size="0"/>
+      </segment>
+      <segment length="360">
+        <left border_size="0" border_tree_size="0"/>
+        <right border_size="3.333333" border_tree_size="0"/>
+      </segment>
+      <segment radius="-4.029775" arc="2.569981" end_z="-1">
+        <left border_size="3.333333" border_tree_size="0"/>
+        <right border_size="3.333333" border_tree_size="0"/>
+      </segment>
+      <segment length="165.481845" end_z="-10">
+        <right border_tree_size="0" border_tree_height="0"/>
+      </segment>
+    </section>
+
+    <section name="N640">
+      <segment length="66.666667"/>
+    </section>
+
+    <section name="N62">
+      <segment length="200" end_z="66.666667"/>
+    </section>
+
+  </segments>
+
+  <objects>
+    <object model="spa_panel_start" x="100" y="6" z="-2" rot_z="3.14"/>
+  </objects>
+
+</track>

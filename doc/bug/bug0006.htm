@@ -1,0 +1,81 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Marc Gueury">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>bug0006</title>
+</head>
+<body>
+<b><font color="#3333FF"><font size=+2>Bug 0006</font></font></b><b><font color="#FF0000"></font></b>
+<p><b><font color="#FF0000">Rars crashes sometimes in Car::observe</font></b>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>Version</td>
+
+<td>0.72</td>
+</tr>
+
+<tr>
+<td>Solved in</td>
+
+<td>0.73c</td>
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>carz.cpp</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+
+<td>Marc Gueury</td>
+</tr>
+
+<tr>
+<td>Platform</td>
+
+<td>ALL (except Windows)</td>
+</tr>
+
+<tr>
+<td>Impact on cars</td>
+
+<td>NONE</td>
+</tr>
+
+<tr>
+<td>Impact on portability</td>
+
+<td>NONE</td>
+</tr>
+</table>
+
+<p><b><u>Description:</u></b>
+<p>Rars crashes sometimes in carz.cpp in the line (XX).
+<br>Due to a bad line (->).
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else&nbsp; Behind_next = 0.0; // ...it is leader! :-)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// distance to car behind:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (laps &lt; 1 ||&nbsp; // not for the first lap or last car!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+position[which] == car_count-out_count-1)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Ahead_next = 0.0;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Ahead_next =
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SF_crossing[order[position[which]+1]][laps-1] -
+<p>I have remove out_count in this line, else it crashes in XX.
+<p><b><u>Solution</u></b>
+<p>Changed the condition to:
+<p>position[which] == car_count-1
+</body>
+</html>

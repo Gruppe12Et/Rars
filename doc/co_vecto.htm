@@ -1,0 +1,157 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.12-20 i686) [Netscape]">
+   <title>Here is a description of the model of traction force and skidding</title>
+</head>
+<body>
+
+<center><b><font face="Arial"><font color="#FF0000"><font size=+1>Physics
+Model</font></font></font></b></center>
+
+<hr>
+<p>Here is a <b><font color="#008040">description of the model of traction
+force and skidding, etc</font></b>.,&nbsp; that is implemented in <b><i><font color="#FF0000">move_car()</font></i></b>
+(CARZ.CPP). Note that <b><font color="#0000FF">"P"</font></b> is used here
+for a vector, not for power. Also note that we use <b><font color="#0000FF">"F"</font></b>
+for a vector here and <b><font color="#0000FF">"f"</font></b> for its magnitude.
+In the computer program F was used for the magnitude. (There are no vectors
+directly represented in the program.)
+<p>We begin by erecting an x-y coordinate system with the positive <b><font color="#0000FF">x
+axis</font></b> along the car's velocity vector, and the <b><font color="#0000FF">y
+axis</font></b> to the driver's approximate left.
+<p>Let:
+<blockquote>&nbsp;
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" >
+<tr>
+<td><b><font color="#0000FF">V</font></b></td>
+
+<td>= car's velocity vector, given</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">P</font></b></td>
+
+<td>= car's pointing vector, <b>unit vector</b> in direction car is pointing</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+
+<td>(these two are separated by the angle alpha, given)</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">W</font></b></td>
+
+<td>= velocity vector of tire bottom surface wrt car</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+
+<td><b>= -P * vc&nbsp;</b>&nbsp; ( where <b><font color="#0000FF">"vc"</font></b>
+is "velocity commanded", given )</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">L</font></b></td>
+
+<td>= slip vector, velocity of tire bottom wrt track surface.</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">F</font></b></td>
+
+<td>= force vector pushing the car; this is in direction opposite to L.</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">Ft</font></b></td>
+
+<td>= x-component of F (t for tangential to path)</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">Fn</font></b></td>
+
+<td>= y-component of F (n for normal to path)</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">Lt</font></b></td>
+
+<td>= x-component of L</td>
+</tr>
+
+<tr>
+<td><b><font color="#0000FF">Ln</font></b></td>
+
+<td>= y-component of L</td>
+</tr>
+</table>
+
+<center>
+<p><img SRC="vectors.gif" ALT="vectors.gif" height=409 width=600></center>
+</blockquote>
+A fundamental vector relation is:
+<blockquote><b>L = V + W</b></blockquote>
+Which just says that the tire velocity wrt track is the tire velocity
+<br>wrt car plus the car velocity wrt track. By simple substitution,
+<br>this becomes:
+<blockquote><b>L = V - vc * P</b></blockquote>
+Since the components of P and V are known, we can write:
+<blockquote><b>Lt = v - vc * cosine(alpha);</b>
+<br><b>Ln = - vc * sine(alpha)</b></blockquote>
+We will use <b>lowercase letters for magnitudes</b> of the vectors,
+<br>so the sliding speed of the tire is <b><font color="#0000FF">"l"</font></b>,
+and the force is <b><font color="#0000FF">"f"</font></b>. The
+<br>force is determined by the friction model. We assume that this
+<br>force depends only on l, the slip speed.
+<p>f = u(l) where <b><font color="#0000FF">u(l)</font></b> is the friction
+function, given. hence:
+<blockquote><b>F = - u(l) * L / l</b></blockquote>
+Because the F and L vectors are parallel, the components of F are
+<br>in the same proportion as the components of L. Hence:
+<blockquote><b>Ft = -f * Lt/l</b>
+<br><b>Fn = -f * Ln/l</b></blockquote>
+The power consumed <b><font color="#0000FF">"pwr"</font></b> is equal to
+the component of F parallel
+<br>to P, times vc. We compute this by treating the normal and
+<br>tangential components of F as two separate forces. The tangential
+<br>component of force has the angle alpha wrt the P vector, hence its
+<br>contribution to the power is Ft * cosine(alpha). The normal
+<br>component, being at right angles to the tangential component, has
+<br>contribution Fn * sine(alpha). This gives us:
+<blockquote><b>pwr = vc * (Ft * cosine(alpha) + Fn * sine(alpha))</b></blockquote>
+That is the procedure currently used to calculate the force vector
+<br>and the power consumption. It would be convenient if there was a
+<br>practical way to start with power or force as a given, and compute
+vc
+<br>and the force and slip vectors; unfortunately the only known
+<br>solution, due to Matt Timmermans, required solution of a fourth order
+<br>polynomial equation. I actually implemented a search procedure to
+<br>find vc when power is given, because the solution sent by Matt was
+<br>extremely complicated. (So is the search procedure, but it was
+<br>already available as a C function, needing relatively minor changes.)
+<p>The friction function currently used is of the form:
+<blockquote><b>u(l) = FMAX * l / (K + l)</b></blockquote>
+where <b><font color="#0000FF">FMAX</font></b> and <b><font color="#0000FF">K</font></b>
+are given constants.
+<p><br>
+<center>
+<p><img SRC="testfric.gif" ALT="testfric.gif (2138 octets)" height=200 width=320></center>
+
+<p><br>
+<br>
+<p>Any function that rises steeply from the origin and then levels out
+<br>and approaches a maximum might be used. It might be piecewise linear
+<br>with only two or three pieces, for example.
+<p>In order to have a model that more accurately simulates the real
+<br>world, especially paved surfaces, it will be necessary for the
+<br>traction force function to depend on more than just the slip speed,
+<br>I believe.
+<p>m
+</body>
+</html>

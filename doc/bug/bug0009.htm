@@ -1,0 +1,68 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Marc Gueury">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>bug0009</title>
+</head>
+<body>
+<b><font color="#3333FF"><font size=+2>Bug 0009</font></font></b>
+<p><b><font color="#FF0000">Linux: impossible to link rars on Linux, "-lg++"
+is missing.</font></b>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>Version</td>
+
+<td>0.72</td>
+</tr>
+
+<tr>
+<td>Solved in</td>
+
+<td>0.73c</td>
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>makefile</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+
+<td>Marc Gueury</td>
+</tr>
+
+<tr>
+<td>Platform</td>
+
+<td>Linux Only</td>
+</tr>
+
+<tr>
+<td>Impact on cars</td>
+
+<td>NONE</td>
+</tr>
+
+<tr>
+<td>Impact on portability</td>
+
+<td>NONE</td>
+</tr>
+</table>
+
+<p><b><u>Description:</u></b>
+<p>In the makefile
+<p>CC =gcc
+<p>Due to a silly bug in recent versions of GCC, GCC does not link
+<br>anymore C++. So, the link gives problems.
+<p><b><u>Solution</u></b>
+<p>All occurences of CC are replaced by CXX in the makefile.
+<br>The old version of the makefile is still there and renamed:
+<br>makefile.gcc
+</body>
+</html>

@@ -2,13 +2,13 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Rars" />
 	<File name="rars/car.h" open="1" top="0" tabpos="4">
-		<Cursor position="6238" topLine="165" />
+		<Cursor position="8851" topLine="161" />
 	</File>
 	<File name="rars/drivers.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="259" topLine="0" />
+		<Cursor position="1381" topLine="32" />
 	</File>
 	<File name="rars/gi.h" open="1" top="0" tabpos="3">
-		<Cursor position="912" topLine="28" />
+		<Cursor position="912" topLine="79" />
 	</File>
 	<File name="rars/graphics/g_track_area.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="12837" topLine="540" />
@@ -16,17 +16,17 @@
 	<File name="rars/robots/et09template.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="958" topLine="5" />
 	</File>
-	<File name="rars/robots/gruppe1.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="958" topLine="12" />
+	<File name="rars/robots/gruppe1.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="2981" topLine="36" />
 	</File>
-	<File name="rars/robots/gruppe10.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="997" topLine="12" />
+	<File name="rars/robots/gruppe10.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="7891" topLine="157" />
 	</File>
 	<File name="rars/robots/gruppe11.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="1964" topLine="61" />
+		<Cursor position="1971" topLine="102" />
 	</File>
-	<File name="rars/robots/gruppe12.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="631" topLine="12" />
+	<File name="rars/robots/gruppe12.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="128" />
 	</File>
 	<File name="rars/robots/gruppe13.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="631" topLine="12" />

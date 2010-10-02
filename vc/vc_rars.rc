@@ -1,0 +1,754 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+// Generated Help ID header file
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.hm"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Englisch (USA) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_INIT_CARS DIALOG DISCARDABLE  0, 0, 207, 186
+STYLE DS_MODALFRAME | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Rars Initialisation"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Please Wait",IDC_STATIC,84,10,39,8
+    GROUPBOX        "Messages",IDC_STATIC,7,30,193,150
+    LISTBOX         IDC_LIST_MESSAGE,10,40,185,140,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_TRACK_EDITOR DIALOGEX 0, 0, 682, 436
+STYLE DS_MODALFRAME | DS_3DLOOK | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Track Editor"
+MENU IDR_TRACK_MENU
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_SECTION_LIST,10,15,95,60,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SEGMENT_LIST,10,90,95,90,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LEFT_LIST,10,350,140,75,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_CENTER_LIST,155,350,130,75,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_RIGHT_LIST,290,350,130,75,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_PROP_VALUE,435,354,115,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Set",IDC_PROP_SET,435,370,40,15
+    PUSHBUTTON      "Reset to default",IDC_PROP_RESET,485,370,65,15
+    CONTROL         "",IDC_BITMAP_2D,"Static",SS_BITMAP | SS_NOTIFY | 
+                    SS_SUNKEN,140,10,19,17,WS_EX_CLIENTEDGE | 
+                    WS_EX_STATICEDGE
+    GROUPBOX        "Clipboard",IDC_STATIC,5,190,105,60
+    GROUPBOX        "Segments",IDC_STATIC,5,80,105,105
+    LTEXT           "",IDC_CLIPBOARD,10,205,95,45
+    CONTROL         "",IDC_BITMAP_BOARD,"Static",SS_BITMAP | SS_SUNKEN,120,
+                    310,19,17,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_BITMAP_CLASSIC,"Static",SS_BITMAP | SS_NOTIFY | 
+                    SS_SUNKEN,145,310,19,17,WS_EX_CLIENTEDGE | 
+                    WS_EX_STATICEDGE
+    LTEXT           "Description",IDC_DESCRIPTION,435,390,230,35
+    LTEXT           "PROP_NAME",IDC_PROP_NAME,435,345,70,8
+    GROUPBOX        "Segment Properties",IDC_STATIC,5,330,670,100
+    LTEXT           "Left properties",IDC_STATIC,10,340,46,8
+    LTEXT           "Main properties",IDC_STATIC,155,340,49,8
+    LTEXT           "Right properties",IDC_STATIC,290,340,50,8
+    GROUPBOX        "Sections",IDC_STATIC,5,5,105,75
+END
+
+IDD_TRACK_PROPERTY DIALOG DISCARDABLE  0, 0, 432, 316
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Track properties"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_TRACK_NAME,60,25,95,12,ES_AUTOHSCROLL
+    LISTBOX         IDC_PROP_LIST,15,60,160,220,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_PROP_VALUE,185,74,115,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Set",IDC_PROP_SET,185,90,40,15
+    PUSHBUTTON      "Reset to default",IDC_PROP_RESET,235,90,65,15
+    DEFPUSHBUTTON   "OK",IDOK,153,295,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,228,295,50,14
+    GROUPBOX        "Filename",IDC_STATIC,5,5,420,40
+    LTEXT           "Name",IDC_STATIC,20,25,20,8
+    GROUPBOX        "Properties",IDC_STATIC,5,50,420,235
+    LTEXT           "Description",IDC_DESCRIPTION,185,110,230,35
+    LTEXT           "PROP_NAME",IDC_PROP_NAME,185,65,70,8
+END
+
+IDD_TRACK_LOAD DIALOG DISCARDABLE  0, 0, 212, 221
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Load a track"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,155,5,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,155,25,50,14
+    LISTBOX         IDC_TRACK_NAME,5,5,140,210,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_TRACK_SECTION DIALOG DISCARDABLE  0, 0, 237, 106
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add a new section"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,60,85,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,125,85,50,14
+    LTEXT           "Name of the section",IDC_STATIC,10,10,64,8
+    GROUPBOX        "Hint",IDC_STATIC,5,40,210,35
+    LTEXT           "A new section will be added. A new segment is also added\nautomically in the new, empty section.",
+                    IDC_STATIC,15,50,190,20
+    EDITTEXT        IDC_SECTION,10,20,100,12,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_INIT_CARS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 179
+    END
+
+    IDD_TRACK_EDITOR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 675
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 429
+    END
+
+    IDD_TRACK_PROPERTY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 425
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 309
+    END
+
+    IDD_TRACK_LOAD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 205
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 214
+    END
+
+    IDD_TRACK_SECTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 99
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_RARS_ACCELERATOR ACCELERATORS DISCARDABLE 
+BEGIN
+    "D",            ID_SPEED_MEDIUM,        VIRTKEY, NOINVERT
+    "E",            ID_SPEED_STOP,          VIRTKEY, NOINVERT
+    "F",            ID_SPEED_FAST,          VIRTKEY, NOINVERT
+    "I",            ID_CAR_NOBODY,          VIRTKEY, NOINVERT
+    "N",            ID_VIEW_DRIVERNAMES,    VIRTKEY, NOINVERT
+    "O",            ID_CAR_ANY_OVERTAKING,  VIRTKEY, NOINVERT
+    "P",            ID_CAR_FOR_POSITION,    VIRTKEY, NOINVERT
+    "R",            ID_SPEED_REWIND,        VIRTKEY, NOINVERT
+    "S",            ID_SPEED_SLOW,          VIRTKEY, NOINVERT
+    "T",            ID_VIEW_TRAJECTORY,     VIRTKEY, NOINVERT
+    "U",            ID_CAR_MANUAL,          VIRTKEY, NOINVERT
+    "V",            ID_OPENGL_VIEW,         VIRTKEY, NOINVERT
+    VK_ADD,         ID_ZOOM_IN,             VIRTKEY, NOINVERT
+    VK_DOWN,        ID_MOVE_DOWN,           VIRTKEY, NOINVERT
+    VK_LEFT,        ID_MOVE_LEFT,           VIRTKEY, NOINVERT
+    VK_NEXT,        ID_CAR_PRV_CAR,         VIRTKEY, NOINVERT
+    VK_PAUSE,       ID_SPEED_PAUSE,         VIRTKEY, NOINVERT
+    VK_PRIOR,       ID_CAR_NEXT_CAR,        VIRTKEY, NOINVERT
+    VK_RIGHT,       ID_MOVE_RIGHT,          VIRTKEY, NOINVERT
+    VK_SUBTRACT,    ID_ZOOM_OUT,            VIRTKEY, NOINVERT
+    VK_UP,          ID_MOVE_UP,             VIRTKEY, NOINVERT
+END
+
+IDR_TRACK_ACCELERATOR ACCELERATORS DISCARDABLE 
+BEGIN
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_ADD,         ID_ZOOM_IN,             VIRTKEY, NOINVERT
+    VK_DOWN,        ID_MOVE_DOWN,           VIRTKEY, NOINVERT
+    VK_DOWN,        ID_ROTATE_DOWN,         VIRTKEY, SHIFT, NOINVERT
+    VK_HOME,        ID_ROTATE_RESET,        VIRTKEY, NOINVERT
+    VK_LEFT,        ID_MOVE_LEFT,           VIRTKEY, NOINVERT
+    VK_LEFT,        ID_ROTATE_LEFT,         VIRTKEY, SHIFT, NOINVERT
+    VK_NEXT,        ID_SEGMENT_NXT,         VIRTKEY, NOINVERT
+    VK_PRIOR,       ID_SEGMENT_PRV,         VIRTKEY, NOINVERT
+    VK_RETURN,      ID_SEGMENT_INFO,        VIRTKEY, ALT, NOINVERT
+    VK_RIGHT,       ID_MOVE_RIGHT,          VIRTKEY, NOINVERT
+    VK_RIGHT,       ID_ROTATE_RIGHT,        VIRTKEY, SHIFT, NOINVERT
+    VK_SUBTRACT,    ID_ZOOM_OUT,            VIRTKEY, NOINVERT
+    VK_UP,          ID_MOVE_UP,             VIRTKEY, NOINVERT
+    VK_UP,          ID_ROTATE_UP,           VIRTKEY, SHIFT, NOINVERT
+    "Y",            ID_EDIT_REDO,           VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_START               ICON    DISCARDABLE     "res\\start.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_TRACK_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "New Track",                   ID_FILE_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "Load Track",                  ID_FILE_LOAD
+        MENUITEM "Save Track",                  ID_FILE_SAVE
+        MENUITEM "Close",                       ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit",                       IDCANCEL
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Undo\tCTRL+z",                ID_EDIT_UNDO
+        MENUITEM "Redo\tCTRL+y",                ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "Copy\tCTRL+c",                ID_EDIT_COPY
+        MENUITEM "Paste one property\tCTRL+v",  ID_EDIT_PASTE
+        MENUITEM "Paste all properties",        ID_EDIT_PASTE_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "Next segment\tPage Down",     ID_SEGMENT_NXT
+        MENUITEM "Previous Next segment\tPage Up", ID_SEGMENT_PRV
+        MENUITEM "Segment info...\tAlt+Enter",  ID_SEGMENT_INFO
+        MENUITEM SEPARATOR
+        MENUITEM "New segment",                 ID_SEGMENT_NEW
+        MENUITEM "Delete segment",              ID_SEGMENT_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "New section...",              ID_SECTION_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "Track Properties...",         ID_TRACK_PROPERTY
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "View 2D track",               ID_VIEW_TRACK2D
+        MENUITEM "View 3DS track",              ID_VIEW_TRACK3DS
+        MENUITEM "View one 3DS segment",        ID_VIEW_TRACK_ONE_SEG
+    END
+    POPUP "&Move"
+    BEGIN
+        MENUITEM "Move Left\t Arrow Left",      ID_MOVE_LEFT
+        MENUITEM "Move Right\t Arrow Right",    ID_MOVE_RIGHT
+        MENUITEM "Move Up\t Arrow Up",          ID_MOVE_UP
+        MENUITEM "Move Down\t Arrow Down",      ID_MOVE_DOWN
+        MENUITEM SEPARATOR
+        MENUITEM "Rotate Left\t Shift+Arrow Left", ID_ROTATE_LEFT
+        MENUITEM "Rotate Right\t Shift+Arrow Right", ID_ROTATE_RIGHT
+        MENUITEM "Rotate Up\t Shift+Arrow Up",  ID_ROTATE_UP
+        MENUITEM "Rotate Down\t Shift+Arrow Down", ID_ROTATE_DOWN
+        MENUITEM SEPARATOR
+        MENUITEM "Zoom In\t+",                  ID_ZOOM_IN
+        MENUITEM "Zoom Out\t-",                 ID_ZOOM_OUT
+        MENUITEM SEPARATOR
+        MENUITEM "Reset View\t Home",           ID_ROTATE_RESET
+    END
+    POPUP "Tools"
+    BEGIN
+        MENUITEM "Generate 3DS",                ID_TRACK_GEN3D
+        MENUITEM "Save as Torcs track",         ID_TRACK_TORCS
+        MENUITEM SEPARATOR
+        MENUITEM "&Automatic closure",          ID_TRACK_AUTOCLOSURE
+    END
+END
+
+#endif    // Englisch (USA) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Französisch (Frankreich) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRA)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 217, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About rars"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "rars Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright © 1997",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,32,14,WS_GROUP
+END
+
+IDD_StartRace DIALOG DISCARDABLE  0, 0, 527, 316
+STYLE WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Rars"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_TRACK_NAME,65,20,80,64,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    EDITTEXT        IDC_LAPS,65,40,80,12,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPIN2,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,145,40,11,
+                    14
+    COMBOBOX        IDC_OPEN_GL,65,60,80,83,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_MOVIE,65,80,80,133,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_RANDOM,65,100,80,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_FOLLOW_CAR,65,120,80,83,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_SURFACE,65,140,80,83,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Race With Random Starting Grid",IDC_RADIO1,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,15,178,120,10
+    CONTROL         "Qualifications And Race",IDC_RADIO2,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,15,189,125,10
+    CONTROL         "Qualifications Only",IDC_RADIO3,"Button",
+                    BS_AUTORADIOBUTTON | WS_DISABLED | WS_TABSTOP,15,199,124,
+                    10
+    CONTROL         "Race using previous Qualifications",IDC_RADIO4,"Button",
+                    BS_AUTORADIOBUTTON | WS_DISABLED | WS_TABSTOP,15,209,128,
+                    10
+    EDITTEXT        IDC_QUALIF_LAPS,75,245,70,12,ES_AUTOHSCROLL | WS_GROUP
+    CONTROL         "Spin2",IDC_SPIN4,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,145,243,
+                    11,14
+    EDITTEXT        IDC_QUALIF_SESSIONS,75,265,70,12,ES_AUTOHSCROLL | 
+                    WS_GROUP
+    CONTROL         "Spin2",IDC_SPIN3,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,145,263,
+                    11,14
+    LISTBOX         IDC_DRIVER_AVAILABLE,167,188,140,92,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_DRIVER_SELECTED,379,188,140,92,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      ">>",IDC_DRIVER_SELECT_ALL,325,193,38,15
+    PUSHBUTTON      "<<",IDC_DRIVER_REMOVE_ALL,325,213,38,15
+    PUSHBUTTON      ">",IDC_DRIVER_SELECT_ONE,325,233,38,15
+    PUSHBUTTON      "<",IDC_DRIVER_REMOVE_ONE,325,253,38,15
+    EDITTEXT        IDC_LAST_RESULT,167,20,352,135,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | WS_VSCROLL | 
+                    WS_HSCROLL
+    DEFPUSHBUTTON   "Start Race",IDOK,160,290,78,18
+    PUSHBUTTON      "Exit",IDCANCEL,290,290,78,18
+    GROUPBOX        "Starting Grid",IDC_STATIC,5,165,150,61,WS_GROUP
+    GROUPBOX        "Qualifications",IDC_STATIC,5,230,150,55,WS_GROUP
+    GROUPBOX        "Race Parameters",IDC_STATIC,5,5,150,155
+    LTEXT           "Track Name:",IDC_STATIC,15,20,40,8
+    LTEXT           "Laps",IDC_STATIC,15,40,18,8
+    LTEXT           "Qualification Laps:",IDC_STATIC,14,245,59,8
+    LTEXT           "Number of Qualif.",IDC_STATIC,15,265,56,8
+    GROUPBOX        "Last Result",IDC_STATIC,160,5,365,155
+    LTEXT           "Movie",IDC_STATIC,15,80,27,8
+    LTEXT           "Random seed",IDC_STATIC,15,100,45,10
+    LTEXT           "OpenGL",IDC_STATIC,15,60,28,8
+    LTEXT           "Follow car",IDC_STATIC,15,120,33,8
+    GROUPBOX        "Drivers",IDC_STATIC,160,165,365,120
+    LTEXT           "Available drivers",IDC_STATIC,167,178,80,10
+    LTEXT           "Selected drivers",IDC_STATIC,379,178,80,10
+    LTEXT           "Surface",IDC_STATIC,15,140,26,8
+END
+
+IDD_RARS_DIALOG DIALOGEX 0, 0, 420, 278
+STYLE WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | 
+    WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "RARS"
+MENU IDR_DIALOG_MENU
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_BITMAP_2D,"Static",SS_BITMAP | SS_NOTIFY | 
+                    SS_REALSIZEIMAGE | SS_SUNKEN | WS_GROUP | WS_TABSTOP,6,5,
+                    19,17,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,HIDC_BITMAP_2D
+    CONTROL         "",IDC_BITMAP_BOARD,"Static",SS_BITMAP | SS_SUNKEN,5,170,
+                    19,17,WS_EX_CLIENTEDGE | WS_EX_STATICEDGE
+    CONTROL         "",IDC_BITMAP_CLASSIC,"Static",SS_BITMAP | SS_NOTIFY | 
+                    SS_SUNKEN,260,5,19,17,WS_EX_CLIENTEDGE | 
+                    WS_EX_STATICEDGE
+END
+
+IDD_StartRaceBulle DIALOG DISCARDABLE  0, 0, 351, 238
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Rars"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_LAPS,65,45,80,12,ES_AUTOHSCROLL
+    CONTROL         "Spin2",IDC_SPIN2,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,150,45,8,
+                    14
+    CONTROL         "Spin1",IDC_SPIN1,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,150,65,8,
+                    14
+    DEFPUSHBUTTON   "Start Race",IDOK,115,220,50,14
+    PUSHBUTTON      "Exit",IDCANCEL,180,220,50,14
+    GROUPBOX        "Race Parameters",IDC_STATIC,10,10,325,75
+    LTEXT           "Track Name:",IDC_STATIC,15,25,40,8
+    LTEXT           "Laps:",IDC_STATIC,15,45,18,8
+    LTEXT           "Cars",IDC_STATIC,15,65,15,8
+    COMBOBOX        IDC_TRACK_NAME,65,25,80,64,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Optimization",IDC_STATIC,10,85,325,130
+    LTEXT           "Static",IDC_RES0,15,115,305,15
+    LTEXT           "Static",IDC_RES1,15,135,305,60
+    LTEXT           "Static",IDC_RES2,15,195,305,15
+    COMBOBOX        IDC_OPTI_STYLE,65,100,95,78,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_OPTI_NB,175,100,35,15,ES_AUTOHSCROLL
+    CONTROL         "Spin3",IDC_SPIN3,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,210,100,9,
+                    15
+    LTEXT           "Optimization",IDC_STATIC,20,100,39,8
+    LISTBOX         IDC_LIST_TRACK,185,25,130,35,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Add",IDC_ADD_TRACK,174,65,45,15
+    EDITTEXT        IDC_OPTI_START,235,100,35,15,ES_AUTOHSCROLL
+    CONTROL         "Spin4",1031,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,275,100,
+                    10,15
+    LTEXT           "Start with param :",IDC_STATIC,235,90,55,10
+    LTEXT           "Cycle :",IDC_STATIC,175,90,40,10
+    PUSHBUTTON      "Add all",IDC_ADD_ALL_TRACK,273,65,45,15
+    PUSHBUTTON      "Del",IDC_DEL_TRACK,224,65,45,15
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 210
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_StartRace, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 315
+    END
+
+    IDD_RARS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 413
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 271
+    END
+
+    IDD_StartRaceBulle, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 344
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 231
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\vc_rars.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_DIALOG_MENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Exit",                       IDCANCEL
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "Change &View\tV",             ID_OPENGL_VIEW
+        MENUITEM SEPARATOR
+        MENUITEM "Classic",                     ID_VIEW_CLASSIC
+        MENUITEM "OpenGL - Fullscreen",         ID_VIEW_OPENGL_FULLSCREEN
+        MENUITEM "OpenGL - Window",             ID_VIEW_OPENGL_WINDOW
+        MENUITEM "Telemetry",                   ID_VIEW_TELEMETRY
+        MENUITEM "Zoom",                        ID_VIEW_ZOOM
+        MENUITEM SEPARATOR
+        MENUITEM "Zoom In\t+",                  ID_ZOOM_IN
+        MENUITEM "Zoom Out\t-",                 ID_ZOOM_OUT
+        MENUITEM SEPARATOR
+        MENUITEM "View/Hide &Trajectory\tT",    ID_VIEW_TRAJECTORY
+        MENUITEM "View Drivers &names\tV",      ID_VIEW_DRIVERNAMES
+    END
+    POPUP "&Speed"
+    BEGIN
+        MENUITEM "&Pause\tP",                   ID_SPEED_PAUSE
+        MENUITEM "&Rewind\tR",                  ID_SPEED_REWIND
+        MENUITEM "S&tep by step\tE",            ID_SPEED_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "&Slow\tS",                    ID_SPEED_SLOW
+        MENUITEM "Me&dium\tD",                  ID_SPEED_MEDIUM
+        MENUITEM "&Fast\tF",                    ID_SPEED_FAST
+    END
+    POPUP "&Car"
+    BEGIN
+        MENUITEM "Previous Car\tPgUp",          ID_CAR_PRV_CAR
+        MENUITEM "Next Car\tPgDown",            ID_CAR_NEXT_CAR
+        MENUITEM SEPARATOR
+        POPUP "Follow Car"
+        BEGIN
+            MENUITEM "manual &Update\tU",           ID_CAR_MANUAL
+            MENUITEM "Nobody\tI",                   ID_CAR_NOBODY
+            MENUITEM "for &Position\tP",            ID_CAR_FOR_POSITION
+            MENUITEM "any &Overtaking\tO",          ID_CAR_ANY_OVERTAKING
+        END
+    END
+    POPUP "Settings"
+    BEGIN
+        MENUITEM "&Save Settings",              ID_SETTINGS_SAVE
+    END
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "RARS MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "RARS\0"
+            VALUE "LegalCopyright", "Copyright © 1997\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "RARS.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "RARS Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP  DISCARDABLE     "res\\toc.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_StartRace DLGINIT
+BEGIN
+    IDC_OPEN_GL, 0x403, 8, 0
+0x6c43, 0x7361, 0x6973, 0x0063, 
+    IDC_OPEN_GL, 0x403, 19, 0
+0x704f, 0x6e65, 0x4c47, 0x4620, 0x6c75, 0x206c, 0x6353, 0x6572, 0x6e65, 
+"\000" 
+    IDC_OPEN_GL, 0x403, 14, 0
+0x704f, 0x6e65, 0x4c47, 0x5720, 0x6e69, 0x6f64, 0x0077, 
+    IDC_OPEN_GL, 0x403, 10, 0
+0x6554, 0x656c, 0x656d, 0x7274, 0x0079, 
+    IDC_OPEN_GL, 0x403, 5, 0
+0x6f5a, 0x6d6f, "\000" 
+    IDC_MOVIE, 0x403, 7, 0
+0x4e3c, 0x6e6f, 0x3e65, "\000" 
+    IDC_MOVIE, 0x403, 9, 0
+0x523c, 0x6365, 0x726f, 0x3e64, "\000" 
+    IDC_SURFACE, 0x403, 23, 0
+0x2030, 0x202d, 0x6f4c, 0x736f, 0x2065, 0x4e28, 0x726f, 0x616d, 0x206c, 
+0x6163, 0x2972, "\000" 
+    IDC_SURFACE, 0x403, 24, 0
+0x2031, 0x202d, 0x6148, 0x6472, 0x7265, 0x2820, 0x6f4e, 0x6d72, 0x6c61, 
+0x6320, 0x7261, 0x0029, 
+    IDC_SURFACE, 0x403, 23, 0
+0x2032, 0x202d, 0x7341, 0x6870, 0x6c61, 0x2074, 0x4628, 0x2031, 0x7974, 
+0x6572, 0x2973, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About rars..."
+END
+
+#endif    // Französisch (Frankreich) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Französisch (Belgien) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRB)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_BELGIAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif\r\n"
+    "#include ""res\\vc_rars.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Französisch (Belgien) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "res\vc_rars.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

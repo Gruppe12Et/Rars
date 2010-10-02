@@ -1,0 +1,308 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.12-20 i686) [Netscape]">
+   <title>PART 6</title>
+</head>
+<body>
+
+<center><b><font color="#FF0000"><font size=+2>PART 6</font></font></b></center>
+
+<hr WIDTH="100%">
+<p><b><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+TUTORIAL 6</font></b>
+<br><b><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ROBOT INPUTS</font></b>
+<br><b><font size=+2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+by M. Timin</font></b>
+<p>In this document I will attempt to explain as clearly as I am able the
+meaning of <b><font color="#006600">all the items in the version 0.61 situation
+structure</font></b>. The situation structure declaration is found in CAR.H,
+along with the declarations of STAGE and rel_state, which are used in situation.&nbsp;
+The reader should refer to CAR.H when appropriate.
+<p>You will find the items divided into four groups, with an explanation
+for each item.&nbsp; Note that the eight items in group 1 are all you really
+need to make a robot that performs quite well on most tracks.&nbsp; (Really
+only seven, because s.to_rgt = width - s.to_lft.)
+<p>There is <b>some other information</b> available to the robot that is
+not part of the situation structure.&nbsp; This is the <b>track description</b>
+arrays, the number of segments and the track width.&nbsp; There is a function
+<b><font color="#3333FF">get_track_description()</font></b>which gets this
+information if you want your robot to use it, but it is not necessary to
+use it.&nbsp; If you are interested it is described in track.h.
+<p>With each definition I will make a suggestion as to how the item might
+be used.&nbsp; These are just my suggestions; in many cases you might discover
+other uses that I have not thought of.
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><b><font color="#FF0000"><font size=+1>Group 1 - Essential Information.</font></font></b>
+<p>These alone are sufficient for a good&nbsp; performing robot, and no
+robot should ignore any of these.&nbsp; Any robot author should master
+the use of these first.&nbsp; There are plenty of examples in the robots
+supplied with the software package.
+<center>
+<p><img SRC="situatio.gif" height=262 width=600></center>
+
+<p><b><font color="#3333FF">cur_rad</font></b> - If the car is in a curve
+to the left, then this is the radius of the left, or inner, edge of the
+track.&nbsp; If in a curve to the right, then this is the negative of the
+radius of the right, or inner, edge of the track.&nbsp; If on a straightaway
+it is zero.&nbsp; The most common use for this is to calculate an appropriate
+cornering speed, and to know if you can apply full throttle because you
+are on a straight. (all radii are given in feet)
+<p><b><font color="#3333FF">to_end</font></b> - This tells you (i.e, the
+robot driver) how far you have to go to the end of the straight or curve
+you are on.&nbsp; For a straight it is in feet.&nbsp; For a curve, which
+is a circle arc, it is in radians. You use this to decide when to begin
+a transition to the next segment, either by braking or accelerating, and
+by steering in an appropriate way.
+<p><b><font color="#3333FF">to_lft, to_rgt</font></b> - These tell you
+how close you are to the left and right walls of the track.&nbsp; If they
+get too small you need to steer away from the wall.&nbsp; In a curve you
+generally want to keep near the inside wall for at least part of the curve.&nbsp;
+You do this by steering so as to maintain a small value for one of those.&nbsp;
+Finally, if either of those becomes negative, then you are off of the track
+and accumulating damage and decelerating.&nbsp; (These are in feet.)
+<p><b><font color="#3333FF">v</font></b> - How fast you are travelling,
+feet per second.&nbsp; Every part of the course has an appropriate speed.&nbsp;
+You need to estimate that in some way and compare your speed to it, then
+speed up or slow down.
+<p><b><font color="#3333FF">vn</font></b> - The component of v which is
+perpedicular to the track walls.&nbsp; This tells you if you are drifting
+toward a wall, and how fast.&nbsp; You need to keep this from getting very
+large or very negative or you will go off the track soon afterward.&nbsp;
+Negative means heading toward right wall.
+<p><b><font color="#3333FF">nex_rad</font></b> - The radius of the next
+segment, zero for a straight, negative for a right turn.&nbsp; It is necessary
+to make some kind of transition as you near the end of the current segment.&nbsp;
+nex_rad lets you calculate if you are going to be slowing down or speeding
+up, and how much.&nbsp; Also, in which direction you will have to begin
+heading.
+<p><b><font color="#3333FF">dead_ahead</font></b> - This warns you that
+you are pointing toward a nearby car.&nbsp; It is zero when it's clear
+ahead.&nbsp; It gets set when there is another car within 2.5 car lengths
+ahead (center to center) and within + or - 20 degrees of the direction
+your nose is pointing. You might want to steer a little to the right or
+left if this gets set.&nbsp; That should be no problem on a straight.&nbsp;
+On a curve it is not clear what to do - maybe slow down a small amount,
+maybe steer a small amount toward the inside, which will also slow you
+down.
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><b><font color="#FF0000"><font size=+1>Group 2 - Potentially useful
+information.</font></font></b>
+<p>These items might be used to improve performance in specific situations.
+<p><b><font color="#3333FF">nex_len</font></b> - The length of the next
+segment ahead of you.&nbsp; This is in&nbsp; feet if the next segment is
+a straight, otherwise it's an arc length in radians.&nbsp; If this is not
+used then you are assuming that it is long.&nbsp; Suppose the next segment
+is a curve.&nbsp; If it is long, say more than two radians, you will have
+to slow down to the theoretical speed determined by its radius.&nbsp; But
+if it is very short, say less than half a radian, then you could go through
+it much faster.&nbsp; You would not know this unless you consider s.nex_len.
+<p><b><font color="#3333FF">after_rad</font></b> - Like cur_rad and nex_rad,
+but refers to the segment following those.&nbsp; If nex_len is short and
+you want to compute a speed and a path to follow, it will depend on after_rad.&nbsp;
+If nex_len is very short the speed with which you can enter the next segment
+will depend more on after_rad than on nex_rad.
+<p><b><font color="#3333FF">after_len</font></b> - Like cur_len and nex_len,
+but refers to the segment following those.&nbsp; It might be used in determining
+the speed and path with which to enter the next segment when nex_len and
+after_len are both short, in which case aftaft_rad will be important.
+<p><b><font color="#3333FF">aftaft_rad</font></b> - Like cur_rad, nex_rad,
+and after_rad, but refers to the segment following those.&nbsp; It would
+affect the speed at which you could safely enter a corner if both nex_len
+and after_len are short.
+<p><b><font color="#3333FF">aftaft_len</font></b> - Probably just overkill.&nbsp;
+(like cur_len, nex_len, after_len)
+<p><b><font color="#3333FF">cen_a</font></b> - Acceleration is a vector.&nbsp;
+This is the component perpendicular to your velocity vector.&nbsp; You
+could use this to tell if you are cornering fast enough.&nbsp; If you are
+cornering at constant speed then this should approach MYU_MAX, the maximum
+coeficient of friction. This simulates the human driver's sensation of
+centrifugal force during cornering.&nbsp;&nbsp; (cen_a is short for centripetal
+acceleration.)
+<p><b><font color="#3333FF">tan_a</font></b> - This is the component of
+the acceleration vector which is parallel to the velocity vector.&nbsp;
+It is positive if speed is increasing, negative when braking.&nbsp; The
+vector sum of tan_a and cen_a will always be less than MYU_MAX.&nbsp; (Actually
+it could exceed it slightly when braking, due to air drag.)&nbsp; (tan_a
+= tangential accel.)
+<p><b><font color="#3333FF">damage</font></b> - This starts at zero and
+goes up each time you bump another car or it bumps you, or if you are driving
+off the track.&nbsp; The damage depends on the relative velocity.&nbsp;
+If it hits 30000 your car is out of the race.&nbsp; The details are in
+move_car() in CARZ.CPP.&nbsp; A smart robot would watch this and drive
+more carefully if it gets dangerously large.&nbsp; If it is near the end
+of a race and he is trying to pass then he might delibertely risk some
+damage.
+<p><b><font color="#3333FF">fuel</font></b> - This start out at 150 pounds
+and then decreases at a rate proportional to power.&nbsp; At full power
+the rate is .045 pounds per second.&nbsp; (of simulated time as measured
+by time_count)&nbsp; You can accelerate away from a corner a little bit
+faster when the tank is near empty.&nbsp; If the fuel goes to zero the
+car will refuel automatically and you will only lose about 15 to 20 seconds.&nbsp;
+If you are near the end of a long race you might want to change driving
+style to finish with one less refueling.
+<p><b><font color="#3333FF">laps_to_go</font></b> - This will tell you
+if you are near the end of the race, which may affect your driving style,
+as noted above in a couple of places.&nbsp; You can also record your fuel
+and damage versus this variable during a long race in order to predict
+when you will run out of fuel and when you will be out by accumulated damage.
+<p><b><font color="#3333FF">nearby</font></b> - This one is complicated,
+yet very important, so I am including a little sample code below.&nbsp;
+"nearby" is an array of structures.&nbsp; s.nearby[0] is the rel_state
+structure for the nearest car.&nbsp; s.nearby[1] is for the next nearest
+car, and s.nearby[2] is for the next.&nbsp; (There are only three elements
+of the nearby array.)&nbsp; Looking at the definition of rel_state, in
+CAR.H, we see that there are 5 components: <b><font color="#3333FF">who,
+rel_x, rel_y, rel_xdot, and rel_ydot</font></b>. The first component, <b><font color="#3333FF">who,</font></b>
+tells you if there is any valid data in the structure.&nbsp; If so, its
+value will be a car identifier, 0 through 15.&nbsp; If there is no valid
+data then its value will be more than 15.&nbsp; If you imagine x-y coordinates
+with the driver at the origin, the y-axis straight ahead of where the car
+is pointing, and the x-axis off to the driver's right, you can understand
+<b><font color="#3333FF">rel_x</font></b> and <b><font color="#3333FF">rel_y</font></b>.&nbsp;
+They are the x and y coordinates of the other car, in feet.&nbsp; y is
+how far in front of you and x is how far to the right.&nbsp; <b><font color="#3333FF">rel_xdot</font></b>
+and <b><font color="#3333FF">rel_ydot</font></b> are the rates of change
+of rel_x and rel_y in feet per second, i.e., the apparent velocity components
+of the other car with respect to your robot.&nbsp; As an example, if you
+are following 50 feet directly behind another car, and you are going 1
+foot per second faster than he is, then rel_y will be 50, rel_ydot will
+be -1, and rel_x and rel_xdot will be 0.&nbsp; <b><font color="#006600">One
+last thing, rel_y will never be negative</font></b>; the algorithm deliberately
+ignores all cars that are even slightly behind you.
+<p><b><tt>&nbsp;&nbsp;&nbsp; // some sample code:</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp; for(i=0;i&lt;3;i++) if (s.nearby[i].who&lt;16)
+{ // if there is a close car</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x=s.nearby[i].rel_x;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// get forward distance</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; y=s.nearby[i].rel_y;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// get right distance</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vx=s.nearby[i].rel_xdot;&nbsp;&nbsp;&nbsp;&nbsp;
+// get forward relative speed</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vy=s.nearby[i].rel_ydot;&nbsp;&nbsp;&nbsp;&nbsp;
+// get lateral relative speed</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d=sqrt(x*x + y*y);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// compute car-to-car distance</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; v=sqrt(vx*vx + vy*vy);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// compute separation velocity</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(vy >= 0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// no action if cars are moving apart:</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if(x * vx > 0.0)&nbsp;&nbsp;&nbsp;
+// no action if cars are moving apart:</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if(d > 2.0 * CARLEN)&nbsp;
+// no action if car is this far away:</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // If the execution gets this
+far, it means that there is a car</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ahead of you, and getting closer,
+and less than two car lengths</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; away.&nbsp; Evaluate the situation
+more carefully to decide if</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; evasive action is warranted.</tt></b>
+<br><b><tt>&nbsp;&nbsp;&nbsp; }</tt></b>
+<center>
+<p><img SRC="nearby.gif" height=199 width=600></center>
+
+<p><b><font color="#3333FF">position</font></b> - This is your position
+in the race.&nbsp; You are in the lead if this is 0.&nbsp; You are in second
+place if it's 1, etc.&nbsp; You might want to alter your driving style
+as a function of your postion and other factors, but maybe not.&nbsp; (See
+damage and fuel, above.)&nbsp; It is also possible to note which cars are
+passing you or being passed by you.&nbsp; This would be done by paying
+attention to s.nearby[i].who, s.nearby[i].rel_y and s.nearby[i].rel_ydot.
+<p><b><font color="#3333FF">starting</font></b> - This is 1 only at the
+very beginning of every race.&nbsp; (The first call of your robot by the
+host is before the race starts, to get its name.)&nbsp; Use "starting"
+to perform initialization of any kind, such as reading a data file, or
+assigning certain values to variables, or building a structure in your
+data area.
+<p><b><font color="#3333FF">power</font></b> - you might want to control
+your fuel consumption by controling this variable.&nbsp; "Coasting" would
+be maintaining a very low value for power.&nbsp; "Braking" is when power
+is negative; no fuel is used during braking, but kinetic energy is lost
+rapidly and this will require extra fuel when you accelerate again.&nbsp;
+To get high mileage you want to avoid braking and maintain fairly high
+speed without too much power.
+<br>
+<hr WIDTH="100%">
+<p><b><font color="#FF0000"><font size=+1>Group 3 - Useful for machine
+learning approaches.</font></font></b>
+<p>If you are doing some kind of simulated evolution, or neural net, or
+automatic search of parameter space, then you will probably use some of
+these.
+<p><b><font color="#3333FF">data_ptr</font></b> - This is a pointer to
+a 4 K RAM area that you can do what you want with.&nbsp; It will not be
+altered by the host after practice or between races.&nbsp; You might read
+a file into this area and then take values from there to initialize parameters.&nbsp;
+If your program "learns" and alters parameter values, then you can put
+those in the RAM area and later write it out to a file.
+<p><b><font color="#3333FF">seg_ID</font></b> - This refers to the track
+segment that your car is in.&nbsp; The initial straightaway is alway segment
+0.&nbsp; This would be used if you want to memorize the track during the
+first lap of practice, or even the first lap of a race.&nbsp; You would
+do that if you want to construct a table of how fast to take each turn,
+for example.
+<p><b><font color="#3333FF">lap_flag </font></b>- If you are paying attention
+to your lap time, to try and minimize it, then "lap_flag" can tell you
+when to look at it.&nbsp; When lap_flag is non-zero, there is a new lap_time.
+<p><b><font color="#3333FF">lap_time </font></b>- This is the time in seconds
+in which the previous lap was
+<br>completed.&nbsp; See lap_flag, above.
+<p><b><font color="#3333FF">time_count</font></b> - This is the time in
+seconds elapsed since the start of the race.&nbsp; You might want to let
+your car run for several laps, and then use this as your factor-of-merit.&nbsp;
+If you are always running for N laps, then the lower the time_count at
+the end of N laps, the better. (This is in seconds of simulated time; it
+will equal stopwatch seconds if you run in realistic speed.)
+<br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<p><b><font color="#FF0000"><font size=+1>Group 4 : Others</font></font></b>
+<p>I don't know what you would do with these, but you might think of something!
+<p><b><font color="#3333FF">cur_len</font></b> - This is the length of
+the current segment, in feet or radians.&nbsp; Although I and others have
+used it, it only tells you about the past, and so it is theoretically of
+no value.&nbsp; s.to_end is what is important.&nbsp; s.cur_len - s.to_end
+tells you the length of the part of the segment that you have already traveled.&nbsp;
+In my opinion a robot is better off to totally ignore s.cur_len.
+<p><b><font color="#3333FF">alpha</font></b> - The skid angle in radians
+used by the simulation.&nbsp; Usually this is the same as the previous
+value of alpha that your robot returned.&nbsp; However, the rate of change
+and magnitude of alpha are limited, so if you tried to suddenly make a
+large value of alpha, you might have gotten a smaller one.
+<p><b><font color="#3333FF">vc</font></b> - The actual tire speed used
+by the simulation.&nbsp; Often, this is the same as the previous value
+of vc that your robot returned.&nbsp; However, vc is limited by the available
+power, so if you requested a large value fo vc, you might get a smaller
+one.&nbsp; This is a very common occurence with most robots; it is the
+usual case when accelerating, or cornering hard at high speed.
+<p><b><font color="#3333FF">start_time</font></b> - The value of time_count
+when your robot crossed the start/finish line.&nbsp; The host begins calculating
+average speed at that time.
+<p><b><font color="#3333FF">my_ID</font></b> - Your robots identifier.&nbsp;
+The only use for this is if you have two cars driven by the same robot,
+as we have often done with the robot "Dynamic".&nbsp; Each car will have
+a different value of my_ID.
+<p><b><font color="#3333FF">backward</font></b> - This would be necessary
+if you don't use the stuck() function to handle escape from crashes.&nbsp;
+If you do use it, then it appears as an input to stuck(), and that is all.&nbsp;
+"backward" is set when the car's velocity vector is going the wrong way
+down the track.
+<p><b><font color="#3333FF">power_req</font></b> - This is the power that
+would be required if the original request for vc by the robot would have
+been honored.&nbsp; When you want 100% power you can check to see if power_req
+is greater than PM.&nbsp; If not, then you want to increase vc.
+<br>
+<hr WIDTH="100%">
+<p>I hope the foregoing is useful to you.
+<p>m
+</body>
+</html>

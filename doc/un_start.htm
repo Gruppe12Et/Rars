@@ -1,0 +1,96 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux 2.4.0-4GB i686) [Netscape]">
+   <meta name="Microsoft Border" content="none">
+   <title>How to use Rars with Visual C</title>
+</head>
+<body>
+
+<center><b><font face="Arial"><font color="#FF0000"><font size=+1>How to
+use Rars on Linux</font></font></font></b></center>
+
+<p>
+<hr>
+<p>There are 2 ways to run Rars on Linux:
+<ul>
+<li>
+<a href="#XWINDOWS">Rars with XWindows</a></li>
+
+<li>
+<a href="#KDE2">Rars with KDE2</a></li>
+</ul>
+
+<hr WIDTH="100%">
+<br><a NAME="XWINDOWS"></a><b><font color="#009900"><font size=+1>Rars
+With XWindows</font></font></b>
+<p>After unzipping this you should find following directories with the
+source files:
+<blockquote>/.
+<br>ROBOTS
+<br>/UNIX</blockquote>
+Go in the root directory and type 'make -f makefile.x11'.
+<p><tt><font size=+1>> make -f makefile.x11</font></tt>
+<br><tt><font size=+1>> ./rars 8 80 aidelaide</font></tt>
+<p>To get help about rars, type
+<p><tt><font size=+1>> rars -?</font></tt>
+<p>
+<hr WIDTH="100%">
+<br><a NAME="KDE2"></a><b><font color="#009900"><font size=+1>Rars with
+KDE 2</font></font></b>
+<p>You need the following components to run the KDE 2 version of Rars on
+Linux
+<br>- KDE 2 + the development libraries
+<br>- QT 2.2.x + the development libraries
+<p>In short all the common packages of KDE 2, available on <a href="http://www.kde.org">http://www.kde.org</a>
+<p>The program has been developed with "KDevelop". It becomes a common
+part of KDE 2.1 but is installed as optional package in KDE 2.0.1.
+<p>With Kdevelop :
+<ul>
+<li>
+Open the project in KDevelop, rebuild all and run.</li>
+</ul>
+Without KDevelop:
+<ul>
+<li>
+Go in the root of the project (KDEDIR, QTDIR depends of the Linux distribution)</li>
+
+<li>
+export CXXFLAGS="-O0 -g3 -Wall -I.."</li>
+
+<li>
+export QTDIR=/usr/lib/qt2</li>
+
+<li>
+export KDEDIR=/opt/kde2</li>
+
+<li>
+./configure</li>
+
+<li>
+make</li>
+
+<li>
+Go in the rars subdirectory and type ./rars</li>
+</ul>
+<font color="#FF0000"><font size=+1>Good luck!</font></font>
+<p>
+<hr WIDTH="100%">
+<p><a NAME="DOS"></a><b><font color="#FF0000"><font size=+1>Dos</font></font></b>
+<p>The current version 0.80 has not been tested on Dos.
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

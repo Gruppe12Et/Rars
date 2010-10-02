@@ -1,0 +1,86 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Marc Gueury">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>bug0003</title>
+</head>
+<body>
+<b><font color="#3333FF"><font size=+2>Bug 0003</font></font></b>
+<p><b><font color="#FF0000">Movie: Rars loops infinitely when replaying
+a movie</font></b>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>Version</td>
+
+<td>0.72</td>
+</tr>
+
+<tr>
+<td>Solved in</td>
+
+<td>0.73c</td>
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>carz.cpp</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+
+<td>Marc Gueury</td>
+</tr>
+
+<tr>
+<td>Platform</td>
+
+<td>ALL</td>
+</tr>
+
+<tr>
+<td>Impact on cars</td>
+
+<td>NONE</td>
+</tr>
+
+<tr>
+<td>Impact on portability</td>
+
+<td>NONE</td>
+</tr>
+</table>
+
+<p><b><u>Description:</u></b>
+<p>It seems that there is a small bug in the replay of a movie
+<br>that happens not very often. It loops infinitely in the function
+<br>sortem because of a wrong line in the function farther farther.
+<p>In carz.cpp
+<br>[...]
+<br>&nbsp; int farther(Car* car0, Car* car1)
+<br>&nbsp; {
+<br>&nbsp;&nbsp;&nbsp;&nbsp; if(car0->laps > car1->laps)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+<br>&nbsp;&nbsp;&nbsp;&nbsp; else if(car0->laps &lt; car1->laps)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// else laps are equal
+<br>&nbsp;&nbsp;&nbsp;&nbsp; else if(car0->distance > car1->distance)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+<br>&nbsp;&nbsp;&nbsp;&nbsp; else if(car0->distance &lt; car1->distance)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 1;
+<br>->&nbsp;&nbsp; else return 1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// returns 1 in case of total equality
+<br>&nbsp; }
+<p><b><u>Solution</u></b>
+<p>This is wrong, it should return 0.
+<p>[...]
+<br>&nbsp;&nbsp;&nbsp;&nbsp; else return 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// returns 0 in case of total equality
+<br>&nbsp; }
+<br>[...]
+</body>
+</html>

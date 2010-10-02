@@ -1,0 +1,339 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>PART 5</title>
+</head>
+<body>
+
+<center><b><font color="#FF0000"><font size=+2>PART 5</font></font></b></center>
+
+<hr WIDTH="100%">
+<br><tt><font color="#006600">/*</font></tt>
+<br><tt><font color="#006600">TUTORIAL3.CPP</font></tt><tt><font color="#006600"></font></tt>
+<p><tt><font color="#006600">History</font></tt>
+<br><tt><font color="#006600">- yet another RARS 'bot, by M. Timin, April
+'95</font></tt>
+<br><tt><font color="#006600">- Object Oriented Robot + Pitting&nbsp;&nbsp;&nbsp;&nbsp;
+January 2001</font></tt><tt><font color="#006600"></font></tt>
+<p><tt><font color="#006600">This file is the fifth in our tutorial series.&nbsp;
+It is also a working robot.&nbsp; The robot function name,</font></tt>
+<br><tt><font color="#006600">and its displayed name, is "TutMan6". This
+file may be compiled and linked just as any other RARS</font></tt>
+<br><tt><font color="#006600">driver. It has been tested, and it runs very
+well on almost all tracks.</font></tt>
+<br><tt><font color="#006600">This code is closely based on the first four
+tutorials.&nbsp; I will try to explain where and why it differs</font></tt>
+<br><tt><font color="#006600">in the comments of the code.&nbsp; There
+are two other files that all of our readers should get from the ftp</font></tt>
+<br><tt><font color="#006600">site. They are vectors.txt and vectors.pcx.&nbsp;
+The first is an explanation of the vector relationships</font></tt>
+<br><tt><font color="#006600">used in the car model.&nbsp; The second is
+a PCX file of an accompanying sketch.</font></tt><tt><font color="#006600"></font></tt>
+<p><tt><font color="#006600">The file CNTRL0.CPP is still useful as a reference
+for some details</font></tt>
+<br><tt><font color="#006600">of robot code that are not explained below.</font></tt><tt><font color="#006600"></font></tt>
+<p><tt><font color="#006600">m</font></tt>
+<br><tt><font color="#006600">*/</font></tt><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">//--------------------------------------------------------------------------</font></tt></b>
+<br><b><tt><font color="#000000">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+I N C L U D E</font></tt></b>
+<br><b><tt><font color="#000000">//--------------------------------------------------------------------------</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">#include &lt;string.h></font></tt></b>
+<br><b><tt><font color="#000000">#include &lt;stdlib.h></font></tt></b>
+<br><b><tt><font color="#000000">#include &lt;math.h></font></tt></b>
+<br><b><tt><font color="#000000">#include "car.h"</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">//--------------------------------------------------------------------------</font></tt></b>
+<br><b><tt><font color="#000000">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+D E F I N E S</font></tt></b>
+<br><b><tt><font color="#000000">//--------------------------------------------------------------------------</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">// parameters to tinker with:</font></tt></b>
+<br><b><tt><font color="#000000">const double DELTA_LANE = 1.0;&nbsp; //
+when car "dead_ahead, change "lane" this much</font></tt></b>
+<br><b><tt><font color="#000000">const double CORN_MYU&nbsp;&nbsp; =&nbsp;
+.92;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // lateral g's expected when cornering</font></tt></b>
+<br><b><tt><font color="#000000">const double BRAKE_ACCEL = -30.0;&nbsp;&nbsp;&nbsp;&nbsp;
+// acceleration when braking on straight</font></tt></b>
+<br><b><tt><font color="#000000">const double BRAKE_RATIO = .935;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// tire speed ratio when braking&nbsp;&nbsp; "</font></tt></b>
+<br><b><tt><font color="#000000">const double BRK_CRV_ACC = -25.0;&nbsp;&nbsp;&nbsp;&nbsp;
+// acceleration when braking in curve</font></tt></b>
+<br><b><tt><font color="#000000">const double BRK_CRV_SLIP = 5.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// tire slip for braking in curve</font></tt></b>
+<br><b><tt><font color="#000000">const double DIST_FROM_INSIDE = 12.0;
+// target distance from curve's inner rail</font></tt></b>
+<br><b><tt><font color="#000000">const double STEER_GAIN = 0.5;&nbsp;&nbsp;
+// gain of steering servo loop</font></tt></b>
+<br><b><tt><font color="#000000">const double&nbsp; DAMP_GAIN = 1.1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// damping of steering servo loop</font></tt></b>
+<br><b><tt><font color="#000000">const double&nbsp; BIG_SLIP = 9.0;&nbsp;&nbsp;&nbsp;&nbsp;
+// affects the bias of steering servo loop</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">//--------------------------------------------------------------------------</font></tt></b>
+<br><b><tt><font color="#000000">//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Class Tutorial3</font></tt></b>
+<br><b><tt><font color="#000000">//--------------------------------------------------------------------------</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">class Tutorial3 : public Driver</font></tt></b>
+<br><b><tt><font color="#000000">{</font></tt></b>
+<br><b><tt><font color="#000000">public:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; Tutorial3::Tutorial3()</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; m_sName = "Tuto 3";</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; m_sAuthor = "Mitchell
+Timin";</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; m_iNoseColor = oBLUE;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; m_iTailColor = oBLUE;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; m_sBitmapName2D = "car_blue_blue";</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp; double corn_spd(double radius)&nbsp;&nbsp;&nbsp;&nbsp;
+// returns maximum cornering speed, fps</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; //&nbsp; MUST NEVER
+CALL THIS ROUTINE WITH ZERO ARGUMENT!</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; return sqrt(radius
+* 32.2 * CORN_MYU);&nbsp;&nbsp;&nbsp;&nbsp; // compute the speed</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp; // Calculates the critical distance
+necessary to bring a car from speed</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; // v0 to speed v1 when the braking
+acceleration is "a", ft per sec^2.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; // Speeds are in fps.&nbsp; ("a"
+should be negative)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; double CritDist(double v0, double
+v1, double a)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; double dv;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; dv = v1 - v0;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(dv > 0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// this saves having such a test in the caller</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return(0.0);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; return (v0 + .5 * dv)
+* dv / a;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp; con_vec drive(situation &amp;s)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; con_vec result;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// This is what is returned.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; double alpha, vc;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// components of result</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; static double lane
+= -10000;&nbsp;&nbsp;&nbsp; // an absurd value to show not initialized</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; double bias, speed,
+speed_next, width, to_end;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if( s.starting )</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result.fuel_amount
+= MAX_FUEL;&nbsp;&nbsp;&nbsp;&nbsp; // fuel when starting</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // service routine in
+the host software to handle getting unstuck from</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // from crashes and
+pileups:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(stuck(s.backward,
+s.v,s.vn, s.to_lft,s.to_rgt, &amp;result.alpha,&amp;result.vc))</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return
+result;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; width = s.to_lft + s.to_rgt;&nbsp;&nbsp;
+// compute width of track</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // This is a little
+trick so that the car will not try to change lanes</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // during the "dragout"
+at the start of the race.&nbsp; We set "lane" to</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // whatever position
+we have been placed by the host.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(lane &lt; -9000)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// will be true only once</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane =
+s.to_lft;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+better not to change lanes at the start</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // Set "lane" during
+curves.&nbsp; This robot sets "lane" during curves to</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // try to maintain
+a fixed distance to the inner rail.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // For straightaways,
+we leave "lane" unchanged until later.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(s.cur_rad > 0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// turning left</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane =
+DIST_FROM_INSIDE;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; else if(s.cur_rad &lt;
+0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // turning
+right</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane =
+width - DIST_FROM_INSIDE;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // set the bias:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // Bias is an additive
+term in the steering servo, so that the servo</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // doesn't have to
+"hunt" much for the correct alpha value.&nbsp; It is an</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // estimate of the
+alpha value that would be found by the servo if there</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // was plenty of settling
+time.&nbsp; It is zero for straightaways.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // Also, for convenience,
+we call the corn_spd() function here.&nbsp; On</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // the straightaway,
+we call it to find out the correct speed for the</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // corner ahead, using
+s.nex_rad for the radius.&nbsp; In the curve we of</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // course use the radius
+of the curve we are in.&nbsp; But also, we call it</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // for the next segment,
+to find out our target speed for the end of</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // the current segment,
+which we call speed_next.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(s.cur_rad == 0.0)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bias =
+0.0;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.nex_rad
+> 0.0)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+speed = corn_spd(s.nex_rad + DIST_FROM_INSIDE);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if(s.nex_rad
+&lt; 0.0)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+speed = corn_spd(-s.nex_rad + DIST_FROM_INSIDE);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+speed = 250.0;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; else</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.nex_rad
+== 0.0)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+speed_next = 250.0;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+speed_next = corn_spd(fabs(s.nex_rad) + DIST_FROM_INSIDE);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed =
+corn_spd(fabs(s.cur_rad) + DIST_FROM_INSIDE);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bias =
+(s.v*s.v/(speed*speed)) * atan(BIG_SLIP / speed);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.cur_rad
+&lt; 0.0)&nbsp;&nbsp; // bias must be negative for right turn</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bias = -bias;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // set alpha:&nbsp;
+(This line is the complete steering servo.)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; alpha = STEER_GAIN
+* (s.to_lft - lane)/width - DAMP_GAIN * s.vn/s.v + bias;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // set vc:&nbsp; When
+nearing end of straight, change "lane" for the turn, also.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(s.cur_rad == 0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// If we are on a straightaway,</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// if we are far from the end,</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.to_end
+> CritDist(s.v, speed, BRAKE_ACCEL))</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+vc = s.v + 50.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pedal to the metal!</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// otherwise, adjust speed for the coming turn:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(s.v > 1.02 * speed)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// if we're 2% too fast,</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+vc = BRAKE_RATIO * s.v;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // brake hard.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else if(s.v &lt; .98 * speed)&nbsp;&nbsp;&nbsp;&nbsp; // if we're 2% too
+slow,</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+vc = 1.1 * speed;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// accelerate hard.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// if we are very close to speed,</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+vc = .5 * (s.v + speed);&nbsp;&nbsp;&nbsp;&nbsp; // approach the speed
+gently.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// approach the lane you want for the turn:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if(s.nex_rad > 0.0)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lane = DIST_FROM_INSIDE;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+else</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lane = width - DIST_FROM_INSIDE;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// This is when we are in a curve:&nbsp; (seek correct speed)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // calculate
+vc to maintain speed in corner</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = .5
+* (s.v + speed)/cos(alpha);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // calculate
+distance to end of curve:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.cur_rad
+> 0.0)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+to_end = s.to_end * (s.cur_rad + DIST_FROM_INSIDE);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+to_end = -s.to_end * (s.cur_rad - DIST_FROM_INSIDE);</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // compute
+required braking distance and compare:</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(to_end
+&lt;= CritDist(s.v, speed_next, BRK_CRV_ACC))</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+vc = s.v - BRK_CRV_SLIP;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // During the acceleration
+portion of a straightaway, the lane variable</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // is not changed by
+the code above.&nbsp; Hence the code below changes it a</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // little at a time
+until there is no car dead_ahead.&nbsp; This code here has</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // no affect at all
+in the turns, nor in the braking portion</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // of the straight.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if(s.dead_ahead)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Change the lane a little if someone's</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.to_lft
+> s.to_rgt)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // in
+your way.</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lane -= DELTA_LANE;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// lane must be a static variable</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lane += DELTA_LANE;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; result.vc = vc;&nbsp;&nbsp;
+result.alpha = alpha;</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; // Pit: if the fuel
+is too low</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; //&nbsp; Fuel: full</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; //&nbsp; Damage: repair
+all</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if( s.fuel&lt;10.0
+)</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result.request_pit&nbsp;&nbsp;
+= 1;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result.repair_amount
+= s.damage;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result.fuel_amount
+= MAX_FUEL;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">&nbsp;&nbsp;&nbsp; return result;</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; }</font></tt></b>
+<br><b><tt><font color="#000000">};</font></tt></b><b><tt><font color="#000000"></font></tt></b>
+<p><b><tt><font color="#000000">Driver * getTutorial3Instance()</font></tt></b>
+<br><b><tt><font color="#000000">{</font></tt></b>
+<br><b><tt><font color="#000000">&nbsp; return new Tutorial3();</font></tt></b>
+<br><b><tt><font color="#000000">}</font></tt></b>
+<br><tt><font color="#006600"></font></tt>&nbsp;
+<br><b><tt></tt></b>&nbsp;
+</body>
+</html>

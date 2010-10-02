@@ -1,0 +1,18 @@
+COLOR: 15
+ R  G  B     NB   NAME
+ 0  0  0      0   Black
+ 0  0 63      1   Blue
+ 0 63  0      2   Green
+ 0 63 63      3   Cyan
+63  0  0      4   Red
+63  0 63      5   Magenta
+31 31 31      6   MidGray
+43 43 43      7   LtGray
+15 15 15      8   DarkGray
+31 31 63      9   LtBlue
+31 63 31     10   LtGreen
+31 63 63     11   LtCyan
+63 31 31     12   LtRed
+63 31  0     13   Orange
+63 63  0     14   Yellow
+63 63 63     15   White

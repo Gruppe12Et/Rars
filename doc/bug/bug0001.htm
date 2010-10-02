@@ -1,0 +1,78 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Marc Gueury">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>bug0001</title>
+</head>
+<body>
+<b><font color="#3333FF"><font size=+2>Bug 0001</font></font></b><b><font color="#FF0000"></font></b>
+<p><b><font color="#FF0000">Memory leak in carz.pp (glob_name)</font></b>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>Version</td>
+
+<td>0.73b</td>
+</tr>
+
+<tr>
+<td>Solved in</td>
+
+<td>0.73c</td>
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>carz.cpp</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+
+<td>Marc Gueury</td>
+</tr>
+
+<tr>
+<td>Platform</td>
+
+<td>ALL</td>
+</tr>
+
+<tr>
+<td>Impact on cars</td>
+
+<td>NONE</td>
+</tr>
+
+<tr>
+<td>Impact on portability</td>
+
+<td>NONE</td>
+</tr>
+</table>
+
+<p><b><u>Description:</u></b>
+<p>Problem of memory allocation of the names in carz.cpp.
+<br>Variable glob_name is allocated and never removed.
+<p>[...]
+<br>static char *glob_name;&nbsp; // will hold name of each robot driver
+(one at a time)
+<br>[...]
+<br>void RaceManager::ArgsInit( int argc, char* argv[] )
+<br>{
+<br>&nbsp;&nbsp; // Fill drivers[] array with driver names:
+<br>&nbsp;&nbsp; glob_name = new char[33]; // temporary storage for a driver's
+name
+<br>&nbsp;[...]
+<p><b><u>Solution</u></b>
+<p>Change of the definition of&nbsp; glob_name. The allocation is removed.
+<p>[...]
+<br>static char glob_name[33];&nbsp; // will hold name of each robot driver
+(one at a time)
+<br>[...]
+<br>&nbsp;
+</body>
+</html>
