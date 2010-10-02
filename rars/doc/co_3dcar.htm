@@ -1,0 +1,161 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.79 [en] (Win98; U) [Netscape]">
+   <meta name="Microsoft Border" content="none">
+   <title>How to use Rars with Visual C</title>
+</head>
+<body>
+
+<center><b><font face="Arial"><font color="#FF0000"><font size=+1>How to
+make a 3D model of a car</font></font></font></b></center>
+
+<hr>
+<p><b><font color="#009900"><font size=+1>Selecting a 3D model for a car</font></font></b>
+<p>Currently, next to the default model of the 3D car, there are new 3
+models of cars.
+<br>&nbsp;
+<table COLS=4 WIDTH="40%" >
+<tr BGCOLOR="#3333FF">
+<td><b><font color="#FFFFFF">Name</font></b></td>
+
+<td><b><font color="#FFFFFF">Polygons</font></b></td>
+
+<td><b><font color="#FFFFFF">Vertexes</font></b></td>
+
+<td><b><font color="#FFFFFF">Texture</font></b></td>
+</tr>
+
+<tr>
+<td><b>futura</b></td>
+
+<td>7243</td>
+
+<td>5031</td>
+
+<td>No</td>
+</tr>
+
+<tr>
+<td><b>indy</b></td>
+
+<td>12829</td>
+
+<td>6514</td>
+
+<td>Yes</td>
+</tr>
+
+<tr>
+<td><b>porshe</b></td>
+
+<td>8643</td>
+
+<td>5256</td>
+
+<td>No</td>
+</tr>
+</table>
+
+<p>The car are defined 3DS files. The files resides in the directory 3ds/model_name.
+<br>Seen the number of polygon, you will understand that you need a fast
+PC to get it smooth.
+<br>Also, it seems to be quite faster on KDE that Windows, even if the
+code is the same...
+<p><b><font color="#3333FF">For a Object Oriented driver</font></b>
+<p>In the constructor of your car, you can set choose the model by setting
+the member m_sModel3D
+<p><tt>ex:</tt>
+<p><tt>&nbsp;&nbsp; Tutorial1::Tutorial1()</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_sName = "Tuto 1";</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_sAuthor = "Lucky Luke";</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_iNoseColor = oBLUE;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_iTailColor = oBLUE;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_sBitmapName2D = "car_blue_blue";</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m_sModel3D = "futura";</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<p><b><font color="#3333FF">For a C imprementation of a driver.</font></b>
+<p>In drivers.cpp, in the list of the drivers, you can change the model
+of the car by changing your driver line like this.
+<p><tt>OLD:&nbsp; new DriverOld( Vector, oRED, oRED, "car_red_red", NULL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"Vector" ),</tt>
+<br><tt>NEW:&nbsp; new DriverOld( Vector, oRED, oRED, "car_red_red", "futura",&nbsp;
+"Vector" ),</tt>
+<p>
+<hr>
+<p><b><font color="#009900"><font size=+1>Making your own 3D model</font></font></b>
+<p>A car is simply 2 3ds files.
+<p>- car_body.3ds ( 3ds/model_name/car_body.3ds )
+<br>- wheel.3ds ( 3ds/model_name/wheel.3ds )
+<p>The 3ds loader of rars supports the following features:
+<br>- texture cordinates loading
+<br>- Only textures in TGA format (compressed or not)
+<br>- transparency
+<p><b><font color="#3333FF">Example: the car "futura"</font></b>
+<br>&nbsp;
+<table WIDTH="980" >
+<tr VALIGN=TOP>
+<td WIDTH="300">Here is the car "futura" in a modeler.
+<p>If you wish that your car react normally during the collisions, follow
+the following rules:
+<p>If you look the car from the top,
+<br>- the center of the car is at X=0, Z=0
+<br>- the size in Z axis = 200 (-100 to 100)
+<br>- the size in X axis = 100 (-50 to 50)
+<p>On the Y axis, the car is just above 0.
+<p>&nbsp;</td>
+
+<td><img SRC="images/modeler.jpg" NOSAVE height=442 width=694></td>
+</tr>
+
+<tr VALIGN=TOP>
+<td>The car body is the car without the wheel.
+<br>- filename 3ds/futura/car_body.3ds</td>
+
+<td><img SRC="images/car_body.jpg" NOSAVE height=273 width=437></td>
+</tr>
+
+<tr VALIGN=TOP>
+<td>The wheel defined for the right side.
+<br>- 3ds/futura/back_right_wheel.3ds
+<br>- 3ds/futura/front_right_wheel.3ds
+<p>The center of the 3D model of the wheel is not 0,0. But the place where
+the wheel will be shown in the car.</td>
+
+<td><img SRC="images/wheel.jpg" NOSAVE height=305 width=450></td>
+</tr>
+</table>
+
+<p>3DS is maybe the best known 3d file format. There are a lot of programs
+that allow to create 3ds files or to convert other 3d formats to 3ds.
+<p>Here is a list of some of them.
+<p><b><font color="#3333FF">Modelers</font></b>
+<br>- Anim8or freeware program on Windows ( <a href="http://anim8or.8m.net/">http://anim8or.8m.net/</a>
+)
+<br>&nbsp; Very good 3d modelerer - but it is not easy to apply textures.
+(Freeware)
+<br>- AC3D: shareware available on Linux/Windows ( <a href="http://www.ac3d.org/">http://www.ac3d.org/</a>
+)
+<br>&nbsp; ( Shareware : Price 39.95$)
+<p><b><font color="#3333FF">3D Converters</font></b>
+<br>- 3DWin : 3d convertor ( <a href="http://www.stmuc.com/thbaier/">http://www.stmuc.com/thbaier/</a>
+)
+<br>&nbsp;&nbsp;&nbsp; The non- registered version does not convert materials
+and textures ( Shareware : Price 39 Euro)
+<br>- 3Dexploration ( <a href="http://www.xdsoft.com/explorer/">http://www.xdsoft.com/explorer/</a>
+)
+<br>&nbsp;&nbsp; By far the best 3d convertor I know. Fully functional
+during 30 trials day (Price 249$)
+<br>- Crossroad 3d ( <a href="http://home.europa.com/~keithr/Crossroads/index.html">http://home.europa.com/~keithr/Crossroads/index.html</a>
+)
+<br>&nbsp;&nbsp; Another 3 convertor. No convertion of the textures. (Freeware)
+<p><b><font color="#3333FF">Models</font></b>
+<br><font color="#000000">- There are a lot of freeware 3D models of car
+available on the web, that could be converted very easily.</font>
+<p>This is a short limited list in comparison with what you can find on
+the net. For examples, here is a specialized site
+<br>- <a href="http://www.3dlinks.com">http://www.3dlinks.com</a>
+</body>
+</html>

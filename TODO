@@ -1,0 +1,272 @@
+TODO before version 0.90
+========================
+
+In Windows and KDE, 
+------------------- 
+
+33) InstantReplay key in XWindows
+38) Resolve the 3D non-reloading of everything when
+    window is resized.
+50) Make/Find texture (BMP) for
+    - grass border + sand
+53) Resize the cars to their real feet size ( *0.1 )
+56) In model_3ds, make the management of the List automatic.
+    The lists are created when the drawing is first started
+    The lists are deleted when the model is released. 
+57) Loading of the 3D models, same caching system than the textures.
+60) Init Dialof in KDE
+61) Reflection on Linux ?
+62) Include the NVIDIA header in the code.
+63) Sun Light effect 
+
+
+In general, 
+----------- 
+
+4) BIG CHANGE - Complete removal of carz.cpp. 
+   ( Before to flame me about this read (5) ) 
+
+   Carz.cpp could be splitted in 3 files 
+   - simulation.cpp that should contain the Simulation class 
+     (+- competitionData of Carsten) + some functions about 
+     to the simulation like farther, power_excess, zbrent, ... 
+   - car.cpp, with all the function of the Car class. 
+   - race_manager.cpp with all the functions of the RaceManager class. 
+
+   In Rars 0.84, the class Car, and RaceManager already exists. I propose 
+   to create the class Simulation and to put other functions about the 
+   simulation there. 
+
+   Some functions of carz.cpp could not classed in the Simulation class like 
+  
+     inline double vec_mag(double x, double y) 
+     { 
+       return sqrt(x * x + y * y); 
+     } 
+  
+   I should move these functions in misc.cpp with other misc functions. 
+  
+   A special case could be done for the friction function that I see better 
+   in the Simulation class.
+
+   Why much changes without an single new functionality ? 
+   - Most new drivers, try to read carz.cpp and it is not clear at all. 
+   - If you want to add new functions to the simulator in the future, like 
+     for example 3D circuits, 3D physics engine (like torcs or maybe torcs) 
+     defining a clear interface will allow to move from one system to the 
+     other with less problems. 
+
+ 
+Other proposed stuff, 
+--------------------- 
+
+8) A section about the CPU used by the car in the final report of the 
+   race. (With the code of Eugen) 
+9) The new friction model for the grass made by Jorge 
+10) Improvement of the X window stability by Remi 
+
+13) In help.htm, convertion table between units
+    ex: 1 mile = 5280 feet
+14) In help.htm, list with variable conventions
+    i integer, long
+    s string
+    o object
+    b boolean
+    f float
+    a array
+15) Seen once, KCrash : desallocation of QWidget in libGLU.so ?
+21) Random seed is always like xxxx0000 in KDE
+22) In help.htm, list of the test to make before to publish a release.
+23) Port to Borland c++ Free version
+
+Track Editor
+============
+TE5) Mail to Torcs to use their format ?
+TE8) relief
+TE10) View one segment at a time in 3DS real time mode
+TE11) Show rendering property
+      Show basic property
+TE12) Cull faces ?      
+TE13) help to detect mistakes in the track design
+TE14) Relief and rectangle for the ground of the track (like TORCS)
+TE15) Save As... in the Track editor
+TE16) Object 3D + placing
+TE17) Start grid
+TE18) Start panel
+
+
+DONE
+====
+
+1) In the runtime of Rars, I would like to add a new menu 
+   item, called "Save settings". 
+  
+   When runned, it will modify the rars.ini with 
+   - if the window is maximized or not. 
+   - which mode is used (zoom, normal, OpenGL, ...) 
+   - which "Follow car" mode is used (new feature of Jorge) 
+     - if manual update, maybe which car is followed. 
+   - in OpenGL, which view is used. 
+   - what is the zoomFactor
+
+   The next time, a race will be started. He will use these 
+   features as default. 
+
+   ( I got the idea from the maximized windows of Tim ) 
+
+2) In the start window,
+   - A system to choose the list of the cars that will run
+     in the race
+   - Maybe the follow car mode
+     - and if manual update, the name of the car to follow
+3) The get_track_description() should also return the name 
+   of the track. This should be used in place of the current 
+   method. (done)
+
+   Idem for surface (surface-> arg.m_iSurface)
+5) A deprecated.cpp and deprecated.h 
+
+   I imagine some of your reactions. Hey, it means that we will need to 
+   change our code a little more. So, here is an idea: 
+
+   After all the changes, I will take all the cars of Rars 0.84 and 
+   try to migrate them. I will encounter some problems like for the 
+   "friction" function that does not exist anymore. 
+
+   So here, I create 2 files called deprecated.cpp and deprecated.h 
+   that look like this. 
+
+   In the h file, 
+
+   // Uncomment this if you want to use old functions and old global
+   // variables with Rars 0.90
+   // #define USE_DEPRECATED
+   #ifdef USE_DEPRECATED 
+
+   double friction(double slip); 
+
+   #endif
+   In the cpp file, 
+
+   double friction(double slip) 
+   { 
+      return currentTrack->friction( slip ); 
+   } 
+
+   When you will move your car from a version the another one if the 
+   DEPRECATION_WARNING is enabled. He will pop up on your screen 
+   with warning messages. Just by reading deprecated.cpp, it will 
+   be easy to see how to convert the call to the function. 
+  
+   For the global variables, deprecated will have a function init 
+   to initialize the deprecated variables, ex:
+    + surface
+    + no_display
+
+   ( In fact, even if it look like a big work, I think it is quite 
+     small since the number of functions of carz.cpp used by the 
+     drivers is very small ) 
+
+6) Restructure draw.cpp and g_draw.cpp, 
+   This is currently the biggest mess in Rars. It has no impact of the 
+   drivers. I just want to rename the functions and remove a lot 
+   of not needed code. 
+7) Move of several functions to misc.cpp
+   - iround defined in draw.cpp
+   - find_name defined in report.cpp 
+11) Menu Jorge's 'Follow car' in VC++
+12) Key +- to increase zoom in OpenGL
+16) Zoom faster and invert direction in g_view2d
+17) If a new TView is created, it should get the initial value
+    of m_FollowCar by the ViewManager.
+18) Random track is missing 
+19) Allow to stop the simulator and to replay the last
+    second with the instant replay. If stop is pressed again, just
+    do one step. Record in InstantReplay the last 100 position of the car.
+20) With this data, draw the trajectory in g_view2d/g_view3d.
+23) In Windows, menu Follow Car as submenu of Menu Car
+    Zoom in and Zoom out as item of View.
+24) Replace g_iOpenGL by rars_ini.iOpenGL or by variable of ViewManager
+25) OpenGL - improve the color of the wings of the cars.
+26) On Windows, the menu are not visible with the NVidia Card
+    - maybe take care that the window is not reconstructed 2 times ? 
+27) Track description precalculated in Track.
+28) Be able to move on the track in Free mode = Follow Car = nobody 
+29) Remove in the start box the number of car racing and replace by the
+    number of selected cars.
+30) Remove MyButton.cpp
+31) Make the same in KDE
+32) Save random seed in rars.ini
+33) Rewrite the report.cpp in normal C, not C++
+    Output 2 files. -> result_xxx.txt and a result_xxx.html
+34) Make a structure args for containing the arguments
+    determined when reading the parameters and not 
+    changed during the race.
+35) CompetitionData -> RaceData ? Race
+36) Implement a 3ds car
+37) Use a better texture for the road
+39) Replace raw texture by bigger tga textures
+40) 3Ds car for OldDriver
+41) Added an option to see the names of the car in TView2D, TView3D
+42) Make a doc on how to make a 3DS car with TGA/BMP textures
+43) Viewboard is now able to handle more then 16 cars.
+44) Reduce the air drag force for a car driving behind other cars.
+45) Calculate the position of the wheel and make them turn.
+46) Understand why the textures of some parts of the indy car are
+    bad and some good. (->error in opengl initialisation)
+47) Make a save method for Track
+48) Make a dialog box with the track editor.
+    - menu : load track
+    - menu : save track
+    - menu : load 3d profile
+             - textures used
+             - lenghts.
+    - menu : generate 3D
+    - edit : track segments
+             - size
+             - ray
+             - height
+             - height profile 
+             - ...
+    -> study the torcs format
+49) Track segment attribute
+    At the beginning of the segment
+    - height 
+    - angle
+    - banking
+    - angle/banking/height model
+    - right border size
+    - left border size
+    - texture model
+50) Make/Find texture (BMP) for
+    - grass
+    - Road line + line
+    - Road line + white/red
+    - Road white/red + line
+    - Road white/red + white/red
+    - sand
+51) Hide the starting window on Windows
+52) Make the wheel independent
+54) Pause key - P : pause at startup
+55) Windows - New initcar dialog with progress
+58) Detect NVIDIA at runtime
+59) Make a class OpenGL + static functions in g_opengl.cpp
+
+DONE Track Editor
+=================
+TE1) Remove uneeded points for a straight
+TE2) Make border for the curves
+TE3) Make a dirty red/white texture
+TE4) Banking
+TE6) Border_size left+right
+TE7) sky.3ds (sky dome)
+TE9) Border in 5 sections
+
+    Tree   Barrier         Road          Barrier      Tree
+     |        |         |/////////|         |          |
+     |        |         |/////////|         |          |
+     |        |         |/////////|         |          |
+     |        |         |/////////|         |          |
+
+TE11) View the whole circuit in 3DS real time mode
+TE12) Option to save the 3DS files and not to generate them

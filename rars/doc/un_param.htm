@@ -1,0 +1,112 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Microsoft Border" content="none">
+   <title>How to use Rars with Visual C</title>
+</head>
+<body>
+
+<center><b><font face="Arial"><font color="#FF0000"><font size=+1>Command
+line parameters</font></font></font></b></center>
+
+<p>
+<hr>
+<p><tt>RARS command line options:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(note: these are case sensitive)</tt>
+<p><tt>Rars &lt;Cars> &lt;Laps> &lt;Track Name> [options]</tt>
+<p><tt>-h or -H or -?&nbsp; shows this help screen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(/ may be used in place of -)</tt>
+<br><tt>-c&nbsp; meaning&nbsp; cars involved in collision are flashed in
+bright red</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; (-c may be followed by time increments, eg.
+-c9 is approximately 1/2 sec.)</tt>
+<br><tt>-d&nbsp; meaning&nbsp; drivers (followed by space and then list
+of driver's names)</tt>
+<br><tt>-D&nbsp; meaning&nbsp; ignore drivers (followed by space and list
+of names to not use)</tt>
+<br><tt>-f&nbsp; meaning&nbsp; fastest that computer can compute (default).
+Press S to slow down</tt>
+<br><tt>-k&nbsp; meaning&nbsp; keystrokes supplied by computer, no waiting.</tt>
+<br><tt>-l&nbsp; meaning&nbsp; followed by race length in miles</tt>
+<br><tt>-mp meaning&nbsp; playback movie (can be followed by filename,
+eg. -mpmovie),</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; default movie files are "movie.xy" and "movie.ang".</tt>
+<br><tt>-mr meaning&nbsp; record movie (can be followed by filename, eg.
+-mrmovie)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; default movie files are "movie.xy" and "movie.ang".</tt>
+<br><tt>-nd meaning&nbsp; no display (there is a results report written
+to RACE.OUT)</tt>
+<br><tt>-nr meaning&nbsp; no randomization of r.v.g.&nbsp; (same initial
+seed every time)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; (-nr may be followed by a seed value, without
+a space)</tt>
+<br><tt>-nR meaning&nbsp; car motion is deterministic, and also r.v.g.
+not randomized</tt>
+<br><tt>-o&nbsp; meaning&nbsp; order (starting order as given in driver
+list or as compiled)</tt>
+<br><tt>-p&nbsp; meaning&nbsp; practice, followed by the number of practice
+laps.</tt>
+<br><tt>-q&nbsp; meaning&nbsp; qualifying mode (1-fastest lap, 2-avg speed)</tt>
+<br><tt>-ql meaning&nbsp; qualifying laps, how many</tt>
+<br><tt>-qr meaning&nbsp; qualifying sessions, how many</tt>
+<br><tt>-r&nbsp; meaning&nbsp; races, how many&nbsp; (default is 2 races
+if -r is omitted)</tt>
+<br><tt>-s&nbsp; meaning&nbsp; surface type, s0 = loose surface, s1 = harder
+surface, default 1</tt>
+<br><tt>-sr meaning&nbsp; how many starting rows eg. -sr4 Default value
+is in track file.</tt>
+<br><tt>-v&nbsp; meaning&nbsp; Just show the version and exit.</tt>
+<br><tt>-z&nbsp; meaning&nbsp; disable "side vision" for all drivers</tt>
+<p><tt>Options may be entered in almost any order, and none are required.</tt>
+<br><tt>-d and -D cannot be currently used as last arguments.</tt>
+<br><tt>In addition to any of those options, you may put one or two numbers</tt>
+<br><tt>anywhere on the line.&nbsp; The first number is the number of cars
+in the</tt>
+<br><tt>race.&nbsp; If there is a second number, it is the number of laps.</tt>
+<br><tt>The filename of a track definition file may be placed anywhere
+on the</tt>
+<br><tt>line.&nbsp; The .trk extension is assumed; it does not have to
+be typed.</tt>
+<br><tt>(Don't put it inside the list of driver's names if you use -d.)</tt>
+<p><tt>Default values are: 2 races, 12 cars, 100 laps, fast speed, random</tt>
+<br><tt>order alternating with reversed order, no practice and estoril.trk.</tt>
+<br><tt>Typing RARS alone will result in all the default values being used.</tt>
+<p><tt>Example of 2 realistic speed races with all 16 drivers on loudon.trk</tt>
+<br><tt>for 12 laps, starting order random, then reversed, twenty practice
+laps:</tt>
+<p><tt>&nbsp;&nbsp; rars 16 loudon 12 -p 20</tt>
+<p><tt>Example of 4 fast races on BRAZIL.TRK with 8 cars, 5 laps,</tt>
+<br><tt>no randomization, and five drivers named:</tt>
+<p><tt>&nbsp;&nbsp; rars brazil -f -nr -r4 8 5 -d WappuCar Magic Jas Turtle5
+Stocker</tt>
+<p><tt>During a displayed race certain keys are "live".&nbsp; These are:</tt><tt></tt>
+<p><tt>ESC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- exit,</tt>
+<br><tt>UP &amp; DOWN arrow - Instrument Panel</tt>
+<br><tt>P/p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- pause</tt>
+<br><tt>A/a, f/F and s&nbsp; - for accelerated, fast and slow</tt>
+<br><tt>b/B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- show distance to car ahead or behind</tt>
+<br><tt>S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+- toggle car path (skidmarks) on/off</tt><tt></tt>
+<p><tt>Try them out!&nbsp; (But -k on commandline disables all but ESC.)</tt>
+<br><tt>During a pause, or while waiting for the start, any key starts
+the action.</tt>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

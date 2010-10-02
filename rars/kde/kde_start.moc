@@ -1,0 +1,107 @@
+/****************************************************************************
+** KdeStart meta object code from reading C++ file 'kde_start.h'
+**
+** Created: Mon Sep 13 15:02:15 2010
+**      by: The Qt MOC ($Id: qt/moc_yacc.cpp   3.3.8   edited Feb 2 14:59 $)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#undef QT_NO_COMPAT
+#include "kde_start.h"
+#include <qmetaobject.h>
+#include <qapplication.h>
+
+#include <private/qucomextra_p.h>
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.3.8b. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+const char *KdeStart::className() const
+{
+    return "KdeStart";
+}
+
+QMetaObject *KdeStart::metaObj = 0;
+static QMetaObjectCleanUp cleanUp_KdeStart( "KdeStart", &KdeStart::staticMetaObject );
+
+#ifndef QT_NO_TRANSLATION
+QString KdeStart::tr( const char *s, const char *c )
+{
+    if ( qApp )
+	return qApp->translate( "KdeStart", s, c, QApplication::DefaultCodec );
+    else
+	return QString::fromLatin1( s );
+}
+#ifndef QT_NO_TRANSLATION_UTF8
+QString KdeStart::trUtf8( const char *s, const char *c )
+{
+    if ( qApp )
+	return qApp->translate( "KdeStart", s, c, QApplication::UnicodeUTF8 );
+    else
+	return QString::fromUtf8( s );
+}
+#endif // QT_NO_TRANSLATION_UTF8
+
+#endif // QT_NO_TRANSLATION
+
+QMetaObject* KdeStart::staticMetaObject()
+{
+    if ( metaObj )
+	return metaObj;
+    QMetaObject* parentObject = QDialog::staticMetaObject();
+    static const QUMethod slot_0 = {"exit", 0, 0 };
+    static const QUMethod slot_1 = {"slotStartRace", 0, 0 };
+    static const QUMethod slot_2 = {"languageChange", 0, 0 };
+    static const QMetaData slot_tbl[] = {
+	{ "exit()", &slot_0, QMetaData::Public },
+	{ "slotStartRace()", &slot_1, QMetaData::Public },
+	{ "languageChange()", &slot_2, QMetaData::Protected }
+    };
+    metaObj = QMetaObject::new_metaobject(
+	"KdeStart", parentObject,
+	slot_tbl, 3,
+	0, 0,
+#ifndef QT_NO_PROPERTIES
+	0, 0,
+	0, 0,
+#endif // QT_NO_PROPERTIES
+	0, 0 );
+    cleanUp_KdeStart.setMetaObject( metaObj );
+    return metaObj;
+}
+
+void* KdeStart::qt_cast( const char* clname )
+{
+    if ( !qstrcmp( clname, "KdeStart" ) )
+	return this;
+    return QDialog::qt_cast( clname );
+}
+
+bool KdeStart::qt_invoke( int _id, QUObject* _o )
+{
+    switch ( _id - staticMetaObject()->slotOffset() ) {
+    case 0: exit(); break;
+    case 1: slotStartRace(); break;
+    case 2: languageChange(); break;
+    default:
+	return QDialog::qt_invoke( _id, _o );
+    }
+    return TRUE;
+}
+
+bool KdeStart::qt_emit( int _id, QUObject* _o )
+{
+    return QDialog::qt_emit(_id,_o);
+}
+#ifndef QT_NO_PROPERTIES
+
+bool KdeStart::qt_property( int id, int f, QVariant* v)
+{
+    return QDialog::qt_property( id, f, v);
+}
+
+bool KdeStart::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
+#endif // QT_NO_PROPERTIES

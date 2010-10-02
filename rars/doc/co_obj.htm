@@ -1,0 +1,155 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>Here is a description of the model of traction force and skidding</title>
+</head>
+<body>
+
+<center><b><font face="Arial"><font color="#FF0000"><font size=+1>Object
+Oriented robots</font></font></font></b></center>
+
+<hr>
+<p>The version 0.80 introduce the concept of is <b><font color="#009900">Object
+Oriented robots.</font></b>
+<p><font color="#3333FF"><b>In the previous versions of Rars</b>,</font><font color="#000000">
+the robots where defined as a function</font>
+<p><tt><font color="#000000">&nbsp; con_vec RobotName( situation &amp;s
+)</font></tt>
+<p>This function was called several times in the program for several reasons.
+<p>1) A first time with an empty situation, to ask for the name of the
+robot.
+<br>2) At the beginning of a race, with <tt>s.starting = 1</tt>, to allow
+the robots to prepare themselves for a race, a track.
+<br>3) And finally a lot of times with <tt>s.starting = 0</tt> during the
+simulation.
+<p>The simplest robot looks like this.
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" >
+<tr>
+<td BGCOLOR="#3333FF">
+<center><b><font color="#FFFFFF">The simplest robot</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td BGCOLOR="#CCCCCC"><tt>#include "car.h"</tt>
+<p><tt>con_vec RobotName( <font color="#000000">situation &amp;s )</font></tt>
+<br><tt><font color="#000000">{</font></tt>
+<br><tt><font color="#000000">&nbsp; static int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+init_flag = 1, high_speed=0;</font></tt>
+<br><tt><font color="#000000">&nbsp; con_vec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+result;</font></tt>
+<p><tt><font color="#000000">&nbsp; if (init_flag == 1)&nbsp;</font></tt>
+<br><tt><font color="#000000">&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; my_name_is("robot_name);</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; init_flag = 0;</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; return result;</font></tt>
+<br><tt><font color="#000000">&nbsp; }</font></tt>
+<p><tt><font color="#000000">&nbsp; if( s.starting )</font></tt>
+<br><tt><font color="#000000">&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; result.fuel_amount = MAX_FUEL;&nbsp;&nbsp;&nbsp;&nbsp;
+// fuel when starting</font></tt>
+<br><tt><font color="#000000">&nbsp; }</font></tt>
+<p><tt><font color="#000000">&nbsp; if (stuck(s.backward, s.v, s.vn, s.to_lft,
+s.to_rgt, &amp;result.alpha, &amp;result.vc))&nbsp;</font></tt>
+<br><tt><font color="#000000">&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; return result;</font></tt>
+<br><tt><font color="#000000">&nbsp; }</font></tt>
+<p><tt><font color="#000000">&nbsp; result.vc = 20;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// going slowly</font></tt>
+<br><tt><font color="#000000">&nbsp; result.alpha = 0.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// straight</font></tt>
+<br><tt><font color="#000000">&nbsp; result.request_pit = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// do not ask to pit</font></tt>
+<p><tt><font color="#000000">&nbsp; return result;</font></tt>
+<br><tt><font color="#000000">}</font></tt></td>
+</tr>
+</table>
+
+<p><b><font color="#3333FF">From the version Rars 0.80</font></b>, it is
+possible to write Object Oriented Robots. Robots are defined as C++ classes
+<b><font color="#009900">subclassing
+the type Driver</font></b>
+<p><tt><font color="#000000">&nbsp; class ObjectOriented : public Driver</font></tt>
+<p><font color="#000000">associated with a function to create an object</font>
+<p><tt><font color="#000000">&nbsp; Driver * getObjectOrientedInstance()</font></tt>
+<br>&nbsp;
+<p>This object works like this:
+<ol>
+<li>
+During the construction of the object, the object declares</li>
+
+<br>- Its name
+<br>- Its author
+<br>- Its colors
+<br>- Its bitmap
+<li>
+The function "drive" is called at the beginning of a race, with <tt>s.starting
+= 1</tt>.</li>
+
+<li>
+And finally a lot of times with <tt>s.starting = 0</tt> during the simulation.</li>
+</ol>
+The simplest object oriented robot looks like this. (The code is available
+in tutorial1.cpp)
+<br>&nbsp;
+<table BORDER COLS=1 WIDTH="100%" >
+<tr>
+<td BGCOLOR="#3333FF">
+<center><b><font color="#FFFFFF">The simplest object oriented robot</font></b></center>
+</td>
+</tr>
+
+<tr>
+<td BGCOLOR="#CCCCCC"><tt><font color="#000000">#include "car.h"</font></tt>
+<p><tt><font color="#000000">class Tutorial1 : public Driver</font></tt>
+<br><tt><font color="#000000">{</font></tt>
+<br><tt><font color="#000000">public:</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp; Tutorial1::Tutorial1()</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp; m_sName = "Tuto
+1";</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp; m_sAuthor = "Lucky
+Luke";</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp; m_iNoseColor = oBLUE;</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp; m_iTailColor = oBLUE;</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp; m_sBitmapName2D
+= "car_blue_blue";</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp; }</font></tt>
+<p><tt><font color="#000000">&nbsp; con_vec drive(situation&amp; s)</font></tt>
+<br><tt><font color="#000000">&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; con_vec result;&nbsp;</font></tt>
+<p><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if( s.starting )</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result.fuel_amount
+= MAX_FUEL;&nbsp;&nbsp;&nbsp;&nbsp; // fuel when starting</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt>
+<p><tt><font color="#000000">&nbsp;&nbsp;&nbsp; if( stuck( s.backward,
+s.v, s.vn, s.to_lft, s.to_rgt, &amp;result.alpha, &amp;result.vc ) )</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; {</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; }</font></tt>
+<p><tt><font color="#000000">&nbsp;&nbsp;&nbsp; result.vc = 20;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// going slowly</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; result.alpha = 0.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// straight</font></tt>
+<br><tt><font color="#000000">&nbsp;&nbsp;&nbsp; result.request_pit = 0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// do not ask to pit</font></tt>
+<p><tt><font color="#000000">&nbsp;&nbsp;&nbsp; return result;</font></tt>
+<br><tt><font color="#000000">&nbsp; }</font></tt>
+<br><tt><font color="#000000">};</font></tt>
+<p><tt><font color="#000000">Driver * getTutorial1Instance()</font></tt>
+<br><tt><font color="#000000">{&nbsp;</font></tt>
+<br><tt><font color="#000000">&nbsp; return new Tutorial1();</font></tt>
+<br><tt><font color="#000000">}</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<p>There are a least 2 main advantages:
+<p>1) The object robots can be created several times.
+<br>2) The object can declare its color and its name more properly.
+</body>
+</html>

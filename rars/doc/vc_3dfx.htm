@@ -1,0 +1,76 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+</head>
+<body>
+
+<center><b><font face="Arial"><font color="#FF0000"><font size=+1>How to
+see the races in 3D with a 3D card and OpenGL ?</font></font></font></b></center>
+
+<hr>
+<p>If you have a OpenGL ICD compliant card, you should do nothing
+<br>to see Rars in OpenGL with Windows 95/98/NT.
+<p>Change the OpenGL option in the starting dialog box.
+<ul>
+<li>
+Disabled&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : no 3D</li>
+
+<li>
+Window&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : shows Rars in 2D/3D</li>
+
+<li>
+Full Screen&nbsp;&nbsp;&nbsp; : shows 3D in full screen</li>
+</ul>
+<u>OpenGL emulation</u>
+<p>You can also use the standard emulation from Microsoft.
+<br>OpenGL is installed by default on Win95 OSR2 and WinNT 4.0.
+<br>But with Win95 OSR1, you have to install a package from
+<br>Microsoft. You can download it from <a href="http://www.microsoft.com">www.microsoft.com</a><u></u>
+<p><u>3Dfx (only)</u>
+<p>To use OpenGL with your favorite 3Dfx card (not a OpenGL ICD card),
+<br>you need 3 files :
+<ul>
+<li>
+OPENGL32.DLL</li>
+
+<li>
+GLU32.DLL.</li>
+
+<li>
+FXMEMMAP.VXD</li>
+</ul>
+Put the 3 files in the directory of VC_RARS.EXE. (Debug of Release).
+<br>You can obtain these files from <a href="http://www.3dfx.com">www.3dfx.com</a>.
+<p><u>Speed on my PC (Pentium 133)</u>
+<br>&nbsp;
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH="100%" >
+<tr>
+<td WIDTH="50%">with a 3D card</td>
+
+<td WIDTH="50%">60&nbsp;&nbsp;&nbsp; frames/sec</td>
+</tr>
+
+<tr>
+<td WIDTH="50%">with the emulation from MS</td>
+
+<td WIDTH="50%">0.5&nbsp;&nbsp; frames/sec</td>
+</tr>
+</table>
+
+<p><u>Additional key</u>
+<p><b><font color="#008000">V</font></b>&nbsp;&nbsp;&nbsp;&nbsp; Change
+the view
+<br>
+<hr>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

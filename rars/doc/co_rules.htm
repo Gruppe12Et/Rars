@@ -1,0 +1,114 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<meta name="Microsoft Border" content="none">
+<title>Rars Rules</title>
+</head>
+
+<body>
+
+<p align="center"><font face="Arial" color="#FF0000"><strong><big>Rars Race Meet Rules</big></strong></font></p>
+
+<hr>
+<font FACE="Courier New" SIZE="2">
+
+<p>These are the rules and procedures for the races that are hosted by Ralph Scott. These
+rules are subject to change at any time, but any such changes will be announced to the
+mailing list a reasonable time before they go into effect. Anyone else can also host
+races, and they are free to design their own set of rules if they wish. The following are
+general rules that apply to all the races. For each race there will be an announcement
+that will detail any special requirements for that race.</p>
+
+<p>Entries will be received by e-mail, directed to Ralph Scott &lt;rscott@NetUSA.Net&gt;.
+The entries are of course, robot driver functions. They may be in source code, either ANSI
+C or C++. &nbsp;</p>
+
+<p>Robots may read a data file. Hence, the entry may consist of two files, the program
+file and the data file. The filename for these two files must be the same, except for .dat
+extension on the data file. The robot file will have the extension .cpp or .c.</p>
+
+<p>The robot driver function name should be identical to the name string contained in the
+program. There should be no more than eight characters in the name, and it must follow the
+usual C/C++ naming rules. Therefore, if we have a robot driver named &quot;Charlie&quot;
+the name of its function would be Charlie(), and it would be in a file named CHARLIE.CPP
+and if it reads a data&nbsp; file the file would be named CHARLIE.DAT. The filename should
+not differ from the robot name by&nbsp; anything more than a sequence number at the end,
+and the lack of case distinctions.</p>
+
+<p>There are some information requirements for the first few lines of the program file.
+The first few lines of every robot driver must have the following:
+
+<ol>
+  <li>The filename, your full name, your e-mail address, and your robot's name.</font><font
+    FACE="Courier New" SIZE="2"></li>
+  <li>What races you want to enter. You can say all, or all oval track,<br>
+    or just one date, for example. (Just be clear.)</font><font FACE="Courier New" SIZE="2"></li>
+  <li>Whether or not you want me to keep the source confidential.</font><font
+    FACE="Courier New" SIZE="2"></li>
+  <li>Tell me if your program needs to read a data file.</li>
+</ol>
+
+<p>The filename must change for each new version of your software. The easiest way is just
+to append a sequence number, so when BURNS.CPP is changed it becomes BURNS1.CPP, and then
+BURNS2.CPP, etc. The robot name and the function name should not change. For example, they
+could remain &quot;Burns&quot; and Burns(). Of course you may rename all three if you want
+to, and then the filename should be the same as the robot name and function name.</p>
+
+<p>If your robot reads a data file it must be sent at the same time as the robot file. You
+must send a new data file when you send a new robot. They should always be sent in pairs
+to help keep me from using the wrong data file. It would be best if your data file began
+with its own name, and the robot checks it when it reads it, but I won't require that. You
+may send a new data file to go with an old robot, but also send a text file giving its
+file name, so that I know for certain which robot it goes with.</p>
+
+<p>The software version to be used for each race meet will be announced in advance. It
+will generally be the lastest version, or the one just before that one. Needless to say,
+the programs must compile and link with that version.</p>
+
+<p>Entries must be received by 1:00 PM, U.S East Coast time, on the day of the
+competition. If the net is slow, too bad, so send them as early as possible. It is better
+if I receive them several days early, in case there are any problems with compilation,
+linking, or execution. (I will inform you A.S.A.P.) All problems must be corrected before
+the 1:00 PM deadline. Finally, I won't accept any new entries prior to one week before the
+competition. However, if I already have your robot from a previous race you don't have to
+submit it again. I will use the information in your robot program to know in which races
+it should compete. Only one robot per author will be allowed to compete, so if you have
+sent me more than one make it clear which one is the entry.</p>
+
+<p>Any robots that cause run-time problems with any part of the software, including the
+other robots, will be disqualified. Timin's judgement will be final here. In particular,
+check every division to ensure that the denominator will never be zero. The same applies
+to certain mathematical functions that can have illegal arguments, such as sqrt(). If you
+allocate RAM, with &quot;new&quot; or malloc(), be sure to do it only once, even if there
+are multiple races. (We can't have you accumulating more RAM with each race!) Also check
+for un-initialized variables that can cause seemingly random behaviour.</p>
+
+<p>Points will be awarded as follows for each race:&nbsp;</p>
+
+<p>1st - 10 2nd - 6 3rd - 4 4th - 3 5th - 2 6th - 1</p>
+
+<p>This point system will be used both for deciding the winners of one race meet with
+multiple races, and also for accumulating over a period of many months. When there are
+multiple races the winning places will be based on the point total for all races. When the
+race meet consists of only one race the points will be added to the robot author's
+accumulating score. For multiple races, another set of points will be awarded to the best
+six robots of the day, and these will be accumulated for the longer term. Hence, for each
+race meet, someone will add 10 points to his long term total, someone will add 6 points,
+and so on.</p>
+
+<p>Robot code should not make any direct DOS or BIOS calls, nor access memory in any
+strange ways. No peripheral hardware may be accessed, with the possible exception of disk
+reading during initialization (but see next paragraph). Robots may use the
+&quot;extern&quot; keyword to access any data that they can find, but may not alter such
+data. Any robot driver function that causes any problems with any other part of the
+software will simply not be used. Each robot must use CPU sparingly, so that
+race can be run at realistic speed, and no slower. <br>
+Race directors's judgement will be final in this matter.
+</p>
+</font>
+
+
+</body>
+</html>

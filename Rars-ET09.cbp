@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Rars-ET09" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Rars">
+				<Option output="rars/rars" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<MakeCommands>
+					<Build command="$make -f $makefile all" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile all" />
+					<SilentBuild command="$make -s -f $makefile all" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="rars/3ds/chunk_3ds.cpp" />
+		<Unit filename="rars/3ds/gl_main.cpp" />
+		<Unit filename="rars/3ds/gl_texture.cpp" />
+		<Unit filename="rars/3ds/gl_texture.h" />
+		<Unit filename="rars/3ds/model_3ds.cpp" />
+		<Unit filename="rars/3ds/model_3ds.h" />
+		<Unit filename="rars/args.cpp" />
+		<Unit filename="rars/car.h" />
+		<Unit filename="rars/carz.cpp" />
+		<Unit filename="rars/deprecated.cpp" />
+		<Unit filename="rars/deprecated.h" />
+		<Unit filename="rars/djgpp/gi.cpp" />
+		<Unit filename="rars/djgpp/gi.h" />
+		<Unit filename="rars/djgpp/os.cpp" />
+		<Unit filename="rars/djgpp/os.h" />
+		<Unit filename="rars/doc/samples/borlandc/bc_defin.h" />
+		<Unit filename="rars/doc/samples/borlandc/bc_lowg2.cpp" />
+		<Unit filename="rars/doc/samples/borlandc/bc_lowgr.cpp" />
+		<Unit filename="rars/doc/samples/djgpp/dj_defin.h" />
+		<Unit filename="rars/doc/samples/djgpp/dj_gr320.cc" />
+		<Unit filename="rars/doc/samples/djgpp/dj_gr640.cc" />
+		<Unit filename="rars/doc/samples/djgpp/dj_gr641.cc" />
+		<Unit filename="rars/dos/gi.cpp" />
+		<Unit filename="rars/dos/os.cpp" />
+		<Unit filename="rars/draw.cpp" />
+		<Unit filename="rars/draw.h" />
+		<Unit filename="rars/driver.cpp" />
+		<Unit filename="rars/driver_old.cpp" />
+		<Unit filename="rars/drivers.cpp" />
+		<Unit filename="rars/gi.h" />
+		<Unit filename="rars/globals.h" />
+		<Unit filename="rars/graphics/GL/glext.h" />
+		<Unit filename="rars/graphics/GL/glh_extensions.h" />
+		<Unit filename="rars/graphics/GL/glh_genext.h" />
+		<Unit filename="rars/graphics/GL/glxext.h" />
+		<Unit filename="rars/graphics/GL/wglext.h" />
+		<Unit filename="rars/graphics/g_bitmap.cpp" />
+		<Unit filename="rars/graphics/g_bitmap.h" />
+		<Unit filename="rars/graphics/g_define.h" />
+		<Unit filename="rars/graphics/g_divers.cpp" />
+		<Unit filename="rars/graphics/g_draw.cpp" />
+		<Unit filename="rars/graphics/g_geom.cpp" />
+		<Unit filename="rars/graphics/g_geom.h" />
+		<Unit filename="rars/graphics/g_global.h" />
+		<Unit filename="rars/graphics/g_lowgra.cpp" />
+		<Unit filename="rars/graphics/g_main.cpp" />
+		<Unit filename="rars/graphics/g_main.h" />
+		<Unit filename="rars/graphics/g_opengl.cpp" />
+		<Unit filename="rars/graphics/g_opengl.h" />
+		<Unit filename="rars/graphics/g_os.cpp" />
+		<Unit filename="rars/graphics/g_palett.cpp" />
+		<Unit filename="rars/graphics/g_rars_ini.cpp" />
+		<Unit filename="rars/graphics/g_rars_ini.h" />
+		<Unit filename="rars/graphics/g_track3d.cpp" />
+		<Unit filename="rars/graphics/g_track3d.h" />
+		<Unit filename="rars/graphics/g_track_area.cpp" />
+		<Unit filename="rars/graphics/g_track_bitmap.cpp" />
+		<Unit filename="rars/graphics/g_tracked.cpp" />
+		<Unit filename="rars/graphics/g_tracked.h" />
+		<Unit filename="rars/graphics/g_view.cpp" />
+		<Unit filename="rars/graphics/g_view.h" />
+		<Unit filename="rars/graphics/g_view2d.cpp" />
+		<Unit filename="rars/graphics/g_view3d.cpp" />
+		<Unit filename="rars/graphics/g_viewbd.cpp" />
+		<Unit filename="rars/graphics/g_viewcl.cpp" />
+		<Unit filename="rars/graphics/g_viewte.cpp" />
+		<Unit filename="rars/graphics/g_viewtl.cpp" />
+		<Unit filename="rars/graphics/g_vmanag.cpp" />
+		<Unit filename="rars/graphics/kde_defi.h" />
+		<Unit filename="rars/graphics/kde_lowgr.cpp" />
+		<Unit filename="rars/graphics/vc_defin.h" />
+		<Unit filename="rars/graphics/vc_lowgr.cpp" />
+		<Unit filename="rars/instant_replay.cpp" />
+		<Unit filename="rars/instant_replay.h" />
+		<Unit filename="rars/java/RarsTrackApplet/RarsCanvas.java" />
+		<Unit filename="rars/java/RarsTrackApplet/RarsSegment.java" />
+		<Unit filename="rars/java/RarsTrackApplet/RarsTrack.java" />
+		<Unit filename="rars/java/RarsTrackApplet/RarsTrackApplet.java" />
+		<Unit filename="rars/java/RarsTrackApplet/TextInputStream.java" />
+		<Unit filename="rars/joystick.cpp" />
+		<Unit filename="rars/joystick.h" />
+		<Unit filename="rars/kde/kde_initcar.cpp" />
+		<Unit filename="rars/kde/kde_initcar.h" />
+		<Unit filename="rars/kde/kde_main.cpp" />
+		<Unit filename="rars/kde/kde_rars.cpp" />
+		<Unit filename="rars/kde/kde_rars.h" />
+		<Unit filename="rars/kde/kde_rars.moc.cpp" />
+		<Unit filename="rars/kde/kde_start.cpp" />
+		<Unit filename="rars/kde/kde_start.h" />
+		<Unit filename="rars/kde/kde_start_impl.cpp" />
+		<Unit filename="rars/kde/kde_start_impl.h" />
+		<Unit filename="rars/kde/kde_start_impl.moc.cpp" />
+		<Unit filename="rars/kde/libkde_a_meta_unload.cpp" />
+		<Unit filename="rars/main.cpp" />
+		<Unit filename="rars/memory.h" />
+		<Unit filename="rars/misc.cpp" />
+		<Unit filename="rars/misc.h" />
+		<Unit filename="rars/movie.cpp" />
+		<Unit filename="rars/movie.h" />
+		<Unit filename="rars/os.h" />
+		<Unit filename="rars/race_data.cpp" />
+		<Unit filename="rars/race_manager.cpp" />
+		<Unit filename="rars/race_manager.h" />
+		<Unit filename="rars/rarsui.rc" />
+		<Unit filename="rars/report.cpp" />
+		<Unit filename="rars/report.h" />
+		<Unit filename="rars/robots/bulle/_bulle.h" />
+		<Unit filename="rars/robots/bulle/_opti.h" />
+		<Unit filename="rars/robots/bulle/dlgbulle.h" />
+		<Unit filename="rars/robots/bulle/kde_bulle.h" />
+		<Unit filename="rars/robots/bulle/kde_bulle_impl.h" />
+		<Unit filename="rars/robots/douge/optimize.h" />
+		<Unit filename="rars/robots/et09template.cpp" />
+		<Unit filename="rars/robots/gruppe1.cpp" />
+		<Unit filename="rars/robots/gruppe10.cpp" />
+		<Unit filename="rars/robots/gruppe11.cpp" />
+		<Unit filename="rars/robots/gruppe12.cpp" />
+		<Unit filename="rars/robots/gruppe13.cpp" />
+		<Unit filename="rars/robots/gruppe14.cpp" />
+		<Unit filename="rars/robots/gruppe15.cpp" />
+		<Unit filename="rars/robots/gruppe16.cpp" />
+		<Unit filename="rars/robots/gruppe17.cpp" />
+		<Unit filename="rars/robots/gruppe18.cpp" />
+		<Unit filename="rars/robots/gruppe19.cpp" />
+		<Unit filename="rars/robots/gruppe2.cpp" />
+		<Unit filename="rars/robots/gruppe3.cpp" />
+		<Unit filename="rars/robots/gruppe4.cpp" />
+		<Unit filename="rars/robots/gruppe5.cpp" />
+		<Unit filename="rars/robots/gruppe6.cpp" />
+		<Unit filename="rars/robots/gruppe7.cpp" />
+		<Unit filename="rars/robots/gruppe8.cpp" />
+		<Unit filename="rars/robots/gruppe9.cpp" />
+		<Unit filename="rars/timer.cpp" />
+		<Unit filename="rars/timer.h" />
+		<Unit filename="rars/track.cpp" />
+		<Unit filename="rars/track.h" />
+		<Unit filename="rars/trackgen.cpp" />
+		<Unit filename="rars/unix/gi.cpp" />
+		<Unit filename="rars/unix/os.cpp" />
+		<Unit filename="rars/vc/DlgInitCars.cpp" />
+		<Unit filename="rars/vc/DlgInitCars.h" />
+		<Unit filename="rars/vc/DlgRars.cpp" />
+		<Unit filename="rars/vc/DlgRars.h" />
+		<Unit filename="rars/vc/DlgStart.cpp" />
+		<Unit filename="rars/vc/DlgStart.h" />
+		<Unit filename="rars/vc/DlgTrackEditor.cpp" />
+		<Unit filename="rars/vc/DlgTrackEditor.h" />
+		<Unit filename="rars/vc/DlgTrackLoad.cpp" />
+		<Unit filename="rars/vc/DlgTrackLoad.h" />
+		<Unit filename="rars/vc/DlgTrackProperty.cpp" />
+		<Unit filename="rars/vc/DlgTrackProperty.h" />
+		<Unit filename="rars/vc/DlgTrackSection.cpp" />
+		<Unit filename="rars/vc/DlgTrackSection.h" />
+		<Unit filename="rars/vc/resource.h" />
+		<Unit filename="rars/vc/stdafx.cpp" />
+		<Unit filename="rars/vc/stdafx.h" />
+		<Unit filename="rars/vc/vc_rars.cpp" />
+		<Unit filename="rars/vc/vc_rars.h" />
+		<Unit filename="rars/vc/vc_rars.rc" />
+		<Unit filename="rars/xml/ascii.h" />
+		<Unit filename="rars/xml/asciitab.h" />
+		<Unit filename="rars/xml/elements.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rars/xml/iasciitab.h" />
+		<Unit filename="rars/xml/latin1tab.h" />
+		<Unit filename="rars/xml/nametab.h" />
+		<Unit filename="rars/xml/utf8tab.h" />
+		<Unit filename="rars/xml/xmldef.h" />
+		<Unit filename="rars/xml/xmlparse.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rars/xml/xmlparse.h" />
+		<Unit filename="rars/xml/xmlrole.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rars/xml/xmlrole.h" />
+		<Unit filename="rars/xml/xmltok.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rars/xml/xmltok.h" />
+		<Unit filename="rars/xml/xmltok_impl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rars/xml/xmltok_impl.h" />
+		<Unit filename="rars/xml/xmltok_ns.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

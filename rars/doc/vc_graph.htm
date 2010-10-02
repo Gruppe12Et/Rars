@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+<head>
+<title></title>
+<meta NAME="Author" CONTENT>
+<meta NAME="GENERATOR" CONTENT="Microsoft FrontPage 3.0">
+</head>
+
+<body>
+<font SIZE="+3">
+
+<p align="center"></font><big><font face="Arial" color="#FF0000"><strong>RARS 0.641:
+Graphics Help File </strong></font></big></p>
+
+<hr WIDTH="100%" align="center">
+
+<p>Date augustus 05, 96</p>
+
+<h2><small><font COLOR="#0000FF">I. Basic Principes</font></small></h2>
+
+<ul>
+  <p>The source files are:<ul>
+    <li><em><strong>PLATFORM INDEPENDENT FILES</strong></em></li>
+    <ul TYPE="DISC">
+      <li><font face="Courier New">g_lowgra.cpp&nbsp;&nbsp; // class TLowGraphic</font></li>
+      <li><font face="Courier New">g_vwmana.cpp&nbsp;&nbsp; // TViewManager</font></li>
+      <li><font face="Courier New">g_view.cpp&nbsp;&nbsp;&nbsp;&nbsp; // TView</font></li>
+      <li><font face="Courier New">g_view2d.cpp&nbsp;&nbsp; // TView2d</font></li>
+      <li><font face="Courier New">g_viewbd.cpp&nbsp;&nbsp; // TViewBoard</font></li>
+      <li><font face="Courier New">g_viewcl.cpp&nbsp;&nbsp; // TViewClassical</font></li>
+      <li><font face="Courier New">g_bitmap.cpp&nbsp;&nbsp; // TBitmap</font></li>
+      <li><font face="Courier New">g_palett.cpp&nbsp;&nbsp; // TPalette</font></li>
+      <li><font face="Courier New">g_bitmap.h&nbsp;&nbsp;&nbsp;&nbsp; // class definition TBitmap</font></li>
+      <li><font face="Courier New">g_view.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // class
+        definition (rest)</font></li>
+      <li><font face="Courier New">g_define.h&nbsp;&nbsp;&nbsp;&nbsp; // defines</font></li>
+      <li><font face="Courier New">g_global.h&nbsp;&nbsp;&nbsp;&nbsp; // global variables </font></li>
+    </ul>
+    <li><em><strong>PLATFORM DEPENDENT FILES (Borland C++ 3.1)</strong></em></li>
+    <ul TYPE="DISC">
+      <li><font face="Courier New">bc_lowgr.cpp&nbsp;&nbsp; // platform dependent functions</font></li>
+      <li><font face="Courier New">bc_define.h&nbsp;&nbsp;&nbsp; // specific defines (see
+        g_define.h) </font></li>
+    </ul>
+  </ul>
+  <p>The data files are in the directory DATA:<ul>
+    <li><font face="Courier New">font8x8.pcx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // font</font></li>
+    <li><font face="Courier New">grass8x8.pcx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // grass</font></li>
+    <li><font face="Courier New">color.pl0
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // the palette of colors</font></li>
+    <li><font face="Courier New">car01.pcx
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // car01's bitmap</font></li>
+  </ul>
+  <p>I wrote these new routines for Rars 0.64. The actual version is not a final one. A lot
+  of things can be changed, maybe to avoid some problem of protability with some OS, or
+  maybe because you have an idea to improve the code. Please, send me your suggestions of
+  changes )</p>
+  <p>......</p>
+</ul>
+
+<h2><small><font COLOR="#0000FF">II. Description of the classes.</font></small></h2>
+
+<p>.....</p>
+
+<h2><small><font COLOR="#0000FF">III. Portability.</font></small></h2>
+
+<ul>
+  <p>There are 2 ways to port the graphics on an other platform. - a very easy way, but that
+  can be slow and memory hungry. - a more difficult way, by redefining all the simple
+  drawing primitives.</p>
+  <p>Here is the list of the platform dependent files: - os.cpp - bc_lowgr.cpp - bc_define.h</p>
+  <h3><font COLOR="#008000">A. Easy way: By modifing : - bc_lowgr.cpp </font></h3>
+  <h4>1.CopyViewToScreen</h4>
+  <p>In the original low graphics library, each View is first drawn inside a bitmap (array
+  of char) and then copied to the screen with a platform dependent function.</p>
+  <p>This type of function that copies a bitmap of 256 colors to the screen exists in most
+  of the Os.<br>
+  For example:<ul>
+    <li>- DJGPP : GrBitBlt(...)</li>
+    <li>- BORLAND C++ 3.1 : copy manually the bitmap to A000 </li>
+    <li>- LINUX (svgalib) : vga_bitblt(...) </li>
+    <li>- WINDOWS (with WinG) : WinGBitBlt(...) ...</li>
+  </ul>
+  <p>I think (...) this type of function exists also in the graphics extensions of XWindows
+  and in Windows even without WinG or DirectX ... PS: - if you have a such function inside
+  your OS, use it, if your graphic driver is well done, the function will use the hardware
+  capabilities of your graphics card and your CPU will not lose its time to copy the bitmap.
+  - Depending of the OS the screen has to be in a 256 color mode or not ( in Windows, it
+  works also in a 16 colors mode )</p>
+  <h4>2. SetPalette </h4>
+  <p>The actual code uses only 16 colors. </p>
+  <h3><font COLOR="#008000">B. Difficult way: By modifing : - bc_lowgr.cpp - g_lowgra.cpp</font></h3>
+  <p>For performance reasons or because a 'BitBlt' function does not exist in your GUI/OS,
+  you can use another way to port the graphics.<ul>
+    <li>By changing all the primitives of the classe TLowGraphic by platform dependent graphics
+      functions.</li>
+    <li>By erasing the contents of the CopyViewToScreen function. </li>
+  </ul>
+  <h3><font COLOR="#008000">C. bc_define.h</font></h3>
+  <p>This is a very simple file that defines the types - int16, - int32, - ... for your
+  compiler.</p>
+  <p>( You need also to modify the file g_define.h )</p>
+  <h3><font COLOR="#008000">D. Samples</font></h3>
+  <p>I've tried my code with 2 different compilers: <ul>
+    <li>Borland C++ 3.1 ( Dos 16 bits )</li>
+    <li>DJGPP ( Dos 32 bits ) I wrote for them some samples:</li>
+    <ul TYPE="DISC">
+      <li>bc_lowgr.cpp ( Borland C++, 320*200, Copy bitmaps on the screen ) </li>
+      <li>bc_lowg2.cpp ( Borland C++, 320*200, Draw directly on the screen ) </li>
+      <li>dj_gr320.cpp ( DJGPP, 320*200, Copy bitmaps on the screen ) </li>
+      <li>dj_gr640.cpp ( DJGPP, 640*480, Copy bitmaps on the screen ) </li>
+      <li>dj_gr641.cpp ( DJGPP, 640*480, Draw directly on the screen )</li>
+    </ul>
+  </ul>
+</ul>
+</body>
+</html>

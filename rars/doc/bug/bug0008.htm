@@ -1,0 +1,73 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Marc Gueury">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>bug0008</title>
+</head>
+<body>
+<b><font color="#3333FF"><font size=+2>Bug 0008</font></font></b><b><font color="#FF0000"></font></b>
+<p><b><font color="#FF0000">Windows: The colors of the cars and of the
+bitmaps do not match.</font></b>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>Version</td>
+
+<td>0.72</td>
+</tr>
+
+<tr>
+<td>Solved in</td>
+
+<td>0.73c</td>
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>driver.cpp</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+
+<td>Marc Gueury</td>
+</tr>
+
+<tr>
+<td>Platform</td>
+
+<td>Windows Only</td>
+</tr>
+
+<tr>
+<td>Impact on cars</td>
+
+<td>NONE</td>
+</tr>
+
+<tr>
+<td>Impact on portability</td>
+
+<td>NONE</td>
+</tr>
+</table>
+
+<p><b><u>Description:</u></b>
+<p>The colors of the bitmap of the cars does not match
+<br>the color. Ex:
+<p>{ WappuCar,&nbsp; {oWHITE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+oWHITE},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "bitmap/car01",&nbsp; (char *)0
+},
+<p>The color is white and the bitmap and the color of the bitmap is green.
+<br>&nbsp;
+<br><b><u>Solution</u></b>
+<p>The colors of the cars now match the bitmap in driver.cpp:
+<br>So now,
+<p>{ WappuCar,&nbsp; {oGREEN,&nbsp;&nbsp;&nbsp;&nbsp; oGREEN},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"bitmap/car01",&nbsp; (char *)0 },
+<br>&nbsp;
+</body>
+</html>

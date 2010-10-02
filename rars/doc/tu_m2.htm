@@ -1,0 +1,207 @@
+<html>
+
+<head>
+<title>PART 2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+</head>
+
+<body>
+<font SIZE="+2" COLOR="#FF0000"><b>
+
+<p align="center">PART 2</b></font> </p>
+
+<hr WIDTH="100%">
+
+<p><br>
+Hello All - This is Tutorial 2: </p>
+
+<p>In the previous tutorial we showed how you might accelerate at full throttle as long as
+s.to_end exceeds some LARGE_FRACTION of s.cur_len. (This applies to any straightaway.) </p>
+
+<p>When the car passes that point, you might as well put on the brakes. You should have
+accelerated as long as possible, and now <b><font COLOR="#FF0000">you have to&nbsp; slow
+down for the turn</font></b>.&nbsp; You can lock the wheels, like this: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; vc = 0.0;</tt></b> </p>
+
+<p>Which will give you maximum deceleration.&nbsp; As long as the wheels are locked it
+won't matter how alpha is set; you will continue in a straight line in whatever direction
+you were heading.&nbsp; If you need to steer, then you better let the wheels roll.&nbsp;
+For instance, suppose you checked the dead_ahead flag at this time.&nbsp; (when
+s.dead_ahead is non-zero, then another car is approximately right in front of you.) In
+order to do some kind of steering, to avoid hitting it, but still slow down rapidly, you
+could use this: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; vc = .95 * s.v;</tt></b> </p>
+
+<p>The wheel is now sliding at 5 percent of the cars speed, which will give plenty of
+deceleration.&nbsp; (see the friction() function)&nbsp; But it is also rolling at 95
+percent of the cars speed, so it will still function well for steering.&nbsp; Again, this
+value of .95 might be better set at .91 or .98; that will probably only make a very small
+difference. Eventually, when your car is very competitive, very small differences can
+become very important.&nbsp; Racing is like that! </p>
+
+<p>How should you steer if dead_ahead is non-zero?&nbsp; One way is to change the value of
+&quot;lane&quot;, assuming you are using the steering method outlined in tutorial 1.&nbsp;
+A change of one or two car widths may be enough; you might pick the direction at random,
+or choose where there is more room. </p>
+
+<p>Now you are nearing the turn.&nbsp; <b><font COLOR="#FF0000">You must have some idea of
+how fast to take the turn</font></b>.&nbsp; This could be obtained by trial and error, but
+we can get a pretty good idea using some high school physics.&nbsp; This will&nbsp; give
+us the three relations that: </p>
+
+<p><b><tt>&nbsp;&nbsp; centripetal acceleration = speed squared / radius of curvature</tt></b>
+<br>
+<b><tt>&nbsp;&nbsp; centripetal force = Mass * centripetal acceleration</tt></b> <br>
+<b><tt>&nbsp;&nbsp; traction force = Mass * g * coefficient of friction</tt></b> </p>
+
+<p>A little simple algebra leads to the very practical result that: </p>
+
+<p><b><tt>&nbsp;&nbsp; speed = the square root of (coef. of friction * radius * g)</tt></b>
+</p>
+
+<p>If the radius is in feet and we use g =32.2 ft/(sec*sec) this will give us the speed in
+ft/sec.&nbsp; This relation gives us the theoretical maximum cornering speed if we know
+the radius and the coef. of friction.&nbsp; We can take the radius to be a little larger
+than the inner radius of the turn, or maybe a lot larger if you can figure out a really
+good path.&nbsp; We can assume a value a little less than 1.0 for the coef. of friction,
+because, as was stated in tutorial 1, the slip rate will be vc * sine(alpha).&nbsp; (That
+is only true if there is not much tangential acceleration, i.e you are going around the
+corner at more-or-less constant speed.)&nbsp; vc will be close to s.v in this case, and
+only a few degrees of alpha will give enough slippage to generate over .9 for the coef. of
+friction, as long as s.v is not very slow. </p>
+
+<p>The result of all that is the following very useful function: </p>
+
+<p><b><tt>double corn_spd(double radius)&nbsp;&nbsp;&nbsp;&nbsp; // returns maximum
+cornering speed, fps</tt></b> <br>
+<b><tt>{</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp; double
+rad;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// absolute value of the radius</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp; rad = radius &lt; 0 ? -radius : radius;&nbsp;&nbsp;&nbsp; //
+make radius positive</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp; return sqrt(rad * 32.2 * CORN_MYU);&nbsp;&nbsp;&nbsp;&nbsp; //
+compute the speed</tt></b> <br>
+<b><tt>}</tt></b> </p>
+
+<p>Here, CORN_MYU is your estimate of the coefficient of friction due to cornering
+traction.&nbsp; (BTW, RARS version 0.5 can show this value on the screen in real time,
+along with some other numbers.)&nbsp; .95 is a decent value for CORN_MYU. </p>
+
+<p>Now, when we are coming toward a turn, we can use s.nex_rad, which is its inner radius,
+to call the corn_spd() function.&nbsp; Then we will know how fast we are supposed to enter
+the turn.&nbsp; With that data <b><font COLOR="#FF0000">we can compare our speed, s.v, to
+the cornering speed.</font></b>&nbsp; As long as s.v exceeds the cornering speed, we
+continue braking.&nbsp; When we reach the point where s.v is less than the cornering
+speed, then we need to accelerate again, or at least maintain speed.&nbsp; Putting this
+all together, this is what we do from the point where we begin braking until we enter the
+turn: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; speed = corn_spd(s.nex_rad + DIST_FROM_INSIDE) //
+compute target speed</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; if(s.v &gt; speed)</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = .95 *
+s.v;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // braking</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; else</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = 1.05 *
+s.v;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // accelerating when below
+speed</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;
+if(s.dead_ahead)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Change the lane a little if someone's</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.to_lft &gt; s.to_rgt)&nbsp;&nbsp;
+// in your way.</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane -=
+DELTA_LANE;&nbsp;&nbsp;&nbsp; // lane must be a static variable</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane += DELTA_LANE;</tt></b>
+</p>
+
+<p>This will slow us down until we hit cornering speed, and then keep us at that
+speed.&nbsp; It will also attempt to steer away from a car in our path as we approach the
+corner, assuming we are using the steering method described in tutorial 1. </p>
+
+<p>The above algorithm suffers from rather drastic acceleration oscillations once the
+desired speed is reached, since the tire never approaches the speed of the track; it is
+always going 5% faster or 5% slower. Nothing terrible happens as a result of this, except
+that steering&nbsp; suffers.&nbsp; This is not good if passing is required.&nbsp; A
+smoother way is: <br>
+&nbsp; <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; if(s.v &gt; 1.02 *
+speed)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // if we're
+2% too fast,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = .95 *
+s.v;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// brake hard.</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; else if(s.v &lt; .98 *
+speed)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // if we're 2% too slow,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = 1.05 *
+speed;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+accelerate hard.</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;
+else&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// if we are very close to speed,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = .5 * (s.v +
+speed);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // approach the speed gently.</tt></b> </p>
+
+<p>The last formula, which computes vc as the arithmetic mean of s.v and the target speed,
+makes the wheel slip approach zero as s.v approaches the target speed.&nbsp; Furthermore
+the slip always has the correct sign to bring s.v closer to the target speed.&nbsp; At
+very high speeds, air drag will cause s.v to remain a little below the target speed. </p>
+
+<p>Once we reach the end of the straight, and enter the corner, we should be traveling at
+about the right speed, and we only need to maintain a circular path.&nbsp; The speed
+should be maintained at &quot;speed&quot;.&nbsp; We can&nbsp; maintain the speed using the
+same formula as above, except that the resulting vc should be divided by the cosine of
+alpha to account for vector effects.&nbsp; There exists a separate writeup of the vector
+relations between alpha, s.v, vc, tire slip, and the traction force vector.&nbsp; I can
+send that to those interested.&nbsp; Also, the implementation can be found in CARZ.Z,
+function move_car(), beginning with the label VC: and ending&nbsp; with tan_a = (Ft * temp
+- D) / M; </p>
+
+<p>The same steering servo algorithm that was described in tutorial 1 can continue to be
+used throughout the curve, but two modifications are very desirable.&nbsp; First, a value
+should be chosen for lane.&nbsp; For long curves you usually want to keep to the inside,
+although it might be even better to make lane a function of s.to_end.&nbsp; A simple way
+is to set lane to a certain fraction of the width from the inside, i.e.: </p>
+
+<p>&nbsp;<b><tt>&nbsp;&nbsp;&nbsp; width = s.to_lft + s.to_rgt;</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; if(s.cur_rad &gt;
+0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// turning left</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane = .2 * width;</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; else if(s.cur_rad &lt;
+0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // turning right</tt></b>
+<br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lane = .8 * width;</tt></b> </p>
+
+<p><b><font COLOR="#3333FF">s.cur_rad</font></b> is the radius of the inner rail of the
+curve we are on. <br>
+A negative sign is used to indicate a right turn. </p>
+
+<p>Would you believe that this paragraph is a secret message embedded in the
+tutorial?&nbsp; Yes it is! </p>
+
+<p>The second important addition to the steering servo is a bias term. This is an estimate
+of the required alpha value, or, the alpha that you get when s.vn is zero and s.to_left ==
+lane.&nbsp; The bias is positive for left turns, negative for right turns.&nbsp;
+Furthermore, it is small for high speed turns but has large magnitude for low speed turns.
+A reasonable formula for the alpha bias is: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; bias = atan(BIG_SLIP / speed);</tt></b> </p>
+
+<p>Where <b><font COLOR="#3333FF">BIG_SLIP</font></b> is a slip rate large enough to get
+the desired lateral force.&nbsp; A good value for BIG_SLIP might be in the range of 12.0
+to 20.0.&nbsp; The atan() is theoretically correct, but in practice just BIG_SLIP / speed
+is close enough; there won't be much difference. Without the bias added to alpha, the car
+will drift far from the desired lane value. </p>
+
+<p>In tutorial 3 we will put all of the code from the first two tutorials <br>
+together into a complete robot. </p>
+
+<p>m </p>
+</body>
+</html>

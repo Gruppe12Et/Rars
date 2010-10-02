@@ -1,0 +1,21 @@
+After unzipping this you should find following directories:    
+/robots      
+/tracks     
+/doc
+plus four system-dependent directories:     
+/dos    (Borland C++ 4.5)
+/unix   (Linux gcc)
+/vc     (Visual C++)
+/djgpp  (DJGPP)
+
+To compile:
+ - unix: typing "make" in the main directory should work
+ - windows: open vc_rars.dsw in Visual Studio
+ - dos: ?
+
+Good luck!    
+Read help.htm, rars.hlp and DOC/history.doc for more info 
+Read tutorials of RARS robot building from help.htm or
+www.ebc.ee/~mremm/rars/rars.htm
+or
+www.cgr.ki.se/cgr/persons/mremm/rars/rars.htm

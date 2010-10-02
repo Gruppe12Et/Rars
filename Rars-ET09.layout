@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Rars" />
+	<File name="rars/car.h" open="1" top="0" tabpos="4">
+		<Cursor position="6238" topLine="165" />
+	</File>
+	<File name="rars/drivers.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="259" topLine="0" />
+	</File>
+	<File name="rars/gi.h" open="1" top="0" tabpos="3">
+		<Cursor position="912" topLine="28" />
+	</File>
+	<File name="rars/graphics/g_track_area.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="12837" topLine="540" />
+	</File>
+	<File name="rars/robots/et09template.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="958" topLine="5" />
+	</File>
+	<File name="rars/robots/gruppe1.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="958" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe10.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="997" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe11.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="1964" topLine="61" />
+	</File>
+	<File name="rars/robots/gruppe12.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe13.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe14.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe15.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe16.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe17.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe18.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe19.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="631" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe2.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1027" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe3.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="688" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe4.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="629" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe5.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="629" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe6.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="629" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe7.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="629" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe8.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="629" topLine="12" />
+	</File>
+	<File name="rars/robots/gruppe9.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1108" topLine="12" />
+	</File>
+</CodeBlocks_layout_file>

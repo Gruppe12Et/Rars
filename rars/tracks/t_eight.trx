@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<track>
+
+  <info
+    name="Test track (eight)"
+    version="6"
+    author="Marc Gueury"
+    description="Test track for the editor"
+  />
+
+  <unit
+  />
+
+  <header
+    width="80"
+    finish="0.8"
+  />
+
+  <xwindow
+    score_board_x="900"
+    score_board_y="560"
+    leader_board_x="250"
+    leader_board_y="500"
+    inst_panel_x="550"
+    inst_panel_y="1040"
+    message_x="400"
+    message_y="640"
+  />
+
+  <pitstop
+    side="-1"
+    entry="2100"
+    exit="1000"
+    lane_start="3200"
+    lane_end="100"
+    lane_speed="60"
+  />
+
+  <segments>
+
+    <default/>
+
+    <section name="track">
+      <segment length="600">
+        <right border_size="100" border_tree_size="0" border_tree_height="0" show_tree="false"/>
+      </segment>
+      <segment radius="600" arc="1.571" type="yinv" section="pitstop">
+        <right border_tree_height="0" show_tree="false"/>
+      </segment>
+      <segment radius="600" arc="1.571">
+        <left border_tree_height="0"/>
+        <right border_tree_height="0"/>
+      </segment>
+      <segment length="2000" hill_height="-50" profile_height="hill">
+        <left border_tree_height="0"/>
+        <right border_tree_height="0"/>
+      </segment>
+      <segment radius="-600" arc="1.571"/>
+      <segment radius="-600" arc="1.571" type="y" section="leftstop">
+        <left border_size="320" border_tree_size="0" border_tree_height="0"/>
+      </segment>
+      <segment length="600">
+        <left border_size="320" border_tree_size="0" border_tree_height="0"/>
+      </segment>
+      <segment radius="-400" arc="1.571" type="yinv" section="leftstop">
+        <left border_size="15"/>
+        <right border_size="15"/>
+      </segment>
+      <segment length="1598.209782" hill_height="75" profile_height="hill">
+        <left border_size="15" show_tree="false" show_border_tree="false" texture_border="concrete_nmm"/>
+        <right border_size="15" border_tree_height="0" show_tree="false" show_border_tree="false" texture_border="concrete_nmm"/>
+      </segment>
+      <segment radius="400.812759" arc="1.571" type="y" section="pitstop">
+        <right border_size="100" border_tree_size="260" border_tree_height="0" show_tree="false"/>
+      </segment>
+    </section>
+
+    <section name="pitstop">
+      <segment length="500">
+        <left border_tree_size="320" border_tree_height="0"/>
+      </segment>
+      <segment radius="400" arc="1.571">
+        <left border_tree_size="320" border_tree_height="0" show_tree="false"/>
+        <right border_tree_size="200"/>
+      </segment>
+      <segment length="800">
+        <left border_tree_size="260" border_tree_height="0" show_tree="false"/>
+        <right border_tree_size="200" border_tree_height="0"/>
+      </segment>
+      <segment radius="401.058151" arc="1.571">
+        <left border_tree_size="260" border_tree_height="0" show_tree="false"/>
+        <right border_tree_size="200" border_tree_height="0"/>
+      </segment>
+      <segment length="698.169352">
+        <left border_tree_height="0"/>
+        <right border_tree_height="0"/>
+      </segment>
+    </section>
+
+    <section name="leftstop">
+      <segment length="1000">
+        <right border_size="400" border_tree_size="0"/>
+      </segment>
+      <segment radius="-400" arc="1.571">
+        <right border_size="400" border_tree_size="0" show_tree="false"/>
+      </segment>
+      <segment length="800">
+        <right border_size="400" border_tree_size="0" show_tree="false"/>
+      </segment>
+      <segment radius="-400.366435" arc="1.571">
+        <right border_size="400" border_tree_size="0" show_tree="false"/>
+      </segment>
+      <segment length="799.592243">
+        <left border_size="15"/>
+      </segment>
+    </section>
+
+  </segments>
+
+  <objects>
+  </objects>
+
+</track>

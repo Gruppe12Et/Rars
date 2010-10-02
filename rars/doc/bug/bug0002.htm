@@ -1,0 +1,108 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Marc Gueury">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>bug0002</title>
+</head>
+<body>
+<b><font color="#3333FF"><font size=+2>Bug 0002</font></font></b>
+<p><b><font color="#FF0000">Memory leak in carz.pp (rob_name)</font></b>
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td>Version</td>
+
+<td>0.73b</td>
+</tr>
+
+<tr>
+<td>Solved in</td>
+
+<td>0.73c</td>
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>car.h + carz.cpp + movie.cpp + driver.cpp</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+
+<td>Marc Gueury</td>
+</tr>
+
+<tr>
+<td>Platform</td>
+
+<td>ALL</td>
+</tr>
+
+<tr>
+<td>Impact on cars</td>
+
+<td>NONE</td>
+</tr>
+
+<tr>
+<td>Impact on portability</td>
+
+<td>NONE</td>
+</tr>
+</table>
+
+<p><b><u>Description:</u></b>
+<p>Problem of memory allocation of the names in carz.cpp.
+<br>Variable rob_name is allocated per car and never removed.
+<p>In car.h
+<br>[...]
+<br>struct car_ID&nbsp; {&nbsp;&nbsp;&nbsp;&nbsp; // This structure make
+one car different from another
+<br>&nbsp;&nbsp; robot*&nbsp; rob_ptr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pointer to the robot "driver" function;
+<br>&nbsp;&nbsp; colors&nbsp; paint_job;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// the nose and tail colors
+<br>&nbsp;&nbsp; char*&nbsp;&nbsp; bitmap_name;&nbsp;&nbsp;&nbsp; // name
+of the bitmap to use to display the car
+<br>&nbsp;&nbsp; char*&nbsp;&nbsp; rob_name;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pointer to the first character of the name string
+<br>};
+<br>[...]
+<p>In carz.cpp
+<br>[...]
+<br>void get_names(void)
+<br>{
+<br>&lt;snip>
+<br>&nbsp;&nbsp;&nbsp;&nbsp; drivers[i].rob_name = new char[33];
+<br>&nbsp;[...]
+<p>In movie.cpp
+<br>[...]
+<br>VOID ReplayInit( fstream&amp; in, int *car_count, car_ID *drivers )
+<br>{
+<br>&lt;Snip>
+<br>&nbsp;ThisCar->rob_name = (char *)malloc( (strlen(buf)+1) * sizeof(char)
+);
+<br>&nbsp;strcpy( ThisCar->rob_name, buf );
+<br>[...]
+<br>&nbsp;
+<p><b><u>Solution</u></b>
+<p>Change of the definition of&nbsp; rob_name. Both allocations are removed.
+<p>In car.h
+<br>[...]
+<br>&nbsp;&nbsp; char&nbsp;&nbsp; rob_name[33];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pointer to the first character of the name string
+<br>};
+<br>[...]
+<p>In driver.cpp
+<br>{ Indretti,&nbsp; {oGREEN,&nbsp;&nbsp;&nbsp;&nbsp; oRED},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"bitmap/car12",&nbsp; (char *)0 }
+<br>->
+<br>{ Indretti,&nbsp; {oGREEN,&nbsp;&nbsp;&nbsp;&nbsp; oRED},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"bitmap/car12",&nbsp; 0 }
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

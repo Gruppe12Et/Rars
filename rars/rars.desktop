@@ -1,0 +1,11 @@
+[Desktop Entry]
+Comment=Robot Auto Racing Simulator
+Exec=rars
+Icon=rars.xpm
+Name=Robot Auto Racing Simulator
+Path=
+Terminal=0
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

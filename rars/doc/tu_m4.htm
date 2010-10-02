@@ -1,0 +1,246 @@
+<html>
+
+<head>
+<title>PART 4</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+</head>
+
+<body>
+<font SIZE="+2" COLOR="#FF0000"><b>
+
+<p align="center">PART 4</b></font> </p>
+
+<hr WIDTH="100%">
+
+<p><br>
+In this, the fourth in the tutorial series, we will improve the performance of the robot
+driver that was presented in the previous&nbsp; tutorial.&nbsp; TutorMan had good
+performance on two out of the six tracks that will be used for the April races.&nbsp; On
+the other four, he was not able to complete the course.&nbsp; The main thing to do first
+is to get him to stay on the track! </p>
+
+<p>If you observe TutorMan try to negotiate various tracks, you will see that he runs off
+the track consistently if a tight turn follows a large radius turn.&nbsp; He also runs off
+the track if a tight turn follows a short straightaway where the straightaway is entered
+at a high speed. </p>
+
+<p>Both of these observations are easy to explain.&nbsp; When the car is in a large radius
+turn, it naturally is going at a high rate of speed. Our corn_spd() function gives us a
+target speed proportional to the square root of the radius, like it should.&nbsp; However,
+if the high speed curve is followed by a sharp corner, the car will enter the sharp corner
+at a speed appropriate to the high speed curve!&nbsp; There is nothing in TutorMan's code
+to cause him to slow down for the corner.&nbsp; You can observe this behavior on V03.TRK;
+Tutorman always goes off the track after the long, gradual right hand curve. On every
+straightaway, we have code to slow down for the corner.&nbsp; The problem here is that the
+length of the part of the track where braking takes place is always equal to a fixed
+fraction of the length of the straightaway.&nbsp; If it is a short straightaway, we will
+have a short braking section.&nbsp; Since the acceleration section is also short, this
+would be OK if we entered the straightaway at a low speed.&nbsp; But it often happens that
+the short straight is entered at a high speed, in which case it will still be going at a
+high speed when it reaches the braking section.&nbsp; Again, the sharp curve will be
+entered at too high a speed, resulting in going off the track to the outside.&nbsp; You
+can observe this behavior on ZANDVORT.TRK; Tutorman always goes off&nbsp; the track in the
+second turn. </p>
+
+<p><b><font COLOR="#FF0000">What we need is a more realistic way of deciding when to brake
+for the corner,</font></b> and we also need to apply that rule on curves as well as
+straightaways.&nbsp; The distance actually required to slow the car down for the curve
+depends on three things: 
+
+<ol>
+  <li>How fast we are traveling,</li>
+  <li>What speed we must have when we arrive at the corner, and</li>
+  <li>Our rate of negative acceleration during braking.&nbsp; Notice that the&nbsp; length of
+    the straightaway has no direct influence here; our former rule was totally
+    inadequate!&nbsp; What we need is a function that looks like this:</li>
+</ol>
+
+<ul>
+  <b><tt><p>// returns the minimum distance in which the speed can be changed</tt></b> <br>
+  <b><tt>// from v0 to v1 with acceleration limited to a_max.</tt></b> <br>
+  <b><tt>double crit_dist(double v0, double v1, double a_max);</tt></b></p>
+</ul>
+
+<p>Once we have such a function, then we can compare our current distance from the next
+curve with this critical distance.&nbsp; As long as we are farther than this distance from
+the next turn, we do not have to slow down. Otherwise, we must brake to adjust our speed
+for the next turn. </p>
+
+<p>There is a well known formula for the distance traveled by a body with uniform
+acceleration during time T.&nbsp; (Due, I believe, to Isaac Newton!)&nbsp; Using the
+symbols chosen for our crit_dist() function, the formula is: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dist = v0 * T + .5 * a_max * T * T</tt></b> <br>
+&nbsp; <br>
+Now by the definition of uniform acceleration, and using dv to mean <br>
+the total change in speed during time T: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dv = a_max *
+T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (where dv = v1 - v0)</tt></b> </p>
+
+<p>T can be eliminated from those two equations by simply solving the <br>
+second for T, and substituting this for T in the first.&nbsp; The result <br>
+is: <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dist = v0 * dv / a_max + .5 * dv * dv / a_max;</tt></b>
+</p>
+
+<p>which we can calculate as: </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dist = (v0 + .5 * dv) * dv / a_max;</tt></b> </p>
+
+<p>That is our desired formula for the required distance. <br>
+Our complete function can be written like this: </p>
+
+<p><b><tt>// calculates the critical distance necessary to bring a car from speed</tt></b>
+<br>
+<b><tt>// v0 to speed v1 when the braking acceleration is a_max, in ft per sec^2</tt></b> <br>
+<b><tt>// Speeds are in fps.&nbsp; (a_max should be negative and v0 &gt; v1)</tt></b> <br>
+<b><tt>double crit_dist(double v0, double v1, double a_max)</tt></b> <br>
+<b><tt>{</tt></b> <br>
+<b><tt>&nbsp;&nbsp; double dv;</tt></b> </p>
+
+<p><b><tt>&nbsp;&nbsp; dv = v1 - v0;</tt></b> <br>
+<b><tt>&nbsp;&nbsp; if(dv &gt; 0.0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// this saves having such a test in the caller</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return(0.0);</tt></b> <br>
+<b><tt>&nbsp;&nbsp; return (v0 + .5 * dv) * dv / a_max;</tt></b> <br>
+<b><tt>}</tt></b> <br>
+&nbsp; <br>
+Now to apply this to our robot.&nbsp; For the straightaways, instead of comparing s.to_end
+with some fraction of s.cur_len, we first compute this crit_dist() function, and compare
+s.to_end with that.&nbsp; The first argument is s.v, our current speed.&nbsp; The second
+is &quot;speed&quot;, already computed, which is the target speed for the curve
+ahead.&nbsp; The third argument will be another const parameter, which will replace
+ACCEL_FRACTION, which will no longer be used.&nbsp; This is what we wind up with: </p>
+
+<p><b><tt>const double BRAKE_ACCEL = -31.0;&nbsp;&nbsp;&nbsp;&nbsp; // acceleration when
+braking, ft/sec^2</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp; speed = corn_spd(s.nex_rad + DIST_FROM_INSIDE); // target speed for
+next turn</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp; if(s.cur_rad == 0.0)
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // If we are on
+a straightaway,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.to_end &gt; crit_dist(s.v, speed,
+BRAKE_ACCEL))&nbsp; // if far from the end,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = s.v +
+50.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pedal to the metal!</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else&nbsp;
+{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// otherwise, adjust speed for the coming turn:</tt></b> <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . <br>
+BRAKE_ACCEL could exceed 32.2 at high speed, due to air drag.&nbsp; At low speed it could
+be less than 30.0.&nbsp; This is one more parameter to experiment with.&nbsp; (Yes, it
+could be made a function of s.v.&nbsp; You could even calculate the true value by saving
+s.v from the previous call and seeing how much it changed.) </p>
+
+<p><i>A number of other complexities arise when applying this approach to braking during
+curves.&nbsp;</i> The basic idea is still the same, we compare our distance to the end of
+the curve with a critical distance based on our current speed and the speed we must have
+at the end of the&nbsp; curve.&nbsp; If the curve is followed by a straightaway, or a
+curve of larger radius, we'll assume we don't have to slow down.&nbsp; We are already
+using our cornering speed function to calculate a value for &quot;speed&quot;,
+representing a target value for the curve we are in.&nbsp; It will be necessary to also
+calculate the cornering speed for the next segment.&nbsp; We will need another variable
+name, say &quot;speed_next&quot;.&nbsp; Furthermore, since the next segment may be a
+straightaway, we need to consider that, and give speed_next a large value in that case. </p>
+
+<p>The next problem is: what should the braking acceleration be?&nbsp; We are talking
+about braking during a high speed turn in order to slow down for another, sharper
+turn.&nbsp; Clearly, we can't usually brake as hard as we would on a straightaway; we need
+to maintain some steering ability.&nbsp; Our traction force vector is going to be used
+both for braking and centripetal acceleration.&nbsp; The truth is that an optimal solution
+would require a much more sophisticated analysis.&nbsp; What we will do is pick another
+const parameter for the braking acceleration during curves, and also another parameter for
+the amount of reduction in wheel speed that we use to cause braking. </p>
+
+<p>One last thing to handle is that s.to_end is not a linear distance when the car is in a
+curve.&nbsp; It is the angle in radians.&nbsp; It can be converted to a curvilinear
+distance by multiplying it by the current radius.&nbsp; We will assume that the current
+radius is s.cur_rad + DIST_FROM_INSIDE. <br>
+Putting everything together, We wind up with this: </p>
+
+<p><b><tt>const double BRK_CRV_ACC = -22.0;&nbsp;&nbsp;&nbsp;&nbsp; // acceleration when
+braking in curve</tt></b> <br>
+<b><tt>const double BRK_CRV_SLIP = 4.0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // tire slip for
+braking in curve</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>// Modified cornering speed function - returns 250.0 if called for</tt></b> <br>
+<b><tt>// a straightaway, assuming that DIST_FROM_INSIDE has been added to radius.</tt></b>
+<br>
+<b><tt>// 250.0 is approximately the car's top speed.</tt></b> <br>
+<b><tt>double corn_spd(double radius)&nbsp;&nbsp;&nbsp;&nbsp; // returns maximum cornering
+speed, fps</tt></b> <br>
+<b><tt>{</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; double
+rad;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// absolute value of the radius</tt></b> </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; if(radius == DIST_FROM_INSIDE) //if called for
+straight, return top speed</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 250.0;</tt></b> <br>
+<b><tt>&nbsp;</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp; rad = radius &lt; 0 ? -radius : radius;&nbsp;&nbsp;&nbsp;
+// make radius positive</tt></b> </p>
+
+<p><b><tt>&nbsp;&nbsp;&nbsp;&nbsp; return sqrt(rad * 32.2 *
+CORN_MYU);&nbsp;&nbsp;&nbsp;&nbsp; // compute the speed</tt></b> <br>
+<b><tt>}</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp; double to_end;&nbsp;&nbsp;&nbsp;&nbsp; // distance to end of curve,
+feet</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp; if(s.cur_rad == 0.0) {</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bias = 0.0;</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed = corn_spd(s.nex_rad + DIST_FROM_INSIDE);</tt></b>
+<br>
+<b><tt>&nbsp;&nbsp; }</tt></b> <br>
+<b><tt>&nbsp;&nbsp; else&nbsp; {</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed = corn_spd(s.cur_rad + DIST_FROM_INSIDE);</tt></b>
+<br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed_next = corn_spd(s.nex_rad + DIST_FROM_INSIDE);</tt></b>
+<br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .</tt></b> <br>
+<b><tt>&nbsp;&nbsp; if(s.cur_rad != 0.0)&nbsp; {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // If
+we are in a curve,</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // calculate vc to maintain speed
+in corner</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc = .5 * (s.v +
+speed)/cos(alpha);</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // calculate distance to end of
+curve:</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.cur_rad &gt; 0.0)</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to_end =
+s.to_end * (s.cur_rad + DIST_FROM_INSIDE);</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to_end =
+-s.to_end * (s.cur_rad - DIST_FROM_INSIDE);</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // compute required braking
+distance and compare:</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(to_end &lt;= crit_dist(s.v,
+speed_next, BRAKE_CURVE))</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vc -=
+BRK_CRV_SLP;</tt></b> <br>
+<b><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</tt></b> </p>
+
+<p>With those changes incorporated into our robot it should be able to <br>
+get around almost any track.&nbsp; The next tutorial will consist of another <br>
+compilable robot program, incorporating all of the above. <br>
+</p>
+</body>
+</html>

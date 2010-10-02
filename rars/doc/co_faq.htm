@@ -1,0 +1,601 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (X11; I; Linux 2.0.32 i586) [Netscape]">
+   <TITLE>RARS FAQ</TITLE>
+</HEAD>
+<BODY>
+
+<H2>
+Contents</H2>
+<B>Starting with RARS</B>
+<LI>
+&nbsp;<A HREF="#1">I don't know anything about programming</A></LI>
+
+<LI>
+&nbsp;<A HREF="#2">Adding robot drivers</A></LI>
+
+<LI>
+&nbsp;<A HREF="#3">Status of RARS</A></LI>
+
+<LI>
+&nbsp;<A HREF="#4">RARS source code</A></LI>
+
+<BR><B>Understanding RARS code</B>
+<LI>
+<A HREF="#5">Track formats and track design</A></LI>
+
+<LI>
+<A HREF="#7">Car flashing</A></LI>
+
+<LI>
+<A HREF="#7">Alpha, vc and distances</A></LI>
+
+<LI>
+<FONT COLOR="#000000"><A HREF="#8">Understanding s.nearby</A></FONT></LI>
+
+<BR><B>Writing your own robot</B>
+<LI>
+<A HREF="#9">Debugging your robot code</A></LI>
+
+<LI>
+<A HREF="#10">Optimization of the robot</A></LI>
+
+<BR><B><A HREF="#11">RARS Wishlist</A></B>
+<BR>
+<HR WIDTH="100%">
+<H2>
+Starting with RARS</H2>
+<A NAME="1"></A><B>1. I don't know anything about programming.</B> This
+was MY first question in RARS: <FONT COLOR="#FF0000">Unfortunately I have
+never learned anything about programming. I would like to start learning
+it on basis of programming a driver, but don't know where. What files should
+I have in my working directory and what exactly should be my command line
+on these compilers to make my robot work as one of the drivers in rars?</FONT>
+<BR>One generally makes a makefile... They are included in current distributions
+In working directory you should have all files except track files which
+must be in track subdirectory. Copy files from robots directory and your
+system directory (unix, dos, or vc) to main working directory. You might
+need to edit library files path in file called Makefile. If you are on
+UNIX, find out where your X libraries (libX11.a or libX11.so) are. Mine
+are in /usr/X11R6/lib so I have added -L/usr/X11R6/lib to Makefile. In
+DOS makefile lines containing CC, TLIB, TLINK, LIBPATH, INCLUDEPATH should
+be edited according to your compiler and library files location. Then you
+would just type make.
+
+<P><A NAME="2"></A><B>2. Adding robot drivers</B>
+<BR><FONT COLOR="#FF0000">I downloaded some more drivers from WWW site.
+How can I compile them into Rars? How can I add my own driver?</FONT>
+<BR>For changing drivers you should edit file drivers.cpp. You should replace
+one of the existing robot's name (and/or colors) in robot's list AND in
+drivers array. Robots name can be found in robots file on line con_vec
+ROBOT_NAME(situation &amp;s) It might be different from what robots shows
+on screen. Also, change robots filename in makefile. That's all. Nevertheless,
+if you are ADDING robots to drivers[] array, you should increase constant
+MAXCARS in the beginning of file car.h
+
+<P><FONT COLOR="#FF0000">I have programmed a car nearly from scratch which
+seems to be pretty efficient, it nearly finishes all tracks at third position
+which seems to be quite good. Could it be possible to download the latest
+versions of other players in order to compare its car against others?</FONT>
+<BR>Most of the robots are available from my <A HREF="http://www.ebc.ee/~mremm/rars/robots1.htm">robots
+page</A>. Some additional robots are also in <A HREF="ftp://ftp.ijs.com/rars">FTP
+site</A>.
+<BR>&nbsp;
+
+<P><A NAME="3"></A><B>3. Status of RARS</B>
+<BR><FONT COLOR="#FF0000">Could you tell me what is the current status
+of RARS?</FONT>
+<BR>Status is active :-), with one current season on F1 tracks and several
+occasions of other competitions. Check out <A HREF="http://www.ebc.ee/~mremm/rars/races.htm">announcements
+about current racing series</A>.
+
+<P><FONT COLOR="#FF0000">I have heard of a 3 dimensional version of Rars,
+does it really exist ?</FONT>
+<BR>If you mean 3D-graphics of RARS then check out <A HREF="http://users.skynet.be/mgueury/rars/rars.html">Marc
+Guery's page</A>. It looks nice, but it is not universally ported to all
+platforms (needs OpenGL).
+<BR>3D model <B>for track description </B>was planned as a part of RARS
+2 (see next question).
+
+<P><FONT COLOR="#FF0000">What is the status of RARS 2 (OORARS)?</FONT>
+<BR><FONT COLOR="#000000">Here is a short comment from Kim Laurio:</FONT>
+<PRE>>There has not been any substantial additions since the <A HREF="http://www.ida.his.se/ida/~kim/OORARS/ProgressReport.txt">progress</A></PRE>
+
+<PRE>><A HREF="http://www.ida.his.se/ida/~kim/OORARS/ProgressReport.txt">report</A> was released to the public at 7 January 1997.</PRE>
+
+<PRE>>This page should give you</PRE>
+
+<PRE>>a pretty good picture of the current status. No coding was done</PRE>
+
+<PRE>>(except for some minor tests to evaluate the CPU-usage of some</PRE>
+
+<PRE>>algorithms).</PRE>
+
+<PRE>>I'd suggest that you'd at least take a quick glance on that text to see</PRE>
+
+<PRE>>where we were and what we thought of. It is not part of any 'overall'</PRE>
+
+<PRE>>continuity/design plan of RARS, it's just a bunch of ideas that you are</PRE>
+
+<PRE>>free to use or not. For a good introduction to tire physics,</PRE>
+
+<PRE>>I'd recommend that you read the <A HREF="http://www.ida.his.se/ida/~kim/OORARS/Tires.html">short text by David Sparks</A>;</PRE>
+
+<PRE>>that should get you up and running in no time.</PRE>
+
+<PRE>>If you have any questions, I'll do my best to answer them.</PRE>
+
+<PRE>>Although I certainly don't have time to do any work with coding,</PRE>
+
+<PRE>>feel free to send me any ideas that you want feedback on.</PRE>
+
+<PRE>>Here is the <A HREF="http://www.ida.his.se/ida/~kim/OORARS/OORARS.html">main page for OORARS</A>.</PRE>
+
+<PRE>>Good luck!&nbsp; <A HREF="mailto:kim@ida.his.se">Kim Laurio</A></PRE>
+
+<PRE>&nbsp;</PRE>
+<A NAME="4"></A><B>4. RARS source code</B>
+<BR><FONT COLOR="#FF0000">To which platforms have Rars been ported ?</FONT>
+<BR>Current version is for <B>DOS (Borland),&nbsp;Linux,&nbsp;Windows(MS Visual C++)</B>.<br>
+The &quot;UNIX&quot; version uses X Windows for display, and has been known to
+run on Ultrix, SunOS, OSF/1 (DEC Alpha), Linux, and probably a few
+more that I can't think of right now.<br>
+Older or different versions exist for OS/2, DJGPP, AIX, Symantec, Amiga, 
+Macintosh, Watcom, Java.<br>
+<B>For those old versions it is probably easier to start porting from latest 
+DOS or UNIX version rather than add changes to old port.<br></B>
+
+<p align="left">
+<font color="#0000FF"><strong>AIX:</strong></font> tkn@VNET.IBM.COM (Thomas K. Netousek):<br>
+I have done a &quot;port&quot; of the linux version to AIX.<br>
+It is a matter of some #include's #ifdef'd AIX<br>
+<br>
+<font color="#0000FF"><strong>Amiga</strong></font>: m.f.offermans@wbmt.tudelft.nl (Marcel
+Offermans):<br>
+Amiga version Release 3, based on the RARS 0.60 sources.<br>
+Special requirements:<br>
+<li>AmigaOS Release 3.0 or better.<br>
+<li>The SAS/C 6.55 compiler to recompile the sources.<br>
+<li>An FPU is highly recommended as it will speed up the simulation
+considerably.<br>
+This port can be obtained from the normal FTP site, or from
+AmiNet: ftp://ftp.luth.se/pub/aminet/misc/sci/RARS_Amiga_3.lha.<br>
+<br>
+<font color="#0000FF"><strong>DJGPP:</strong></font> dgymer@gdcarc.co.uk (Dave `Gizmo'
+Gymer):<br>
+I've ported RARS 0.61 to DJGPP 1.12m4 (GNU C/C++ for DOS) using
+libGRX. The graphics are still lacking polish (there's no flood
+fill, for example) and the OS timer function has been ignored.
+This version is about twice as fast as the Borland one running in
+&quot;fast&quot; mode, but requires a 386 or better. This port is no longer
+actively maintained.<br>
+My current port is of 0.62 to DJGPPv2 and GRX2, both of which are
+currently in beta. The version works correctly under (and requires)
+a DPMI host such as DQPMI, Windows 3.1, Windows/NT, or OS/2. It is
+very slightly faster than the DJGPPv1 port but is currently rather
+unstable under some DPMI hosts (most notable Windows/NT).<br>
+<br>
+<font color="#0000FF"><strong>Macintosh:</strong></font> hooni@zone.com (Hoon Im):<br>
+I've ported RARS to the Mac; it is not complete yet but it runs. I
+used the 0.5 version of RARS. When I get it to draw all the
+strings cleanly, then I'll post the sources.
+<br>
+The Mac version does not accept command line options but allows
+the user to enter simulation options through a dialog before the
+simulation is run. Otherwise, everything else is the same (for now).<br>
+<br>
+<font color="#0000FF"><strong>OS/2:</strong></font> tkn@VNET.IBM.COM (Thomas K. Netousek):<br>
+There's an OS/2 port in the works from one of my colleagues...<br>
+jhoward@solar.sky.net (John Howard):<br>
+I am working on a port to GNAT Ada 95 for OS/2. It is not really
+RARS anymore since I am implementing for 3d vectors and
+experimenting. The goal is a simulator using DLL-based inputs, and
+an OpenGL viewer for the animation frames that are output from the<br>
+simulator.<br>
+<br>
+Nicole.Greiber@FernUni-Hagen.de (Nicole Greiber):<br>
+[...] there is yet another OS/2 port in progress. It is done by
+rscott@alpha.netusa.net (Ralph Scott) and by me. The port is still
+in beta, but already (partly) functioning. [...]<br>
+<br>
+Ralph Scott is actively maintaining last OS/2 version. This is at least
+version 0.67?<br>
+<br>
+<font color="#0000FF"><strong>Symantec C++:</strong></font> daredevl@america.com
+(GPFault):<br>
+I am currently restarting my Symantec C++ port. There's nothing to
+it except for the changes to the graphics (to 320x240x256 I
+expect, due to the availability of XLIB).<br>
+<br>
+<font color="#0000FF"><strong>Watcom:</strong></font> nims@cris.com (Mike Inman):<br>
+There is a Watcom C++ port on the FTP site.<br>
+For version 0.45?<br>
+<br>
+<font color="#0000FF"><strong>Windows/NT: </strong></font>leeh@autodesk.com (Muir Lee
+Harding):<br>
+There is an alpha Windows port (using win32s or Windows/NT or '95)
+which uses DLL drivers on the FTP site. Version 0.64?
+</p>
+
+<hr>
+
+<P><FONT COLOR="#FF0000">Where could i find the latest versions of Rars
+?</FONT>
+<BR><FONT COLOR="#000000"><A HREF="http://www.ebc.ee/~mremm/rars/software.htm">http://www.ebc.ee/~mremm/rars/software.htm</A></FONT>
+<BR><FONT COLOR="#000000"><A HREF="http://evolution.bmc.uu.se/~maido/rars/software.htm">http://evolution.bmc.uu.se/~maido/rars/software.htm</A></FONT>
+<BR><FONT COLOR="#000000">Latest for DOS and UNIX systems is version 0.72b.</FONT>
+<BR><FONT COLOR="#000000">For VC++ on Windows 0.71c.</FONT>
+<BR><FONT COLOR="#000000">For OS2 - 0.67,</FONT>
+<BR><FONT COLOR="#000000">For Amiga 0.65</FONT>
+
+<P><FONT COLOR="#FF0000">I've downloaded Java version of rars. It looks
+great, but:&nbsp; how can I make my own robot in Java?</FONT>
+<BR><FONT COLOR="#FF0000">Is source code of Java version available?</FONT>
+<BR><A HREF="mailto:rcott@netusa.com">Ralph</A> can probably answer
+that question.
+<BR>&nbsp;
+<BR>&nbsp;
+<H2>
+<B>Understanding RARS code</B></H2>
+<A NAME="5"></A><B>5. Track formats and track design</B>
+<BR><FONT COLOR="#FF0000">I'm in the process of setting up new track, but
+the start&nbsp; and finish of the track don't line up (by just a little).
+How should I make the ends meet?</FONT>
+<PRE>I don't think it is possible to adjust just the last curve.</PRE>
+
+<PRE>The way I do it is to have my car driver code print out the</PRE>
+
+<PRE>start and end coordinates in its setup routine.</PRE>
+
+<PRE>I then use that to determine how far I'm off, find a straight</PRE>
+
+<PRE>that is approximately equal to the direction I want and just</PRE>
+
+<PRE>adjust that straight. ---ralph</PRE>
+&nbsp;
+<PRE>I use a program called TRACKEDT (I think!). It tells me by</PRE>
+
+<PRE>how much the ends don't meet, both in angle and x,y. I then</PRE>
+
+<PRE>fiddle with the track to make the ends meet.</PRE>
+
+<PRE>Usually I'm content with a deviation of &lt;1 ft in either direction :-)</PRE>
+
+<PRE>I'm quite sure that I found this utility on the RARS ftp site</PRE>
+
+<PRE>somewhere (sorry, that's as precise as I can remember it).</PRE>
+
+<PRE>A GUI-ish tool to assist in track-building would be much</PRE>
+
+<PRE>appreciated - anyone? ;-) - Torben</PRE>
+<A NAME="6"></A><B>6. Car flashing</B>
+<BR><FONT COLOR="#FF0000">If my car is flashing red does it mean collision
+or damage?</FONT>
+<BR>Sometimes you might be colliding, but not taking damage.
+<BR>The cars only flash when they take damage.
+
+<P><A NAME="7"></A><B><FONT COLOR="#000000">7. Alpha, vc and distances.</FONT></B>
+<BR><FONT COLOR="#FF0000">What is alpha? How is it measured?</FONT>
+<BR><FONT COLOR="#000000">Alpha is angle between your car's velocity vector
+( which direction your car is moving) and your cars pointing vector (which
+direction your car's body is). It is measured in radians. It is positive
+when your cars body is pointing left from direction of motion and negative
+if your car's body is rigth from your direction of motion. Alpha is set
+according to your request (result.alpha) and it can be thougth as how much
+you turn your wheels (or steering wheel).&nbsp; It is not entirely realistic,
+because real car does not turn its body instantly when you turn the steering
+wheel. That is the reason why alpha is sometimes compared to "angle of
+attack" from aeronautics.</FONT>
+
+<P><FONT COLOR="#FF0000">What is vc? How is it measured?</FONT>
+<BR><FONT COLOR="#000000">Vc is "velocity commanded" - the desired speed
+you set with your robot code. It is measured in feets per second as most
+other speed variables inside the RARS code. You can set vc higher than
+your s.v (current speed), which gives you acceleration or lower than s.v,
+which gives you braking.</FONT>
+<BR><FONT COLOR="#000000">Of course you do not get your desired vc instantly
+- real situation will depend on traction and physics. For example if you
+ask for vc=0, you just block your wheels and slide straigth until you stop.
+If you set vc=1000, then RARS program calculates how much power you have
+and sets the real vc according to it (you get maximum acceleration that
+your car's engine can afford).</FONT>
+<BR><FONT COLOR="#000000">IMHO, vc should be replaced by other variable
+(between 0 and 1)- that measures fraction of throttle opening. But this
+needs major rewrite of rars physical engine (fraction of&nbsp; throttle_opening
+is not equal to fraction of requested power).&nbsp;</FONT>
+
+<P><FONT COLOR="#FF0000">Also, I was wondering, if I am 15 feet from the
+left wall, does this mean my left edge is 15 feet away from the wall, or
+is my center 15 feet from the wall?</FONT>
+<BR><I>s.to_lft</I> and <I>s.to_rgt</I> (as most other distances) is measured
+from the center of the car.
+<BR>Remember,&nbsp; s.to_lft + s.to_rgt = track.width.
+
+<P><A NAME="8"></A><B><FONT COLOR="#000000">8. Understanding s.nearby</FONT></B>
+<BR><FONT COLOR="#FF0000">How to use variables in s.nearby for passing
+function?</FONT>
+<PRE><FONT COLOR="#FF0000">>I've been working on my passing algorithm and have just realized I'm</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>not sure about the data I get from s.nearby[x].rel_x. For</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>s.nearby[x].rel_y, I believe the data given is the distance to the</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>front of the car. But for</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>s.nearby[x].rel_x is the data given back the distance to the left edge</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>of the car, the right edge of the car, or the center of the car? Does</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>it matter if the car is to you right or left (e.g. s.nearby[x].rel_x</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>is the distance to the nearer edge of the car)? I'm going to</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>investigate this when I have some free time but if anyone already</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>knows the answer I would appreciate it.</FONT></PRE>
+
+<PRE>Both rel_x and rel_y are related to the center points of the cars.</PRE>
+
+<PRE>So the check (s.nearby[x].rel_y - CARLEN &lt; 0) works (somewhat,</PRE>
+
+<PRE>depending on rotation of cars wrt velocity) for checking</PRE>
+
+<PRE>if you're bumping into a car from behind.</PRE>
+
+<PRE><FONT COLOR="#FF0000">What coordinate system are rel_x and rel_y based on?</FONT></PRE>
+
+<PRE>They're not based on y pointing down the track and x to the side walls.</PRE>
+
+<PRE>They're not based on my car's pointing vector (aligned with alpha).</PRE>
+
+<PRE><B>They're based on the velocity of my car.</B></PRE>
+
+<PRE>So it's not easy to determine an absolute position of the other car.</PRE>
+Since version 0.71, you can use car's public variables for finding&nbsp;
+their absolute X and Y position.
+
+<P>For that use:
+<BR>extern Car* pcar[];
+<BR>othercar_x = pcar[other_car_ID]->X;
+<BR>othercar_y = pcar[other_car_ID]->Y;
+
+<P>Car ID is based on drivers[] array (pcar[0] is first car from drivers
+array and so on, see drivers.cpp). It is also the same order that cars
+appear on scoreboard.
+<BR>See car.h: Class Car{public:} for other available variables.
+<PRE><FONT COLOR="#FF0000">>Also in this same area, is s.to_lft the distance from the center of my</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>car to the left edge of the track or from the left edge of my car to</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>the left edge of the track?</FONT></PRE>
+
+<PRE>Center of car to edge of track. (s.to_lft + s.to_rgt = width)</PRE>
+
+<PRE>However offroad (and damage) isn't set until your center goes off the track.</PRE>
+
+<PRE>(s.to_lft &lt; 0.0)</PRE>
+
+<PRE><FONT COLOR="#FF0000">>Let's say the car width is 9 feet and s.nearby[x].rel_x gives back a</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>value of 3.13. Am I in contact with that car? or is there 3.13 feet</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>bewteen the right edge of my car and the left edge of his car?</FONT></PRE>
+
+<PRE>Yes you are in contact, but the bumping algorithm isn't invoked if you're</PRE>
+
+<PRE>moving apart.</PRE>
+
+<PRE><FONT COLOR="#FF0000">>If I'm trying to go between two cars do I need there to be 9 feet</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>between there respective s.nearby[x].rel_x or 18 feet (4.5 feet for</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>each car - if s.nearby[x].rel_x is the center of the car and another 9</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>feet for my car - a tight fit :))</FONT></PRE>
+
+<PRE>You need 18 feet. You can get this once you know that rel_x, rel_y are</PRE>
+
+<PRE>based on the centers of the cars. Currently, for my driver, I'm trying to</PRE>
+
+<PRE>calculate the other car's to_rgt and to_lft to see if I should go inside or</PRE>
+
+<PRE>outside of that car. With the rel_x and rel_y being based on velocity vector,</PRE>
+
+<PRE>rather than a more fixed coordinate system, I'm having difficulties.</PRE>
+
+<PRE><FONT COLOR="#FF0000">>Just to clarify, does this mean that s.nearby will hold ALL cars in front</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>of my car, not just the nearest 5?</FONT></PRE>
+
+<PRE>Currently just 5. This is defined by&nbsp; constant NEARBY_CARS in car.h</PRE>
+
+<PRE><FONT COLOR="#FF0000">>And is there a maximum distance for the cars in front before they're dropped</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">>off the s.nearby list?</FONT></PRE>
+
+<PRE>No, it works just like the previous version, the closest</PRE>
+
+<PRE>three cars on your current segment or the next segment. "Closeness" is now</PRE>
+
+<PRE>measured by position on the track, not distance from your car.</PRE>
+
+<PRE><FONT COLOR="#FF0000">>> s.nearby[].alpha - The other car's current alpha.</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">> >Relative to what?</FONT></PRE>
+
+<PRE>This is the same alpha as your car, the angle between the path of motion</PRE>
+
+<PRE>and the angle of the body. You need it to determine the angle</PRE>
+
+<PRE>of the other car's body wrt your car. This is related to the problem you were</PRE>
+
+<PRE>relating about not knowing how much of the track the other car was blocking.</PRE>
+
+<PRE><FONT COLOR="#FF0000">>> and what is "int braking "?</FONT></PRE>
+
+<PRE>Set to 1 if the car.s is reducing its speed by more than 5 fps, 0 otherwise.</PRE>
+
+<PRE><B>For other available variables for nearby cars see car.h: struct rel_state</B></PRE>
+&nbsp;
+<BR>&nbsp;
+<H2>
+Writing your own robot</H2>
+<FONT COLOR="#FF0000">Is it allowed to block other cars or ram them?</FONT>
+<BR>Generally not, but it depends on race director. In earlier BORS series
+I allowed any team tactics. It was possible to drive&nbsp; side by side,
+so that no other car can pass, have kamikaze robots that search for certain
+competitors or have bodyguards that avoid ramming from behind.&nbsp; Currently
+any such "possibly dangerous" tactics is not allowed, because&nbsp; robots
+are not yet strong enough to avoid such situations.
+
+<P><A NAME="9"></A><B>9. Debugging your robot code:</B>
+<PRE><FONT COLOR="#FF0000">> I am getting following error message. What's up?</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">> asin: Domain Error</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">> floating point error: Domain</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">> Abnormal program termination ...</FONT></PRE>
+
+<PRE><FONT COLOR="#FF0000">> Our robot does use asin.</FONT></PRE>
+
+<PRE>A domain error indicated that the input to the function is invalid.</PRE>
+
+<PRE>For asin(x), x must satisfy -1 &lt;= x &lt;= 1. Either your car or</PRE>
+
+<PRE>someone elses car is calling asin() with a bad value - possibly</PRE>
+
+<PRE>a result of a not checking boundary conditions (i.e. what</PRE>
+
+<PRE>happens at the extremes).</PRE>
+<FONT COLOR="#FF0000">My robot has a bug that reboots the system. I cannot
+find where is it.</FONT>
+<BR>&nbsp;
+<PRE>>:)The rebooting problem is a killer. My usual method for this sort of</PRE>
+
+<PRE>>:)thing is to narrow it down via <B>printf'</B>s. If they go by too quick,</PRE>
+
+<PRE>>:)then I <B>try sounds</B>. Different pitches at different points in the</PRE>
+
+<PRE>>:)program. This should at least get you to within 5-10 lines of the</PRE>
+
+<PRE>>:)problem spot, if you can't take it from there, try getting back to</PRE>
+
+<PRE>>:)the list with your new found knowledge.</PRE>
+
+<PRE>What I HAVE done, in the past, is to use fprintf's to dump my</PRE>
+
+<PRE>debug data to a file and look at the result after the carnage flies.</PRE>
+
+<PRE>The only thing you have to do for this method is:</PRE>
+
+<PRE>setvbuf (file, 0, _IONBF, 0); This makes the stream unbuffered so</PRE>
+
+<PRE>that each fprintf goes right to the file. Otherwise, the line you</PRE>
+
+<PRE>are looking for may be in the buffer at crash time and you wouldn't</PRE>
+
+<PRE>know it. To the best of my knowledge (and Borland's help file),</PRE>
+
+<PRE>the line I gave is standard from stdio.h. - Christopher Lund</PRE>
+
+<PRE>Torber writes:</PRE>
+
+<PRE>I've had very good experiences with this little function</PRE>
+
+<PRE>(transcribed from memory, actual syntax may vary):</PRE>
+
+<PRE>void DEBUG(char *dumpstr) {</PRE>
+
+<PRE>&nbsp;FILE *fp = fopen("dumpfile","ra");</PRE>
+
+<PRE>&nbsp;if (fp) {</PRE>
+
+<PRE>&nbsp;fprintf(fp, "%s\n", dumpstr);</PRE>
+
+<PRE>&nbsp;fclose(fp);</PRE>
+
+<PRE>&nbsp;};</PRE>
+
+<PRE>};</PRE>
+
+<PRE>&nbsp;</PRE>
+
+<PRE>// Use:&nbsp; DEBUG("Here we are"); A couple of points here...</PRE>
+
+<PRE>It writes all your debugging messages into a file (here: "dumpfile"),</PRE>
+
+<PRE>closing it after every write so that no messages are lost.</PRE>
+
+<PRE>That's the thing I like about the setvbuf method I wrote of yesterday,</PRE>
+
+<PRE>namely, you don't have to open and close the file for each write.</PRE>
+
+<PRE>In any event, if you setup your function as: void DEBUG</PRE>
+
+<PRE>(char *dumpstr,...) and then use vprintf in &lt;stdarg.h></PRE>
+
+<PRE>(again, a function I believe is standard across platforms),</PRE>
+
+<PRE>your debug function can be used to dump variables to the file as well,</PRE>
+
+<PRE>easing the debugging further. - Christopher Lund</PRE>
+<A NAME="10"></A><B>10. Optimization of the car</B>
+<BR><FONT COLOR="#FF0000">Which machine-learning methods have been used
+for finding optimal line around the track?&nbsp;</FONT>
+<PRE>Just a very simple and slow trial and error procedure:</PRE>
+
+<PRE>A given racing line is modified slightly, then some laps are run.</PRE>
+
+<PRE>If the car becomes faster, the modification is accepted.</PRE>
+
+<PRE>This is repeated thousands of times until the car is very fast.</PRE>
+
+<PRE>The racing lines are stored in strings that look like gene sequences,</PRE>
+
+<PRE>but the algorithm is no GA according to the definition of GA that</PRE>
+
+<PRE>someone posted to the list last year. Henning</PRE>
+Other people have used Neural Networks, Genetic algorithms,
+<BR>trial and error learning.
+<BR>&nbsp;
+
+<P><FONT COLOR="#FF0000">What is the simplest working robot?</FONT>
+<BR>In 1996 we had "midget" competition for cars less than 450 characters.
+Some of the midget competitors are still <A HREF="http://www.ebc.ee/~mremm/rars/midgets.zip">available</A>.
+One example of short and efficient robot is here:
+<PRE>#include "car.h" con_vec hk(situation&amp;s)</PRE>
+
+<PRE>{ my_name_is("hk");</PRE>
+
+<PRE>con_vec r={(40-s.to_rgt-s.vn)/9, s.dead_ahead?.9*s.vc:60+s.to_end/4}; stuck(s.backward,s.v,s.vn,s.to_lft,s.to_rgt,&amp;r.alpha,&amp;r.vc);</PRE>
+
+<PRE>return r;</PRE>
+
+<PRE>}</PRE>
+
+<PRE>Actually I used 3 copies of the same robot on that race day.</PRE>
+
+<PRE>The only differences were the names and some whitespace</PRE>
+
+<PRE>added so they could run in all three size classes. You can</PRE>
+
+<PRE>use it as a demo robot. It demonstrates how easy it is to win</PRE>
+
+<PRE>a race with a very simple robot. On adelaid2 the triple won</PRE>
+
+<PRE>place 1, 2 and 3 and on brazil place 2, 3 and 4! ;-) Henning</PRE>
+
+
+<P><A NAME="11"></A><B>11. RARS WISHLIST</B>
+<BR>1. Zoom or more realistic 3D view from inside the car.
+<BR>2. 4-wheel driving car, with suspension and gearbox.
+<BR>2. Timelimit for each robot to make it's calculations.
+<BR>3. Various improvements in reality of track and car setup.
+<BR>4. Realistic weather conditions
+<BR>&nbsp;
+<PRE>&nbsp;</PRE>
+
+</BODY>
+</HTML>
